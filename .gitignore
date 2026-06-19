@@ -51,7 +51,11 @@ Thumbs.db
 # Expo
 node_modules/
 .expo/
-.yarn/
+.yarn/*
+!.yarn/releases
+!.yarn/patches
+!.yarn/plugins
+!.yarn/sdks
 dist/
 npm-debug.*
 *.jks
@@ -64,6 +68,9 @@ keystore.properties
 *.orig.*
 web-build/
 cache/
+
+# Google service account keys (eas submit credentials)
+google-service-account*.json
 
 
 test-output

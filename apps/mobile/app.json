@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Sierrita",
-    "slug": "@org/mobile",
+    "slug": "orgmobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icono-fav.png",
@@ -9,7 +9,8 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.rodaalvarez.sierrita"
     },
     "android": {
       "adaptiveIcon": {
@@ -17,7 +18,7 @@
         "backgroundColor": "#BBE3F7"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.anonymous.orgmobile"
+      "package": "com.rodaalvarez.sierrita"
     },
     "web": {
       "bundler": "metro",
@@ -36,6 +37,12 @@
       "expo-sharing",
       "expo-sqlite",
       "expo-image"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "070d429a-4abc-4169-8788-df805c18071c"
+      }
+    },
+    "owner": "rodaaa"
   }
 }

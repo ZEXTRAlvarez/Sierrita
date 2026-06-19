@@ -1,4 +1,4 @@
-package com.anonymous.orgmobile
+package com.rodaalvarez.sierrita
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build
