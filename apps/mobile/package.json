@@ -1,0 +1,51 @@
+{
+  "name": "@org/mobile",
+  "version": "0.0.1",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "eas-build-post-install": "cd ../../ && node tools/scripts/eas-build-post-install.mjs . apps/mobile"
+  },
+  "dependencies": {
+    "@expo/metro-config": "~56.0.0",
+    "@react-navigation/bottom-tabs": "7.3.11",
+    "@react-navigation/native": "7.1.6",
+    "@react-navigation/native-stack": "7.3.11",
+    "@shopify/react-native-skia": "2.6.2",
+    "@tamagui/animations-react-native": "2.1.0",
+    "@tamagui/config": "2.1.0",
+    "@tamagui/core": "2.1.0",
+    "@tamagui/font-inter": "2.1.0",
+    "@tamagui/themes": "2.1.0",
+    "expo": "~56.0.0",
+    "expo-blur": "~56.0.3",
+    "expo-dev-client": "~56.0.19",
+    "expo-haptics": "~56.0.3",
+    "expo-image": "~56.0.10",
+    "expo-linear-gradient": "~56.0.4",
+    "expo-print": "~56.0.3",
+    "expo-sharing": "~56.0.16",
+    "expo-speech": "~56.0.3",
+    "expo-splash-screen": "~56.0.0",
+    "expo-sqlite": "~56.0.4",
+    "expo-status-bar": "~56.0.0",
+    "expo-system-ui": "~56.0.0",
+    "expo-video": "~56.1.2",
+    "jotai": "2.12.5",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-native": "0.85.3",
+    "react-native-gesture-handler": "~2.31.1",
+    "react-native-reanimated": "4.3.1",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-screens": "4.25.2",
+    "react-native-svg": "15.15.4",
+    "react-native-svg-transformer": "~1.5.1",
+    "react-native-web": "~0.21.0",
+    "react-native-worklets": "0.8.3",
+    "tamagui": "2.1.0"
+  },
+  "devDependencies": {
+    "@tamagui/babel-plugin": "2.1.0"
+  }
+}

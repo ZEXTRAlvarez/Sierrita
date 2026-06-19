@@ -1,0 +1,55 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "types": ["node"],
+    "jsx": "react-jsx",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "noUnusedLocals": false,
+    "composite": false,
+    "declarationMap": false,
+    "emitDeclarationOnly": false,
+    "rootDir": "../..",
+    "typeRoots": ["./node_modules/@types", "../../node_modules/@types"],
+    "baseUrl": ".",
+    "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo",
+    "paths": {
+      "@sierrita/storage": ["../../libs/storage/src/index.ts"],
+      "@sierrita/ui": ["../../libs/ui/src/index.ts"],
+      "@sierrita/profiles": ["../../libs/profiles/src/index.ts"],
+      "@sierrita/pet": ["../../libs/pet/src/index.ts"],
+      "@sierrita/audio": ["../../libs/audio/src/index.ts"],
+      "@sierrita/adaptive": ["../../libs/adaptive/src/index.ts"],
+      "@sierrita/parents": ["../../libs/parents/src/index.ts"]
+    }
+  },
+  "files": ["../../node_modules/@nx/expo/typings/svg.d.ts"],
+  "exclude": [
+    "out-tsc",
+    "dist",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/*.test.tsx",
+    "**/*.spec.tsx",
+    "**/*.test.js",
+    "**/*.spec.js",
+    "**/*.test.jsx",
+    "**/*.spec.jsx",
+    "src/test-setup.ts",
+    "jest.config.ts",
+    "jest.config.cts",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts"
+  ],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.js",
+    "src/**/*.jsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts",
+    "../../libs/**/*.ts",
+    "../../libs/**/*.tsx"
+  ]
+}
