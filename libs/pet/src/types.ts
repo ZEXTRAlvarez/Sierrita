@@ -1,4 +1,4 @@
-import type { PetType } from '../../profiles/src/types';
+import type { PetType } from '@sierrita/profiles';
 
 export type { PetType };
 
@@ -8,9 +8,9 @@ export interface PetState {
   profileId: string;
   petType: PetType;
   petName: string | null;
-  hunger: number;       // 0–100: 0 = starving, 100 = full
-  thirst: number;       // 0–100
-  happiness: number;    // 0–100
+  hunger: number; // 0–100: 0 = starving, 100 = full
+  thirst: number; // 0–100
+  happiness: number; // 0–100
   evolutionStage: EvolutionStage;
   outfitId: string | null;
   totalXp: number;

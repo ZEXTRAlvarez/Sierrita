@@ -1,18 +1,10 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import {
-  Canvas,
-  Path,
-  Circle,
-  Rect,
-  Skia,
-  StrokeCap,
-  StrokeJoin,
-} from '@shopify/react-native-skia';
+import { Canvas, Path, Circle, Rect, Skia } from '@shopify/react-native-skia';
 import type { GestureResponderEvent } from 'react-native';
-import type { LetterDef } from '../../../../../../../../libs/games/writing/letterPaths';
-import type { Point } from '../../../../../../../../libs/games/writing/evaluator';
-import { checkNewPoint } from '../../../../../../../../libs/games/writing/evaluator';
+import type { LetterDef } from '@sierrita/games';
+import type { Point } from '@sierrita/games';
+import { checkNewPoint } from '@sierrita/games';
 
 interface Props {
   size: number;
@@ -46,9 +38,10 @@ export default function LetterCanvas({
   }, [hitMap, letterDef]);
 
   const scale = size / 100;
-  const guideSvgPath = useCursive && letterDef.cursivePath
-    ? letterDef.cursivePath
-    : letterDef.guidePath;
+  const guideSvgPath =
+    useCursive && letterDef.cursivePath
+      ? letterDef.cursivePath
+      : letterDef.guidePath;
 
   const scaledGuideSvg = scaleSvgPath(guideSvgPath, scale);
   const guidePath = React.useMemo(() => {
@@ -65,29 +58,32 @@ export default function LetterCanvas({
     setDrawnSegments((prev) => [...prev, [{ x: locationX, y: locationY }]]);
   }, []);
 
-  const handleTouchMove = useCallback((evt: GestureResponderEvent) => {
-    const { locationX, locationY } = evt.nativeEvent;
-    const point: Point = { x: locationX, y: locationY };
-    currentStroke.current.push(point);
+  const handleTouchMove = useCallback(
+    (evt: GestureResponderEvent) => {
+      const { locationX, locationY } = evt.nativeEvent;
+      const point: Point = { x: locationX, y: locationY };
+      currentStroke.current.push(point);
 
-    const { updated, newHitMap } = checkNewPoint(
-      point,
-      letterDef.checkpoints,
-      currentHitMap.current,
-      size,
-    );
-    if (updated) {
-      currentHitMap.current = newHitMap;
-      onPointDrawn(point, newHitMap);
-    }
+      const { updated, newHitMap } = checkNewPoint(
+        point,
+        letterDef.checkpoints,
+        currentHitMap.current,
+        size,
+      );
+      if (updated) {
+        currentHitMap.current = newHitMap;
+        onPointDrawn(point, newHitMap);
+      }
 
-    setDrawnSegments((prev) => {
-      if (prev.length === 0) return [[point]];
-      const next = [...prev];
-      next[next.length - 1] = [...currentStroke.current];
-      return next;
-    });
-  }, [letterDef, size, onPointDrawn]);
+      setDrawnSegments((prev) => {
+        if (prev.length === 0) return [[point]];
+        const next = [...prev];
+        next[next.length - 1] = [...currentStroke.current];
+        return next;
+      });
+    },
+    [letterDef, size, onPointDrawn],
+  );
 
   const handleTouchEnd = useCallback(() => {
     onStrokeEnd([...currentStroke.current]);
@@ -128,8 +124,8 @@ export default function LetterCanvas({
             color={`rgba(120, 180, 120, ${guideOpacity})`}
             style="stroke"
             strokeWidth={6 * scale}
-            strokeCap={StrokeCap.Round}
-            strokeJoin={StrokeJoin.Round}
+            strokeCap="round"
+            strokeJoin="round"
           />
         )}
 
@@ -140,9 +136,11 @@ export default function LetterCanvas({
             cx={cp.x * scale}
             cy={cp.y * scale}
             r={cp.r * scale * 0.55}
-            color={hitMap[i]
-              ? 'rgba(76, 175, 80, 0.85)'
-              : 'rgba(200, 230, 200, 0.55)'}
+            color={
+              hitMap[i]
+                ? 'rgba(76, 175, 80, 0.85)'
+                : 'rgba(200, 230, 200, 0.55)'
+            }
           />
         ))}
 
@@ -167,8 +165,8 @@ export default function LetterCanvas({
               color="#1565C0"
               style="stroke"
               strokeWidth={7 * scale}
-              strokeCap={StrokeCap.Round}
-              strokeJoin={StrokeJoin.Round}
+              strokeCap="round"
+              strokeJoin="round"
             />
           );
         })}

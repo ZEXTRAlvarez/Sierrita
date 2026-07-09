@@ -1,0 +1,24 @@
+{
+  "name": "@sierrita/ui",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "@tamagui/animations-react-native": "2.1.0",
+    "@tamagui/config": "2.1.0",
+    "@tamagui/core": "2.1.0",
+    "@tamagui/font-inter": "2.1.0",
+    "@tamagui/themes": "2.1.0",
+    "tamagui": "2.1.0"
+  }
+}

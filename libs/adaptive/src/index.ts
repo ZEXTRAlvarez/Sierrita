@@ -1,2 +1,5 @@
 export * from './types';
-export * from './adaptiveEngine';
+export * from './logic/difficultyStateFactory';
+export * from './logic/processRoundResult';
+export * from './logic/accuracy';
+export * from './content/levelLabels.es';

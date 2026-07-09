@@ -1,0 +1,7 @@
+{
+  "name": "pet",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/pet/src",
+  "projectType": "library",
+  "tags": ["scope:domain-core"]
+}

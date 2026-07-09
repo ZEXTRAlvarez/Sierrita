@@ -1,0 +1,21 @@
+{
+  "name": "@sierrita/audio",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "expo-av": "^16.0.8",
+    "expo-haptics": "~56.0.3",
+    "expo-speech": "~56.0.3"
+  }
+}

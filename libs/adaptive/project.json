@@ -1,0 +1,7 @@
+{
+  "name": "adaptive",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/adaptive/src",
+  "projectType": "library",
+  "tags": ["scope:domain-core"]
+}
