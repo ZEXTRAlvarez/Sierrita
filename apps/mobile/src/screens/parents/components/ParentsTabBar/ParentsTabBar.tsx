@@ -22,7 +22,11 @@ export function ParentsTabBar({ active, onChange }: ParentsTabBarProps) {
           style={[styles.tab, active === tab.id && styles.tabActive]}
           onPress={() => onChange(tab.id)}
         >
-          <Text style={[styles.tabText, active === tab.id && styles.tabTextActive]}>{tab.label}</Text>
+          <Text
+            style={[styles.tabText, active === tab.id && styles.tabTextActive]}
+          >
+            {tab.label}
+          </Text>
         </TouchableOpacity>
       ))}
     </View>
@@ -30,8 +34,18 @@ export function ParentsTabBar({ active, onChange }: ParentsTabBarProps) {
 }
 
 const styles = StyleSheet.create({
-  tabBar: { flexDirection: 'row', backgroundColor: colorTokens.brand700, paddingHorizontal: 16 },
-  tab: { flex: 1, paddingVertical: 10, alignItems: 'center', borderBottomWidth: 3, borderBottomColor: 'transparent' },
+  tabBar: {
+    flexDirection: 'row',
+    backgroundColor: colorTokens.brand700,
+    paddingHorizontal: 16,
+  },
+  tab: {
+    flex: 1,
+    paddingVertical: 10,
+    alignItems: 'center',
+    borderBottomWidth: 3,
+    borderBottomColor: 'transparent',
+  },
   tabActive: { borderBottomColor: '#FFF' },
   tabText: { fontSize: 15, fontWeight: '700', color: 'rgba(255,255,255,0.6)' },
   tabTextActive: { color: '#fff' },

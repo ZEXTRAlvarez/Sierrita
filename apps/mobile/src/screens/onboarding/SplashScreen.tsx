@@ -4,7 +4,11 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useAtomValue } from 'jotai';
 import type { RootStackParamList } from '../../navigation';
-import { profilesAtom, activeProfileIdAtom, appReadyAtom } from '../../store/atoms';
+import {
+  profilesAtom,
+  activeProfileIdAtom,
+  appReadyAtom,
+} from '../../store/atoms';
 import { STARS } from './data/splashStars';
 import { useSplashAnimations } from './hooks/useSplashAnimations';
 import { FloatingStar } from './components/FloatingStar';
@@ -42,11 +46,18 @@ export default function SplashScreen() {
       ))}
 
       {/* Main content */}
-      <Animated.View style={[styles.content, { transform: [{ scale }], opacity }]}>
+      <Animated.View
+        style={[styles.content, { transform: [{ scale }], opacity }]}
+      >
         <Text style={styles.logo}>🏔️</Text>
       </Animated.View>
 
-      <Animated.View style={[styles.titleBlock, { opacity, transform: [{ translateY: titleY }] }]}>
+      <Animated.View
+        style={[
+          styles.titleBlock,
+          { opacity, transform: [{ translateY: titleY }] },
+        ]}
+      >
         <Text style={styles.title}>Sierrita</Text>
         <Text style={styles.subtitle}>¡Aprender es divertido!</Text>
       </Animated.View>

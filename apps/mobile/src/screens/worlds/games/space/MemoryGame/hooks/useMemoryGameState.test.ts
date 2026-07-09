@@ -16,9 +16,17 @@ describe('useMemoryGameState', () => {
   beforeEach(() => jest.useFakeTimers());
   afterEach(() => jest.useRealTimers());
 
-  function setup(onRoundComplete = jest.fn(async () => undefined), onGameFinish = jest.fn()) {
+  function setup(
+    onRoundComplete = jest.fn(async () => undefined),
+    onGameFinish = jest.fn(),
+  ) {
     const { result } = renderHook(() =>
-      useMemoryGameState({ pairs: 2, flipDelay: 500, onRoundComplete, onGameFinish }),
+      useMemoryGameState({
+        pairs: 2,
+        flipDelay: 500,
+        onRoundComplete,
+        onGameFinish,
+      }),
     );
     return { result, onRoundComplete, onGameFinish };
   }

@@ -26,7 +26,10 @@ describe('getAudioModule', () => {
   });
 
   it('allows tests to inject a fake module via __setAudioModuleForTesting', () => {
-    const { getAudioModule, __setAudioModuleForTesting } = require('./audioModule');
+    const {
+      getAudioModule,
+      __setAudioModuleForTesting,
+    } = require('./audioModule');
     const fake = { Sound: { createAsync: jest.fn() } } as never;
 
     __setAudioModuleForTesting(fake);
@@ -35,7 +38,10 @@ describe('getAudioModule', () => {
   });
 
   it('allows tests to force the unavailable case via __setAudioModuleForTesting(null)', () => {
-    const { getAudioModule, __setAudioModuleForTesting } = require('./audioModule');
+    const {
+      getAudioModule,
+      __setAudioModuleForTesting,
+    } = require('./audioModule');
 
     __setAudioModuleForTesting(null);
 

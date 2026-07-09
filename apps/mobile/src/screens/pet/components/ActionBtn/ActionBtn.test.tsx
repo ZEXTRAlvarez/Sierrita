@@ -9,7 +9,12 @@ describe('ActionBtn', () => {
   it('renders the label and calls onPress when tapped', () => {
     const onPress = jest.fn();
     const { getByText } = render(
-      <ActionBtn icon={<Text>🍎</Text>} label="Alimentar" onPress={onPress} colors={['#FFAB91', '#FF7043']} />,
+      <ActionBtn
+        icon={<Text>🍎</Text>}
+        label="Alimentar"
+        onPress={onPress}
+        colors={['#FFAB91', '#FF7043']}
+      />,
     );
 
     fireEvent.press(getByText('Alimentar'));

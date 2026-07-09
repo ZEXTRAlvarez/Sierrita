@@ -4,7 +4,9 @@ import { render } from '@testing-library/react-native';
 import { PetCard } from './PetCard';
 import type { PetState } from '@sierrita/pet';
 
-jest.mock('../../../../components/PetAnimation', () => ({ PetAnimation: () => null }));
+jest.mock('../../../../components/PetAnimation', () => ({
+  PetAnimation: () => null,
+}));
 jest.mock('expo-linear-gradient', () => ({ LinearGradient: 'LinearGradient' }));
 
 const basePet: PetState = {

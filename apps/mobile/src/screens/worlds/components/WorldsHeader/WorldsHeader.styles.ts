@@ -16,5 +16,9 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 4,
   },
-  ageBadgeText: { fontSize: 13, color: 'rgba(255,255,255,0.85)', fontWeight: '700' },
+  ageBadgeText: {
+    fontSize: 13,
+    color: 'rgba(255,255,255,0.85)',
+    fontWeight: '700',
+  },
 });

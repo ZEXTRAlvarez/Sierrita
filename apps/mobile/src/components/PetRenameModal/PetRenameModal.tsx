@@ -8,7 +8,11 @@ export interface PetRenameModalProps {
   onCancel: () => void;
 }
 
-export function PetRenameModal({ initialName, onSave, onCancel }: PetRenameModalProps) {
+export function PetRenameModal({
+  initialName,
+  onSave,
+  onCancel,
+}: PetRenameModalProps) {
   const [name, setName] = useState(initialName);
 
   return (

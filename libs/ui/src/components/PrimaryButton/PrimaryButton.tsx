@@ -20,7 +20,12 @@ export interface PrimaryButtonProps {
 }
 
 /** Replaces the `actionBtn` pattern (3+ near-identical color variants) repeated across screens. */
-export function PrimaryButton({ label, onPress, color = 'brand', disabled = false }: PrimaryButtonProps) {
+export function PrimaryButton({
+  label,
+  onPress,
+  color = 'brand',
+  disabled = false,
+}: PrimaryButtonProps) {
   return (
     <Button
       // Tamagui's `disabled` prop alone doesn't gate the onPress callback in

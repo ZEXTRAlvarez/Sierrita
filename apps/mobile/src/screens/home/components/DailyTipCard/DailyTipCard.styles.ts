@@ -12,5 +12,11 @@ export const styles = StyleSheet.create({
     borderLeftColor: '#FFC107',
   },
   icon: { fontSize: 24 },
-  text: { flex: 1, fontSize: 14, color: '#5D4037', fontWeight: '600', lineHeight: 20 },
+  text: {
+    flex: 1,
+    fontSize: 14,
+    color: '#5D4037',
+    fontWeight: '600',
+    lineHeight: 20,
+  },
 });

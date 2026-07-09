@@ -3,9 +3,20 @@ import type { ReportData } from '../types';
 
 const data: ReportData = {
   profile: { name: 'Sofía', age: 5 },
-  globalStats: { totalSessions: 3, totalMinutes: 20, avgScore: 80, bestScore: 100 },
+  globalStats: {
+    totalSessions: 3,
+    totalMinutes: 20,
+    avgScore: 80,
+    bestScore: 100,
+  },
   gameStats: [],
-  config: { profileId: 'p1', pinHash: '', maxSessionMinutes: 30, worldsEnabled: ['jungle'], updatedAt: 0 },
+  config: {
+    profileId: 'p1',
+    pinHash: '',
+    maxSessionMinutes: 30,
+    worldsEnabled: ['jungle'],
+    updatedAt: 0,
+  },
   date: '01/01/2026',
 };
 

@@ -9,7 +9,9 @@ import SentencesGame from './SentencesGame';
 // sentence is always "EL GATO DUERME" (🐱), bank order is always reversed.
 jest.mock('@sierrita/games', () => ({
   ...jest.requireActual('@sierrita/games'),
-  getSentences: jest.fn(() => [{ words: ['EL', 'GATO', 'DUERME'], emoji: '🐱', category: 'action' }]),
+  getSentences: jest.fn(() => [
+    { words: ['EL', 'GATO', 'DUERME'], emoji: '🐱', category: 'action' },
+  ]),
   shuffleWords: jest.fn((words: string[]) => [...words].reverse()),
 }));
 
@@ -31,7 +33,9 @@ describe('SentencesGame', () => {
     expect(getByText('🐱')).toBeTruthy();
     expect(getByText('1 / 1')).toBeTruthy();
     expect(getByText('Tocá las palabras de abajo')).toBeTruthy();
-    expect(getAllByTestId('sentence-bank-word').map((n) => n.props.testID)).toHaveLength(3);
+    expect(
+      getAllByTestId('sentence-bank-word').map((n) => n.props.testID),
+    ).toHaveLength(3);
   });
 
   it('completes the round and finishes when the words are placed in the right order', async () => {

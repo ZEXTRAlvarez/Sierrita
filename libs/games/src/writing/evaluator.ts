@@ -14,7 +14,8 @@ export function evaluatePath(
   checkpoints: Checkpoint[],
   canvasSize: number, // tamaño real del canvas cuadrado en px
 ): { score: number; hitMap: boolean[] } {
-  if (drawnPoints.length < 5) return { score: 0, hitMap: checkpoints.map(() => false) };
+  if (drawnPoints.length < 5)
+    return { score: 0, hitMap: checkpoints.map(() => false) };
 
   const scale = canvasSize / 100;
 

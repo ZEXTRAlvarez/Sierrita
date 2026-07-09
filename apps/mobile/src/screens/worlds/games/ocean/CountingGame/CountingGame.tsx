@@ -1,5 +1,11 @@
 import { useCallback, useRef, useState } from 'react';
-import { Animated, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Animated,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { speak } from '@sierrita/audio';
 import type { GameProps } from '../../../GameScreen';
 import { rand } from '../../shared/rand';
@@ -10,7 +16,12 @@ import { styles } from './CountingGame.styles';
 
 const OBJECTS = ['🐟', '🐠', '🦀', '🐙', '🦑', '🐚', '🪸', '🦞'];
 
-export default function CountingGame({ params, onRoundComplete, onGameFinish, roundCount }: GameProps) {
+export default function CountingGame({
+  params,
+  onRoundComplete,
+  onGameFinish,
+  roundCount,
+}: GameProps) {
   const maxNumber = (params.maxNumber as number) || 10;
   const emojiRef = useRef(OBJECTS[Math.floor(Math.random() * OBJECTS.length)]);
 
@@ -26,12 +37,19 @@ export default function CountingGame({ params, onRoundComplete, onGameFinish, ro
   }, [maxNumber]);
 
   const { result, roundsDone, submitAnswer } = useGameRound({
-    roundCount, onRoundComplete, onGameFinish, startRound,
+    roundCount,
+    onRoundComplete,
+    onGameFinish,
+    startRound,
   });
 
   function bounce() {
     bounceAnim.setValue(0.88);
-    Animated.spring(bounceAnim, { toValue: 1, friction: 4, useNativeDriver: true }).start();
+    Animated.spring(bounceAnim, {
+      toValue: 1,
+      friction: 4,
+      useNativeDriver: true,
+    }).start();
   }
 
   function handleAnswer(answer: number) {
@@ -42,11 +60,18 @@ export default function CountingGame({ params, onRoundComplete, onGameFinish, ro
 
   return (
     <View style={styles.container}>
-      <Text style={styles.progress}>{roundsDone + 1} / {roundCount}</Text>
+      <Text style={styles.progress}>
+        {roundsDone + 1} / {roundCount}
+      </Text>
       <Text style={styles.question}>¿Cuántos hay?</Text>
 
-      <ScrollView contentContainerStyle={styles.scrollContent} style={styles.scroll}>
-        <Animated.View style={[styles.bounceWrap, { transform: [{ scale: bounceAnim }] }]}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        style={styles.scroll}
+      >
+        <Animated.View
+          style={[styles.bounceWrap, { transform: [{ scale: bounceAnim }] }]}
+        >
           <ObjectGrid count={target} emoji={emojiRef.current} />
         </Animated.View>
       </ScrollView>
@@ -56,7 +81,10 @@ export default function CountingGame({ params, onRoundComplete, onGameFinish, ro
           <TouchableOpacity
             key={opt}
             testID="counting-option"
-            style={[styles.optionBtn, result !== 'idle' && opt === target && styles.correctBtn]}
+            style={[
+              styles.optionBtn,
+              result !== 'idle' && opt === target && styles.correctBtn,
+            ]}
             onPress={() => handleAnswer(opt)}
             disabled={result !== 'idle'}
           >
@@ -65,8 +93,12 @@ export default function CountingGame({ params, onRoundComplete, onGameFinish, ro
         ))}
       </View>
 
-      {result === 'correct' && <Text style={[styles.badge, styles.badgeCorrect]}>¡Correcto! ⭐</Text>}
-      {result === 'wrong' && <Text style={[styles.badge, styles.badgeWrong]}>¡Casi! 💪</Text>}
+      {result === 'correct' && (
+        <Text style={[styles.badge, styles.badgeCorrect]}>¡Correcto! ⭐</Text>
+      )}
+      {result === 'wrong' && (
+        <Text style={[styles.badge, styles.badgeWrong]}>¡Casi! 💪</Text>
+      )}
     </View>
   );
 }

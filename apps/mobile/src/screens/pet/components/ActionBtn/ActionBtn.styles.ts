@@ -16,7 +16,23 @@ export const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
   },
   wrap: { flex: 1, borderRadius: 20, overflow: 'hidden' },
-  btn: { flex: 1, justifyContent: 'center', paddingVertical: 14, alignItems: 'center', gap: 6 },
-  iconBox: { width: 32, height: 32, alignItems: 'center', justifyContent: 'center' },
-  label: { fontSize: 11, fontWeight: '800', color: '#FFF', textAlign: 'center' },
+  btn: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingVertical: 14,
+    alignItems: 'center',
+    gap: 6,
+  },
+  iconBox: {
+    width: 32,
+    height: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  label: {
+    fontSize: 11,
+    fontWeight: '800',
+    color: '#FFF',
+    textAlign: 'center',
+  },
 });

@@ -1,6 +1,11 @@
 import { setupTestDatabase } from '../schema/__testing__/setupTestDatabase';
 import { __setTestDatabase } from '../schema/getDatabase';
-import { getAllProfiles, getProfileById, createProfile, deleteProfile } from './profileRepository';
+import {
+  getAllProfiles,
+  getProfileById,
+  createProfile,
+  deleteProfile,
+} from './profileRepository';
 import type { Profile } from '@sierrita/profiles';
 
 const profile = (overrides: Partial<Profile> = {}): Profile => ({

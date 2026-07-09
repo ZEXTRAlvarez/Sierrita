@@ -21,7 +21,9 @@ const mockDashboard: Record<string, unknown> = {
   changePin: jest.fn(),
   exportPdf: jest.fn(async () => ({ ok: true, shared: true, uri: '' })),
 };
-jest.mock('./hooks/useParentDashboard', () => ({ useParentDashboard: () => mockDashboard }));
+jest.mock('./hooks/useParentDashboard', () => ({
+  useParentDashboard: () => mockDashboard,
+}));
 
 describe('ParentsScreen', () => {
   beforeEach(() => {
@@ -40,7 +42,9 @@ describe('ParentsScreen', () => {
     mockDashboard.parentConfig = null;
     const { getByText } = renderWithProviders(<ParentsScreen />);
 
-    expect(getByText('No se encontró configuración. Seleccioná un perfil.')).toBeTruthy();
+    expect(
+      getByText('No se encontró configuración. Seleccioná un perfil.'),
+    ).toBeTruthy();
 
     fireEvent.press(getByText('← Volver'));
     expect(mockGoBack).toHaveBeenCalled();
@@ -48,7 +52,13 @@ describe('ParentsScreen', () => {
 
   it('shows the PIN gate when a config exists but the dashboard is locked', () => {
     mockDashboard.loading = false;
-    mockDashboard.parentConfig = { profileId: 'p1', pinHash: '', maxSessionMinutes: 30, worldsEnabled: ['jungle'], updatedAt: 0 };
+    mockDashboard.parentConfig = {
+      profileId: 'p1',
+      pinHash: '',
+      maxSessionMinutes: 30,
+      worldsEnabled: ['jungle'],
+      updatedAt: 0,
+    };
     const { getByText } = renderWithProviders(<ParentsScreen />);
 
     expect(getByText('Creá tu PIN de padre/madre')).toBeTruthy();

@@ -12,7 +12,12 @@ export interface UseMemoryGameStateOptions {
 }
 
 /** Owns the flip/match/lock state machine for the memory game's single "match all pairs" round. */
-export function useMemoryGameState({ pairs, flipDelay, onRoundComplete, onGameFinish }: UseMemoryGameStateOptions) {
+export function useMemoryGameState({
+  pairs,
+  flipDelay,
+  onRoundComplete,
+  onGameFinish,
+}: UseMemoryGameStateOptions) {
   const [cards, setCards] = useState<Card[]>(() => buildDeck(pairs));
   const [flipped, setFlipped] = useState<number[]>([]);
   const [matched, setMatched] = useState(0);
@@ -28,47 +33,79 @@ export function useMemoryGameState({ pairs, flipDelay, onRoundComplete, onGameFi
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleCardPress = useCallback((cardIdx: number) => {
-    if (locked || finished) return;
-    const card = cards[cardIdx];
-    if (card.flipped || card.matched) return;
-    if (flipped.length >= 2) return;
+  const handleCardPress = useCallback(
+    (cardIdx: number) => {
+      if (locked || finished) return;
+      const card = cards[cardIdx];
+      if (card.flipped || card.matched) return;
+      if (flipped.length >= 2) return;
 
-    const anim = scaleAnims[cardIdx] ?? new Animated.Value(1);
-    Animated.spring(anim, { toValue: 1.08, friction: 5, useNativeDriver: true }).start(() => {
-      Animated.spring(anim, { toValue: 1, friction: 5, useNativeDriver: true }).start();
-    });
+      const anim = scaleAnims[cardIdx] ?? new Animated.Value(1);
+      Animated.spring(anim, {
+        toValue: 1.08,
+        friction: 5,
+        useNativeDriver: true,
+      }).start(() => {
+        Animated.spring(anim, {
+          toValue: 1,
+          friction: 5,
+          useNativeDriver: true,
+        }).start();
+      });
 
-    const newCards = cards.map((c, i) => (i === cardIdx ? { ...c, flipped: true } : c));
-    const newFlipped = [...flipped, cardIdx];
-    setCards(newCards);
-    setFlipped(newFlipped);
+      const newCards = cards.map((c, i) =>
+        i === cardIdx ? { ...c, flipped: true } : c,
+      );
+      const newFlipped = [...flipped, cardIdx];
+      setCards(newCards);
+      setFlipped(newFlipped);
 
-    if (newFlipped.length === 2) {
-      setLocked(true);
-      const [a, b] = newFlipped;
-      const match = newCards[a].emoji === newCards[b].emoji;
+      if (newFlipped.length === 2) {
+        setLocked(true);
+        const [a, b] = newFlipped;
+        const match = newCards[a].emoji === newCards[b].emoji;
 
-      setTimeout(() => {
-        if (match) {
-          const updated = newCards.map((c, i) => (i === a || i === b ? { ...c, matched: true } : c));
-          setCards(updated);
-          const newMatched = matched + 1;
-          setMatched(newMatched);
+        setTimeout(() => {
+          if (match) {
+            const updated = newCards.map((c, i) =>
+              i === a || i === b ? { ...c, matched: true } : c,
+            );
+            setCards(updated);
+            const newMatched = matched + 1;
+            setMatched(newMatched);
 
-          if (newMatched === pairs) {
-            setFinished(true);
-            speak('¡Encontraste todos los pares!');
-            onRoundComplete(true, 0).then(() => setTimeout(onGameFinish, 800));
+            if (newMatched === pairs) {
+              setFinished(true);
+              speak('¡Encontraste todos los pares!');
+              onRoundComplete(true, 0).then(() =>
+                setTimeout(onGameFinish, 800),
+              );
+            }
+          } else {
+            setCards(
+              newCards.map((c, i) =>
+                i === a || i === b ? { ...c, flipped: false } : c,
+              ),
+            );
           }
-        } else {
-          setCards(newCards.map((c, i) => (i === a || i === b ? { ...c, flipped: false } : c)));
-        }
-        setFlipped([]);
-        setLocked(false);
-      }, flipDelay);
-    }
-  }, [cards, flipped, matched, pairs, flipDelay, locked, finished, onRoundComplete, onGameFinish, scaleAnims]);
+          setFlipped([]);
+          setLocked(false);
+        }, flipDelay);
+      }
+    },
+    [
+      cards,
+      flipped,
+      matched,
+      pairs,
+      flipDelay,
+      locked,
+      finished,
+      onRoundComplete,
+      onGameFinish,
+      scaleAnims,
+    ],
+  );
 
   return { cards, matched, finished, locked, scaleAnims, handleCardPress };
 }

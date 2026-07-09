@@ -5,7 +5,11 @@ import { LetterOptions } from './LetterOptions';
 describe('LetterOptions', () => {
   it('renders one button per option', () => {
     const { getAllByTestId } = render(
-      <LetterOptions options={['A', 'B', 'C']} disabled={false} onPress={jest.fn()} />,
+      <LetterOptions
+        options={['A', 'B', 'C']}
+        disabled={false}
+        onPress={jest.fn()}
+      />,
     );
 
     expect(getAllByTestId('word-letter-option')).toHaveLength(3);
@@ -14,7 +18,11 @@ describe('LetterOptions', () => {
   it('calls onPress with the tapped letter', () => {
     const onPress = jest.fn();
     const { getAllByTestId } = render(
-      <LetterOptions options={['A', 'B', 'C']} disabled={false} onPress={onPress} />,
+      <LetterOptions
+        options={['A', 'B', 'C']}
+        disabled={false}
+        onPress={onPress}
+      />,
     );
 
     fireEvent.press(getAllByTestId('word-letter-option')[1]);
@@ -28,7 +36,9 @@ describe('LetterOptions', () => {
     );
 
     for (const btn of getAllByTestId('word-letter-option')) {
-      expect(btn.props.accessibilityState?.disabled ?? btn.props.disabled).toBeTruthy();
+      expect(
+        btn.props.accessibilityState?.disabled ?? btn.props.disabled,
+      ).toBeTruthy();
     }
   });
 });

@@ -5,7 +5,12 @@ import { GameScreenHeader } from './GameScreenHeader';
 describe('GameScreenHeader', () => {
   it('shows the title and level label', () => {
     const { getByText } = render(
-      <GameScreenHeader title="Trazos y Letras" currentLevel={1} color="#4CAF50" onBack={jest.fn()} />,
+      <GameScreenHeader
+        title="Trazos y Letras"
+        currentLevel={1}
+        color="#4CAF50"
+        onBack={jest.fn()}
+      />,
     );
 
     expect(getByText('Trazos y Letras')).toBeTruthy();
@@ -15,7 +20,12 @@ describe('GameScreenHeader', () => {
   it('calls onBack when the close button is tapped', () => {
     const onBack = jest.fn();
     const { getByText } = render(
-      <GameScreenHeader title="Trazos y Letras" currentLevel={1} color="#4CAF50" onBack={onBack} />,
+      <GameScreenHeader
+        title="Trazos y Letras"
+        currentLevel={1}
+        color="#4CAF50"
+        onBack={onBack}
+      />,
     );
 
     fireEvent.press(getByText('✕'));

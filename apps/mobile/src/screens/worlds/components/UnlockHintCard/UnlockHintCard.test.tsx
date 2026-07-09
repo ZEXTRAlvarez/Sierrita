@@ -6,6 +6,8 @@ describe('UnlockHintCard', () => {
   it('renders the unlock hint text', () => {
     const { getByText } = render(<UnlockHintCard />);
 
-    expect(getByText('🔒 Los juegos con candado se desbloquean a medida que crecés')).toBeTruthy();
+    expect(
+      getByText('🔒 Los juegos con candado se desbloquean a medida que crecés'),
+    ).toBeTruthy();
   });
 });

@@ -16,7 +16,9 @@ describe('NameStep', () => {
 
   it('does not advance when the name is blank', () => {
     const onNext = jest.fn();
-    const { getByText } = render(<NameStep name="" onChangeName={jest.fn()} onNext={onNext} />);
+    const { getByText } = render(
+      <NameStep name="" onChangeName={jest.fn()} onNext={onNext} />,
+    );
 
     fireEvent.press(getByText('¡Siguiente!'));
 
@@ -25,7 +27,9 @@ describe('NameStep', () => {
 
   it('advances when a name has been entered', () => {
     const onNext = jest.fn();
-    const { getByText } = render(<NameStep name="Sofía" onChangeName={jest.fn()} onNext={onNext} />);
+    const { getByText } = render(
+      <NameStep name="Sofía" onChangeName={jest.fn()} onNext={onNext} />,
+    );
 
     fireEvent.press(getByText('¡Siguiente!'));
 

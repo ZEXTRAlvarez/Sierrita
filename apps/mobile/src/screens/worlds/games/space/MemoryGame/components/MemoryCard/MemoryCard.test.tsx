@@ -9,7 +9,13 @@ describe('MemoryCard', () => {
   it('shows the card-back glyph and reports presses when face-down', () => {
     const onPress = jest.fn();
     const { getByText, queryByText, getByTestId } = render(
-      <MemoryCard card={baseCard} size={80} locked={false} scale={new Animated.Value(1)} onPress={onPress} />,
+      <MemoryCard
+        card={baseCard}
+        size={80}
+        locked={false}
+        scale={new Animated.Value(1)}
+        onPress={onPress}
+      />,
     );
 
     expect(getByText('🔮')).toBeTruthy();

@@ -2,18 +2,12 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./out-tsc/jest",
-    "types": [
-      "jest",
-      "node"
-    ],
+    "types": ["jest", "node"],
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "bundler",
     "jsx": "react-jsx",
-    "lib": [
-      "es2022",
-      "dom"
-    ]
+    "lib": ["es2022", "dom"]
   },
   "include": [
     "jest.config.ts",

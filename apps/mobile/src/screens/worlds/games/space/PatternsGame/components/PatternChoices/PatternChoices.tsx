@@ -10,7 +10,12 @@ export interface PatternChoicesProps {
 }
 
 /** Answer-choice buttons row; highlights the correct one and dims the rest once answered. */
-export function PatternChoices({ choices, answer, result, onChoose }: PatternChoicesProps) {
+export function PatternChoices({
+  choices,
+  answer,
+  result,
+  onChoose,
+}: PatternChoicesProps) {
   return (
     <View style={styles.choicesRow}>
       {choices.map((ch, i) => (

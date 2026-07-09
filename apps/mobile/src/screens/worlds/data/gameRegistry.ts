@@ -14,22 +14,22 @@ import MazeGame from '../games/space/MazeGame';
 import type { GameProps } from '../GameScreen';
 
 export const GAME_COMPONENT: Record<string, ComponentType<GameProps>> = {
-  tracing:   TracingGame,
-  words:     WordsGame,
+  tracing: TracingGame,
+  words: WordsGame,
   sentences: SentencesGame,
-  cursive:   CursiveGame,
-  counting:  CountingGame,
-  sums:      SumsGame,
-  compare:   CompareGame,
-  hundreds:  HundredsGame,
-  patterns:  PatternsGame,
-  memory:    MemoryGame,
-  classify:  ClassifyGame,
-  maze:      MazeGame,
+  cursive: CursiveGame,
+  counting: CountingGame,
+  sums: SumsGame,
+  compare: CompareGame,
+  hundreds: HundredsGame,
+  patterns: PatternsGame,
+  memory: MemoryGame,
+  classify: ClassifyGame,
+  maze: MazeGame,
 };
 
 export const WORLD_COLOR: Record<string, string> = {
   jungle: '#4CAF50',
-  ocean:  '#2196F3',
-  space:  '#9C27B0',
+  ocean: '#2196F3',
+  space: '#9C27B0',
 };

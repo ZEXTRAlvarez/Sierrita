@@ -1,6 +1,10 @@
 import { setupTestDatabase } from '../schema/__testing__/setupTestDatabase';
 import { __setTestDatabase } from '../schema/getDatabase';
-import { getDifficultyState, getAllDifficultyStates, upsertDifficultyState } from './difficultyRepository';
+import {
+  getDifficultyState,
+  getAllDifficultyStates,
+  upsertDifficultyState,
+} from './difficultyRepository';
 import type { DifficultyState } from '@sierrita/adaptive';
 
 const state = (overrides: Partial<DifficultyState> = {}): DifficultyState => ({
@@ -27,7 +31,9 @@ describe('upsertDifficultyState / getDifficultyState', () => {
   it('inserts a new state keyed by (profileId, gameId)', async () => {
     await upsertDifficultyState(state());
 
-    await expect(getDifficultyState('p1', 'counting')).resolves.toEqual(state());
+    await expect(getDifficultyState('p1', 'counting')).resolves.toEqual(
+      state(),
+    );
   });
 
   it('updates on conflict for the same profile+game pair', async () => {
@@ -44,8 +50,12 @@ describe('upsertDifficultyState / getDifficultyState', () => {
     await upsertDifficultyState(state({ gameId: 'counting', currentLevel: 1 }));
     await upsertDifficultyState(state({ gameId: 'sums', currentLevel: 3 }));
 
-    await expect(getDifficultyState('p1', 'counting')).resolves.toMatchObject({ currentLevel: 1 });
-    await expect(getDifficultyState('p1', 'sums')).resolves.toMatchObject({ currentLevel: 3 });
+    await expect(getDifficultyState('p1', 'counting')).resolves.toMatchObject({
+      currentLevel: 1,
+    });
+    await expect(getDifficultyState('p1', 'sums')).resolves.toMatchObject({
+      currentLevel: 3,
+    });
   });
 
   it('returns null when no state exists yet', async () => {

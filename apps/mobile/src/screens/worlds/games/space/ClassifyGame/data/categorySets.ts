@@ -12,7 +12,10 @@ export const CATEGORY_SETS: Record<string, CategoryDef[]> = {
   ],
   shape: [
     { label: '🔵 Redondos', items: ['🌕', '⚽', '🍊', '🌍', '🎱', '🪙'] },
-    { label: '🔶 Cuadrados/Rectángulos', items: ['📦', '🧱', '📺', '🖥️', '🗃️', '📚'] },
+    {
+      label: '🔶 Cuadrados/Rectángulos',
+      items: ['📦', '🧱', '📺', '🖥️', '🗃️', '📚'],
+    },
     { label: '⭐ Estrellados', items: ['⭐', '🌟', '✨', '💫', '🌠', '⚡'] },
     { label: '🔺 Triangulares', items: ['🔺', '🏔️', '🎄', '🍕', '🎭', '⛰️'] },
   ],

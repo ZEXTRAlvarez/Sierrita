@@ -21,7 +21,11 @@ export function Chip({ label, selected = false, onPress }: ChipProps) {
       accessibilityRole="button"
       accessibilityState={{ selected }}
     >
-      <Text fontSize={14} fontWeight="700" color={selected ? '#fff' : colorTokens.brand700}>
+      <Text
+        fontSize={14}
+        fontWeight="700"
+        color={selected ? '#fff' : colorTokens.brand700}
+      >
         {label}
       </Text>
     </Button>

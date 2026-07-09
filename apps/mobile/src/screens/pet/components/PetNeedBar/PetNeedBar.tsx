@@ -18,7 +18,12 @@ export function PetNeedBar({ icon, label, value, color }: PetNeedBarProps) {
         <Text style={styles.label}>{label}</Text>
       </View>
       <View style={styles.track}>
-        <View style={[styles.fill, { width: `${pct}%` as any, backgroundColor: color }]} />
+        <View
+          style={[
+            styles.fill,
+            { width: `${pct}%` as any, backgroundColor: color },
+          ]}
+        />
       </View>
       <Text style={styles.pct}>{pct}</Text>
     </View>

@@ -9,7 +9,12 @@ export interface WordBlanksProps {
 }
 
 /** Renders a word as letter boxes, showing chosen letters (or blanks) in place of hidden ones. */
-export function WordBlanks({ word, blankIndices, chosen, status }: WordBlanksProps) {
+export function WordBlanks({
+  word,
+  blankIndices,
+  chosen,
+  status,
+}: WordBlanksProps) {
   return (
     <View style={styles.wordRow}>
       {word.split('').map((letter, i) => {
@@ -25,7 +30,9 @@ export function WordBlanks({ word, blankIndices, chosen, status }: WordBlanksPro
               isBlank && status === 'wrong' && styles.wrongBox,
             ]}
           >
-            <Text style={styles.letterText}>{isBlank ? (chosen[blankPos] ?? '') : letter}</Text>
+            <Text style={styles.letterText}>
+              {isBlank ? (chosen[blankPos] ?? '') : letter}
+            </Text>
           </View>
         );
       })}

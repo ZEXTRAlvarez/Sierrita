@@ -1,7 +1,13 @@
 import { useCallback, useRef, useState } from 'react';
 import { useAtomValue } from 'jotai';
 import { activeProfileIdAtom } from '../../store/atoms';
-import { getGameConfig, summarizeSession, speedBonus, FEEDBACK_LEVELUP, randomFrom } from '@sierrita/games';
+import {
+  getGameConfig,
+  summarizeSession,
+  speedBonus,
+  FEEDBACK_LEVELUP,
+  randomFrom,
+} from '@sierrita/games';
 import { saveGameSession, upsertDifficultyState } from '@sierrita/storage';
 import { processRoundResult } from '@sierrita/adaptive';
 import { speak } from '@sierrita/audio';
@@ -18,7 +24,11 @@ interface UseGameSessionReturn {
   summary: GameSummary | null;
   isFinished: boolean;
   startSession: (gameId: string, world: string) => Promise<void>;
-  recordRound: (correct: boolean, responseTimeMs: number, hintsUsed?: number) => Promise<{ levelChanged: boolean; levelUp: boolean }>;
+  recordRound: (
+    correct: boolean,
+    responseTimeMs: number,
+    hintsUsed?: number,
+  ) => Promise<{ levelChanged: boolean; levelUp: boolean }>;
   finishSession: () => Promise<GameSummary>;
 }
 
@@ -31,51 +41,65 @@ export function useGameSession(): UseGameSessionReturn {
   const diffStateRef = useRef<DifficultyState | null>(null);
   const sessionRef = useRef<GameSession | null>(null);
 
-  const startSession = useCallback(async (gameId: string, world: string) => {
-    if (!profileId) return;
-    const config = getGameConfig(gameId);
+  const startSession = useCallback(
+    async (gameId: string, world: string) => {
+      if (!profileId) return;
+      const config = getGameConfig(gameId);
 
-    const ds = await loadOrCreateDifficultyState(profileId, gameId);
-    diffStateRef.current = ds;
-    setDiffState(ds);
-    setSummary(null);
-    setIsFinished(false);
+      const ds = await loadOrCreateDifficultyState(profileId, gameId);
+      diffStateRef.current = ds;
+      setDiffState(ds);
+      setSummary(null);
+      setIsFinished(false);
 
-    const newSession = buildSession(gameId, world, profileId, ds.currentLevel);
-    sessionRef.current = newSession;
-    setSession(newSession);
+      const newSession = buildSession(
+        gameId,
+        world,
+        profileId,
+        ds.currentLevel,
+      );
+      sessionRef.current = newSession;
+      setSession(newSession);
 
-    speak(`¡Vamos a jugar ${config.titleEs}!`);
-  }, [profileId]);
+      speak(`¡Vamos a jugar ${config.titleEs}!`);
+    },
+    [profileId],
+  );
 
-  const recordRound = useCallback(async (
-    correct: boolean,
-    responseTimeMs: number,
-    hintsUsed = 0,
-  ): Promise<{ levelChanged: boolean; levelUp: boolean }> => {
-    if (!diffStateRef.current) return { levelChanged: false, levelUp: false };
+  const recordRound = useCallback(
+    async (
+      correct: boolean,
+      responseTimeMs: number,
+      hintsUsed = 0,
+    ): Promise<{ levelChanged: boolean; levelUp: boolean }> => {
+      if (!diffStateRef.current) return { levelChanged: false, levelUp: false };
 
-    const round: RoundResult = { correct, responseTimeMs, hintsUsed };
-    setSession((prev) => {
-      if (!prev) return prev;
-      const next = { ...prev, rounds: [...prev.rounds, round] };
-      sessionRef.current = next;
-      return next;
-    });
+      const round: RoundResult = { correct, responseTimeMs, hintsUsed };
+      setSession((prev) => {
+        if (!prev) return prev;
+        const next = { ...prev, rounds: [...prev.rounds, round] };
+        sessionRef.current = next;
+        return next;
+      });
 
-    await playRoundFeedback(correct);
+      await playRoundFeedback(correct);
 
-    const { next, levelChanged, levelUp } = processRoundResult(diffStateRef.current, correct);
-    diffStateRef.current = next;
-    setDiffState(next);
-    await upsertDifficultyState(next);
+      const { next, levelChanged, levelUp } = processRoundResult(
+        diffStateRef.current,
+        correct,
+      );
+      diffStateRef.current = next;
+      setDiffState(next);
+      await upsertDifficultyState(next);
 
-    if (levelChanged && levelUp) {
-      setTimeout(() => speak(randomFrom(FEEDBACK_LEVELUP)), 1500);
-    }
+      if (levelChanged && levelUp) {
+        setTimeout(() => speak(randomFrom(FEEDBACK_LEVELUP)), 1500);
+      }
 
-    return { levelChanged, levelUp };
-  }, []);
+      return { levelChanged, levelUp };
+    },
+    [],
+  );
 
   const finishSession = useCallback(async (): Promise<GameSummary> => {
     const currentSession = sessionRef.current;
@@ -93,5 +117,13 @@ export function useGameSession(): UseGameSessionReturn {
     return final;
   }, [profileId]);
 
-  return { session, difficultyState: diffState, summary, isFinished, startSession, recordRound, finishSession };
+  return {
+    session,
+    difficultyState: diffState,
+    summary,
+    isFinished,
+    startSession,
+    recordRound,
+    finishSession,
+  };
 }

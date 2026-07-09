@@ -24,7 +24,12 @@ const basePet: PetState = {
 describe('PetStatsCard', () => {
   it('shows the stage name, xp and how much is left to the next stage', () => {
     const { getByText } = render(
-      <PetStatsCard petState={basePet} stageName="Niño" xpProgress={0.5} nextXp={160} />,
+      <PetStatsCard
+        petState={basePet}
+        stageName="Niño"
+        xpProgress={0.5}
+        nextXp={160}
+      />,
     );
 
     expect(getByText('Niño')).toBeTruthy();
@@ -34,7 +39,12 @@ describe('PetStatsCard', () => {
 
   it('hides the xp bar at the max evolution stage', () => {
     const { queryByText } = render(
-      <PetStatsCard petState={{ ...basePet, evolutionStage: 3 }} stageName="Adulto" xpProgress={1} nextXp={0} />,
+      <PetStatsCard
+        petState={{ ...basePet, evolutionStage: 3 }}
+        stageName="Adulto"
+        xpProgress={1}
+        nextXp={0}
+      />,
     );
 
     expect(queryByText(/Faltan/)).toBeNull();

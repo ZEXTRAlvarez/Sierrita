@@ -18,7 +18,11 @@ jest.mock('./logic/buildDeck', () => ({
 // settling runs on real requestAnimationFrame timers that outlive fake timers
 // and can fire after the test environment tears down, so run it synchronously.
 jest.spyOn(Animated, 'spring').mockImplementation(
-  () => ({ start: (cb?: (result: { finished: boolean }) => void) => cb?.({ finished: true }) }) as never,
+  () =>
+    ({
+      start: (cb?: (result: { finished: boolean }) => void) =>
+        cb?.({ finished: true }),
+    }) as never,
 );
 
 describe('MemoryGame', () => {
@@ -54,13 +58,25 @@ describe('MemoryGame', () => {
     );
 
     const cards = getAllByTestId('memory-card');
-    await act(async () => { fireEvent.press(cards[0]); });
-    await act(async () => { fireEvent.press(cards[2]); }); // matches card 0
-    await act(async () => { jest.advanceTimersByTime(500); });
+    await act(async () => {
+      fireEvent.press(cards[0]);
+    });
+    await act(async () => {
+      fireEvent.press(cards[2]);
+    }); // matches card 0
+    await act(async () => {
+      jest.advanceTimersByTime(500);
+    });
 
-    await act(async () => { fireEvent.press(cards[1]); });
-    await act(async () => { fireEvent.press(cards[3]); }); // matches card 1
-    await act(async () => { jest.advanceTimersByTime(500); });
+    await act(async () => {
+      fireEvent.press(cards[1]);
+    });
+    await act(async () => {
+      fireEvent.press(cards[3]);
+    }); // matches card 1
+    await act(async () => {
+      jest.advanceTimersByTime(500);
+    });
 
     expect(getByText('Pares: 2 / 2')).toBeTruthy();
     expect(onRoundComplete).toHaveBeenCalledWith(true, 0);

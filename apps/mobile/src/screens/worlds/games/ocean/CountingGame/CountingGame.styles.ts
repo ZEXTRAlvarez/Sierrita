@@ -1,11 +1,31 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', paddingTop: 12, backgroundColor: '#E3F2FD' },
-  progress: { fontSize: 16, color: '#1976D2', fontWeight: '600', marginBottom: 4 },
-  question: { fontSize: 22, fontWeight: '800', color: '#0D47A1', marginBottom: 12 },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: 12,
+    backgroundColor: '#E3F2FD',
+  },
+  progress: {
+    fontSize: 16,
+    color: '#1976D2',
+    fontWeight: '600',
+    marginBottom: 4,
+  },
+  question: {
+    fontSize: 22,
+    fontWeight: '800',
+    color: '#0D47A1',
+    marginBottom: 12,
+  },
   scroll: { flex: 1, width: '100%' },
-  scrollContent: { flexGrow: 1, alignItems: 'center', paddingVertical: 12, paddingHorizontal: 16 },
+  scrollContent: {
+    flexGrow: 1,
+    alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+  },
   bounceWrap: { alignItems: 'center' },
   optionsRow: {
     flexDirection: 'row',

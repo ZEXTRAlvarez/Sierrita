@@ -16,7 +16,9 @@ export function ProfileHeader({ isSwitching, onBack }: ProfileHeaderProps) {
       )}
       <Text style={styles.title}>¿Quién juega hoy?</Text>
       <Text style={styles.subtitle}>
-        {isSwitching ? 'Elegí un perfil o creá uno nuevo' : 'Tocá tu perfil para entrar'}
+        {isSwitching
+          ? 'Elegí un perfil o creá uno nuevo'
+          : 'Tocá tu perfil para entrar'}
       </Text>
     </View>
   );

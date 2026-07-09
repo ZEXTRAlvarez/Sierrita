@@ -4,7 +4,9 @@ import { runMigrations } from './migrationRunner';
 import type { SqliteAdapter } from './sqliteAdapter';
 
 async function hasPetNameColumn(db: SqliteAdapter): Promise<boolean> {
-  const columns = await db.getAllAsync<{ name: string }>('PRAGMA table_info(pet_state)');
+  const columns = await db.getAllAsync<{ name: string }>(
+    'PRAGMA table_info(pet_state)',
+  );
   return columns.some((c) => c.name === 'pet_name');
 }
 
@@ -15,7 +17,9 @@ describe('runMigrations', () => {
 
     await runMigrations(db);
 
-    const versionRow = await db.getFirstAsync<{ version: number }>('SELECT version FROM schema_version');
+    const versionRow = await db.getFirstAsync<{ version: number }>(
+      'SELECT version FROM schema_version',
+    );
     expect(versionRow?.version).toBe(1);
     expect(await hasPetNameColumn(db)).toBe(true);
   });
@@ -44,7 +48,9 @@ describe('runMigrations', () => {
     await runMigrations(db);
     await runMigrations(db);
 
-    const versionRow = await db.getFirstAsync<{ version: number }>('SELECT version FROM schema_version');
+    const versionRow = await db.getFirstAsync<{ version: number }>(
+      'SELECT version FROM schema_version',
+    );
     expect(versionRow?.version).toBe(1);
     const allRows = await db.getAllAsync('SELECT * FROM schema_version');
     expect(allRows).toHaveLength(1); // no duplicate version rows inserted

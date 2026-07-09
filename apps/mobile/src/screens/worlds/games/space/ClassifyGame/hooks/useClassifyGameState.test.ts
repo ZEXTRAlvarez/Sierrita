@@ -17,10 +17,19 @@ describe('useClassifyGameState', () => {
   beforeEach(() => jest.useFakeTimers());
   afterEach(() => jest.useRealTimers());
 
-  function setup(onRoundComplete = jest.fn(async () => undefined), onGameFinish = jest.fn(), roundCount = 1) {
+  function setup(
+    onRoundComplete = jest.fn(async () => undefined),
+    onGameFinish = jest.fn(),
+    roundCount = 1,
+  ) {
     const { result } = renderHook(() =>
       useClassifyGameState({
-        categories: 2, attribute: 'color', itemCount: 2, onRoundComplete, onGameFinish, roundCount,
+        categories: 2,
+        attribute: 'color',
+        itemCount: 2,
+        onRoundComplete,
+        onGameFinish,
+        roundCount,
       }),
     );
     return { result, onRoundComplete, onGameFinish };

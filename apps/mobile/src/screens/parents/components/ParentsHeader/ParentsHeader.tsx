@@ -1,4 +1,10 @@
-import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
 import { colorTokens } from '@sierrita/ui';
 
 export interface ParentsHeaderProps {
@@ -8,7 +14,12 @@ export interface ParentsHeaderProps {
   onLock: () => void;
 }
 
-export function ParentsHeader({ profileName, profileAge, onClose, onLock }: ParentsHeaderProps) {
+export function ParentsHeader({
+  profileName,
+  profileAge,
+  onClose,
+  onLock,
+}: ParentsHeaderProps) {
   return (
     <>
       <View style={styles.header}>
@@ -50,5 +61,9 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   profileName: { fontSize: 22, fontWeight: '900', color: '#fff' },
-  profileAge: { fontSize: 15, color: 'rgba(255,255,255,0.8)', fontWeight: '600' },
+  profileAge: {
+    fontSize: 15,
+    color: 'rgba(255,255,255,0.8)',
+    fontWeight: '600',
+  },
 });

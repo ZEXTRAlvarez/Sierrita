@@ -10,7 +10,11 @@ describe('createDefaultParentConfig', () => {
   });
 
   it('enables all 3 worlds by default', () => {
-    expect(createDefaultParentConfig('p1').worldsEnabled).toEqual(['jungle', 'ocean', 'space']);
+    expect(createDefaultParentConfig('p1').worldsEnabled).toEqual([
+      'jungle',
+      'ocean',
+      'space',
+    ]);
   });
 
   it('carries through the given profileId', () => {

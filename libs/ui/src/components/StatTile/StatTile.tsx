@@ -21,7 +21,12 @@ export function StatTile({ value, label }: StatTileProps) {
       <Text fontSize={28} fontWeight="900" color={colorTokens.brand700}>
         {value}
       </Text>
-      <Text fontSize={12} color={colorTokens.textMuted} fontWeight="600" marginTop={2}>
+      <Text
+        fontSize={12}
+        color={colorTokens.textMuted}
+        fontWeight="600"
+        marginTop={2}
+      >
         {label}
       </Text>
     </YStack>

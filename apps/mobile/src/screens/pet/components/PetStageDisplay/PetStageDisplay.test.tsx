@@ -3,7 +3,9 @@ import { Animated } from 'react-native';
 import { render } from '@testing-library/react-native';
 import { PetStageDisplay } from './PetStageDisplay';
 
-jest.mock('../../../../components/PetAnimation', () => ({ PetAnimation: () => null }));
+jest.mock('../../../../components/PetAnimation', () => ({
+  PetAnimation: () => null,
+}));
 
 describe('PetStageDisplay', () => {
   it('shows the mood text', () => {

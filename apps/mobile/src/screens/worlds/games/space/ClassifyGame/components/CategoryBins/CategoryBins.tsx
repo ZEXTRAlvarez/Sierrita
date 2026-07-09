@@ -11,9 +11,17 @@ export interface CategoryBinsProps {
 }
 
 /** The category drop-zones; disabled until an item bank chip is selected. */
-export function CategoryBins({ categories, bins, hasSelection, bounceAnim, onPressBin }: CategoryBinsProps) {
+export function CategoryBins({
+  categories,
+  bins,
+  hasSelection,
+  bounceAnim,
+  onPressBin,
+}: CategoryBinsProps) {
   return (
-    <Animated.View style={[styles.binsRow, { transform: [{ scale: bounceAnim }] }]}>
+    <Animated.View
+      style={[styles.binsRow, { transform: [{ scale: bounceAnim }] }]}
+    >
       {categories.map((cat, ci) => (
         <TouchableOpacity
           key={ci}
@@ -25,7 +33,9 @@ export function CategoryBins({ categories, bins, hasSelection, bounceAnim, onPre
           <Text style={styles.binLabel}>{cat.label}</Text>
           <View style={styles.binItems}>
             {bins[ci]?.map((item) => (
-              <Text key={item.id} style={styles.binItemEmoji}>{item.emoji}</Text>
+              <Text key={item.id} style={styles.binItemEmoji}>
+                {item.emoji}
+              </Text>
             ))}
           </View>
         </TouchableOpacity>

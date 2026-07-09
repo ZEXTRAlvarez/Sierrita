@@ -11,7 +11,9 @@ export interface StoredGameSession {
   playedAt: number;
 }
 
-export function rowToGameSession(row: Record<string, unknown>): StoredGameSession {
+export function rowToGameSession(
+  row: Record<string, unknown>,
+): StoredGameSession {
   return {
     id: row.id as string,
     profileId: row.profile_id as string,

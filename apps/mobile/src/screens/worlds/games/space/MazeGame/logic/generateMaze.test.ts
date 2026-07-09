@@ -24,7 +24,8 @@ describe('generateMaze', () => {
           const [dr, dc] = MOVES[dir];
           const nr = r + dr;
           const nc = c + dc;
-          if (nr >= 0 && nr < size && nc >= 0 && nc < size) stack.push([nr, nc]);
+          if (nr >= 0 && nr < size && nc >= 0 && nc < size)
+            stack.push([nr, nc]);
         }
       });
     }

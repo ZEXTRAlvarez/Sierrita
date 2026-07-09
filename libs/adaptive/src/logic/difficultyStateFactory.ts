@@ -1,6 +1,9 @@
 import type { DifficultyState } from '../types';
 
-export function createInitialDifficultyState(profileId: string, gameId: string): DifficultyState {
+export function createInitialDifficultyState(
+  profileId: string,
+  gameId: string,
+): DifficultyState {
   return {
     profileId,
     gameId,

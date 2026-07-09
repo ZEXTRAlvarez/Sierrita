@@ -61,21 +61,36 @@ describe('evaluatePath', () => {
 
 describe('checkNewPoint', () => {
   it('flags updated=true and fills in the hit when a new point lands in range', () => {
-    const result = checkNewPoint({ x: 0, y: 0 }, checkpoints, [false, false], 100);
+    const result = checkNewPoint(
+      { x: 0, y: 0 },
+      checkpoints,
+      [false, false],
+      100,
+    );
 
     expect(result.updated).toBe(true);
     expect(result.newHitMap).toEqual([true, false]);
   });
 
   it('does not re-trigger an already-hit checkpoint', () => {
-    const result = checkNewPoint({ x: 0, y: 0 }, checkpoints, [true, false], 100);
+    const result = checkNewPoint(
+      { x: 0, y: 0 },
+      checkpoints,
+      [true, false],
+      100,
+    );
 
     expect(result.updated).toBe(false);
     expect(result.newHitMap).toEqual([true, false]);
   });
 
   it('leaves updated=false when the point is out of range of every checkpoint', () => {
-    const result = checkNewPoint({ x: 50, y: 50 }, checkpoints, [false, false], 100);
+    const result = checkNewPoint(
+      { x: 50, y: 50 },
+      checkpoints,
+      [false, false],
+      100,
+    );
 
     expect(result.updated).toBe(false);
     expect(result.newHitMap).toEqual([false, false]);

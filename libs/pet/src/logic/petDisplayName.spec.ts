@@ -3,7 +3,10 @@ import { createInitialPetState } from './petStateFactory';
 
 describe('getPetDisplayName', () => {
   it('returns the chosen name when set', () => {
-    const state = { ...createInitialPetState('p1', 'dragon'), petName: 'Chispita' };
+    const state = {
+      ...createInitialPetState('p1', 'dragon'),
+      petName: 'Chispita',
+    };
 
     expect(getPetDisplayName(state)).toBe('Chispita');
   });

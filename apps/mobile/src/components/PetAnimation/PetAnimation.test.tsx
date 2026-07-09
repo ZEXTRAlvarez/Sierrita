@@ -9,13 +9,17 @@ jest.mock('expo-video', () => ({
 
 describe('PetAnimation', () => {
   it('falls back to an emoji when there is no clip for the given pet/mood', () => {
-    const { getByText } = render(<PetAnimation petType={'unicorn' as any} mood="happy" />);
+    const { getByText } = render(
+      <PetAnimation petType={'unicorn' as any} mood="happy" />,
+    );
 
     expect(getByText('🐾')).toBeTruthy();
   });
 
   it('renders a video for a known pet/mood combination', () => {
-    const { queryByText } = render(<PetAnimation petType="dragon" mood="happy" />);
+    const { queryByText } = render(
+      <PetAnimation petType="dragon" mood="happy" />,
+    );
 
     expect(queryByText('🐲')).toBeNull();
   });

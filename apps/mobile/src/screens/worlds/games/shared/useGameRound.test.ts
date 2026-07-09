@@ -8,7 +8,12 @@ describe('useGameRound', () => {
   it('calls startRound once on mount', () => {
     const startRound = jest.fn();
     renderHook(() =>
-      useGameRound({ roundCount: 3, onRoundComplete: jest.fn(async () => undefined), onGameFinish: jest.fn(), startRound }),
+      useGameRound({
+        roundCount: 3,
+        onRoundComplete: jest.fn(async () => undefined),
+        onGameFinish: jest.fn(),
+        startRound,
+      }),
     );
 
     expect(startRound).toHaveBeenCalledTimes(1);
@@ -18,7 +23,12 @@ describe('useGameRound', () => {
     const startRound = jest.fn();
     const onRoundComplete = jest.fn(async () => undefined);
     const { result } = renderHook(() =>
-      useGameRound({ roundCount: 3, onRoundComplete, onGameFinish: jest.fn(), startRound }),
+      useGameRound({
+        roundCount: 3,
+        onRoundComplete,
+        onGameFinish: jest.fn(),
+        startRound,
+      }),
     );
 
     await act(async () => {
@@ -38,7 +48,12 @@ describe('useGameRound', () => {
     const startRound = jest.fn();
     const onGameFinish = jest.fn();
     const { result } = renderHook(() =>
-      useGameRound({ roundCount: 1, onRoundComplete: jest.fn(async () => undefined), onGameFinish, startRound }),
+      useGameRound({
+        roundCount: 1,
+        onRoundComplete: jest.fn(async () => undefined),
+        onGameFinish,
+        startRound,
+      }),
     );
 
     await act(async () => {
@@ -54,7 +69,12 @@ describe('useGameRound', () => {
   it('ignores a second submitAnswer while a result is already showing', async () => {
     const onRoundComplete = jest.fn(async () => undefined);
     const { result } = renderHook(() =>
-      useGameRound({ roundCount: 3, onRoundComplete, onGameFinish: jest.fn(), startRound: jest.fn() }),
+      useGameRound({
+        roundCount: 3,
+        onRoundComplete,
+        onGameFinish: jest.fn(),
+        startRound: jest.fn(),
+      }),
     );
 
     await act(async () => {

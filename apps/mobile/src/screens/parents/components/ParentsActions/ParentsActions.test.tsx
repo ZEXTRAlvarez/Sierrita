@@ -11,14 +11,21 @@ describe('ParentsActions', () => {
     // actually sets when disabled instead (see libs/ui's PrimaryButton spec).
     const onExportPdf = jest.fn();
     const { getByText, queryByText, getAllByRole } = renderWithProviders(
-      <ParentsActions exporting onExportPdf={onExportPdf} onChangePin={jest.fn()} onSwitchProfile={jest.fn()} />,
+      <ParentsActions
+        exporting
+        onExportPdf={onExportPdf}
+        onChangePin={jest.fn()}
+        onSwitchProfile={jest.fn()}
+      />,
     );
 
     expect(getByText('Generando…')).toBeTruthy();
     expect(queryByText('📄 Descargar informe PDF')).toBeNull();
 
     const exportButton = getAllByRole('button')[0];
-    expect(exportButton.props.accessibilityState).toMatchObject({ disabled: true });
+    expect(exportButton.props.accessibilityState).toMatchObject({
+      disabled: true,
+    });
     expect(exportButton.props.onPress).toBeUndefined();
   });
 

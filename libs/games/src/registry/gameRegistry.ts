@@ -3,7 +3,11 @@ import { JUNGLE_GAMES } from './jungleGames';
 import { OCEAN_GAMES } from './oceanGames';
 import { SPACE_GAMES } from './spaceGames';
 
-export const ALL_GAMES: GameConfig[] = [...JUNGLE_GAMES, ...OCEAN_GAMES, ...SPACE_GAMES];
+export const ALL_GAMES: GameConfig[] = [
+  ...JUNGLE_GAMES,
+  ...OCEAN_GAMES,
+  ...SPACE_GAMES,
+];
 
 const REGISTRY = new Map<string, GameConfig>(ALL_GAMES.map((g) => [g.id, g]));
 

@@ -21,11 +21,23 @@ export function FloatingStar({ emoji, x, y, size, delay }: FloatingStarProps) {
     Animated.sequence([
       Animated.delay(delay),
       Animated.parallel([
-        Animated.timing(opacity, { toValue: 0.8, duration: 600, useNativeDriver: true }),
+        Animated.timing(opacity, {
+          toValue: 0.8,
+          duration: 600,
+          useNativeDriver: true,
+        }),
         Animated.loop(
           Animated.sequence([
-            Animated.timing(translateY, { toValue: -12, duration: 1800, useNativeDriver: true }),
-            Animated.timing(translateY, { toValue: 12, duration: 1800, useNativeDriver: true }),
+            Animated.timing(translateY, {
+              toValue: -12,
+              duration: 1800,
+              useNativeDriver: true,
+            }),
+            Animated.timing(translateY, {
+              toValue: 12,
+              duration: 1800,
+              useNativeDriver: true,
+            }),
           ]),
         ),
       ]),
@@ -37,7 +49,13 @@ export function FloatingStar({ emoji, x, y, size, delay }: FloatingStarProps) {
     <Animated.Text
       style={[
         styles.star,
-        { left: x * W, top: y * H, fontSize: size, opacity, transform: [{ translateY }] },
+        {
+          left: x * W,
+          top: y * H,
+          fontSize: size,
+          opacity,
+          transform: [{ translateY }],
+        },
       ]}
     >
       {emoji}

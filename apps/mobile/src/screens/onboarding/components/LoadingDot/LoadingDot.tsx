@@ -14,12 +14,25 @@ export function LoadingDot({ delay }: LoadingDotProps) {
     Animated.loop(
       Animated.sequence([
         Animated.delay(delay),
-        Animated.timing(scale, { toValue: 1.2, duration: 400, useNativeDriver: true }),
-        Animated.timing(scale, { toValue: 0.6, duration: 400, useNativeDriver: true }),
+        Animated.timing(scale, {
+          toValue: 1.2,
+          duration: 400,
+          useNativeDriver: true,
+        }),
+        Animated.timing(scale, {
+          toValue: 0.6,
+          duration: 400,
+          useNativeDriver: true,
+        }),
       ]),
     ).start();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <Animated.View testID="loading-dot" style={[styles.dot, { transform: [{ scale }] }]} />;
+  return (
+    <Animated.View
+      testID="loading-dot"
+      style={[styles.dot, { transform: [{ scale }] }]}
+    />
+  );
 }

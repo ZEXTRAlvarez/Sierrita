@@ -20,8 +20,23 @@ export const styles = StyleSheet.create({
     gap: 4,
   },
   cardTop: { position: 'absolute', top: 0, left: 0, right: 0, height: 4 },
-  cardName: { fontSize: 13, fontWeight: '900', color: '#fff', textAlign: 'center', lineHeight: 16 },
-  cardSubject: { fontSize: 10, color: 'rgba(255,255,255,0.8)', fontWeight: '600' },
-  cardBadge: { borderRadius: 10, paddingHorizontal: 8, paddingVertical: 3, marginTop: 4 },
+  cardName: {
+    fontSize: 13,
+    fontWeight: '900',
+    color: '#fff',
+    textAlign: 'center',
+    lineHeight: 16,
+  },
+  cardSubject: {
+    fontSize: 10,
+    color: 'rgba(255,255,255,0.8)',
+    fontWeight: '600',
+  },
+  cardBadge: {
+    borderRadius: 10,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    marginTop: 4,
+  },
   cardBadgeText: { fontSize: 10, fontWeight: '800' },
 });

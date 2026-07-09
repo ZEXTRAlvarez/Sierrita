@@ -16,7 +16,10 @@ export function ItemBank({ items, selectedId, onSelect }: ItemBankProps) {
         <TouchableOpacity
           key={item.id}
           testID="classify-item"
-          style={[styles.itemChip, selectedId === item.id && styles.itemSelected]}
+          style={[
+            styles.itemChip,
+            selectedId === item.id && styles.itemSelected,
+          ]}
           onPress={() => onSelect(item)}
         >
           <Text style={styles.itemEmoji}>{item.emoji}</Text>

@@ -5,7 +5,12 @@ import { WordBlanks } from './WordBlanks';
 describe('WordBlanks', () => {
   it('shows fixed letters as-is and blanks as empty when nothing is chosen yet', () => {
     const { getByText, queryByText } = render(
-      <WordBlanks word="GATO" blankIndices={[1, 3]} chosen={[null, null]} status="idle" />,
+      <WordBlanks
+        word="GATO"
+        blankIndices={[1, 3]}
+        chosen={[null, null]}
+        status="idle"
+      />,
     );
 
     expect(getByText('G')).toBeTruthy();
@@ -16,7 +21,12 @@ describe('WordBlanks', () => {
 
   it('shows the chosen letters in their blank slots', () => {
     const { getByText } = render(
-      <WordBlanks word="GATO" blankIndices={[1, 3]} chosen={['A', 'O']} status="idle" />,
+      <WordBlanks
+        word="GATO"
+        blankIndices={[1, 3]}
+        chosen={['A', 'O']}
+        status="idle"
+      />,
     );
 
     expect(getByText('A')).toBeTruthy();

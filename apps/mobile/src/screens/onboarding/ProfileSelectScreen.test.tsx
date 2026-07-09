@@ -16,7 +16,9 @@ jest.mock('@react-navigation/native', () => ({
   }),
 }));
 jest.mock('expo-linear-gradient', () => ({ LinearGradient: 'LinearGradient' }));
-jest.mock('../../components/PetAnimation', () => ({ PetAnimation: () => null }));
+jest.mock('../../components/PetAnimation', () => ({
+  PetAnimation: () => null,
+}));
 
 const mockProfiles = [{ id: 'p1', name: 'Sofía', age: 5, avatar: 'dragon' }];
 const mockSelectProfile = jest.fn();
@@ -29,7 +31,9 @@ jest.mock('../../hooks/useProfiles', () => ({
   }),
 }));
 
-jest.mock('../../store/atoms', () => ({ activeProfileIdAtom: 'activeProfileId' }));
+jest.mock('../../store/atoms', () => ({
+  activeProfileIdAtom: 'activeProfileId',
+}));
 jest.mock('jotai', () => ({ useAtomValue: () => null }));
 
 describe('ProfileSelectScreen', () => {

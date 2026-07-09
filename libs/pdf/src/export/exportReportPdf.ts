@@ -11,7 +11,10 @@ export interface ExportReportResult {
  * it. Returns the outcome instead of showing UI feedback directly — callers
  * (screens) own how to present success/failure to the user.
  */
-export async function exportReportPdf(html: string, dialogTitle: string): Promise<ExportReportResult> {
+export async function exportReportPdf(
+  html: string,
+  dialogTitle: string,
+): Promise<ExportReportResult> {
   const { uri } = await Print.printToFileAsync({ html, base64: false });
   const canShare = await Sharing.isAvailableAsync();
   if (canShare) {

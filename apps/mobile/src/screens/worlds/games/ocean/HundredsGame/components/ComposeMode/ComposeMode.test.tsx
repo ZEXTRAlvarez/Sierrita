@@ -7,7 +7,12 @@ describe('ComposeMode', () => {
 
   it('shows the H/D/U expression and 4 number options', () => {
     const { getByText, getAllByTestId } = render(
-      <ComposeMode problem={problem} maxNumber={999} onAnswer={jest.fn()} result="idle" />,
+      <ComposeMode
+        problem={problem}
+        maxNumber={999}
+        onAnswer={jest.fn()}
+        result="idle"
+      />,
     );
 
     expect(getByText('3 C')).toBeTruthy();
@@ -19,7 +24,12 @@ describe('ComposeMode', () => {
   it('reports true only when the composed number is chosen', () => {
     const onAnswer = jest.fn();
     const { getByText } = render(
-      <ComposeMode problem={problem} maxNumber={999} onAnswer={onAnswer} result="idle" />,
+      <ComposeMode
+        problem={problem}
+        maxNumber={999}
+        onAnswer={onAnswer}
+        result="idle"
+      />,
     );
 
     fireEvent.press(getByText('347'));

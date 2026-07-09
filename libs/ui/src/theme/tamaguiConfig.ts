@@ -1,6 +1,13 @@
 import type { TamaguiInternalConfig } from '@tamagui/core';
 import { createTamagui } from '@tamagui/core';
-import { tokens, themes, fonts, animations, shorthands, media } from '@tamagui/config/v4';
+import {
+  tokens,
+  themes,
+  fonts,
+  animations,
+  shorthands,
+  media,
+} from '@tamagui/config/v4';
 
 // Single source of truth for the app's Tamagui setup — relocated from
 // apps/mobile/src/theme/index.ts, which is now a re-export shim (see

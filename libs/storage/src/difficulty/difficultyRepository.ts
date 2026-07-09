@@ -2,7 +2,10 @@ import type { DifficultyState } from '@sierrita/adaptive';
 import { getDatabase } from '../schema/getDatabase';
 import { rowToDifficultyState } from './difficultyStateRow';
 
-export async function getDifficultyState(profileId: string, gameId: string): Promise<DifficultyState | null> {
+export async function getDifficultyState(
+  profileId: string,
+  gameId: string,
+): Promise<DifficultyState | null> {
   const db = await getDatabase();
   const row = await db.getFirstAsync<Record<string, unknown>>(
     'SELECT * FROM difficulty_state WHERE profile_id = ? AND game_id = ?',
@@ -11,7 +14,9 @@ export async function getDifficultyState(profileId: string, gameId: string): Pro
   return row ? rowToDifficultyState(row) : null;
 }
 
-export async function getAllDifficultyStates(profileId: string): Promise<DifficultyState[]> {
+export async function getAllDifficultyStates(
+  profileId: string,
+): Promise<DifficultyState[]> {
   const db = await getDatabase();
   const rows = await db.getAllAsync<Record<string, unknown>>(
     'SELECT * FROM difficulty_state WHERE profile_id = ?',
@@ -20,7 +25,9 @@ export async function getAllDifficultyStates(profileId: string): Promise<Difficu
   return rows.map(rowToDifficultyState);
 }
 
-export async function upsertDifficultyState(state: DifficultyState): Promise<void> {
+export async function upsertDifficultyState(
+  state: DifficultyState,
+): Promise<void> {
   const db = await getDatabase();
   await db.runAsync(
     `INSERT INTO difficulty_state

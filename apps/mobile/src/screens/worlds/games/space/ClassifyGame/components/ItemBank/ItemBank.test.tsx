@@ -10,7 +10,9 @@ const items = [
 describe('ItemBank', () => {
   it('renders one chip per item and reports the pressed item', () => {
     const onSelect = jest.fn();
-    const { getAllByTestId } = render(<ItemBank items={items} selectedId={null} onSelect={onSelect} />);
+    const { getAllByTestId } = render(
+      <ItemBank items={items} selectedId={null} onSelect={onSelect} />,
+    );
 
     const chips = getAllByTestId('classify-item');
     expect(chips).toHaveLength(2);
@@ -20,7 +22,9 @@ describe('ItemBank', () => {
   });
 
   it('renders no chips when the bank is empty', () => {
-    const { queryAllByTestId } = render(<ItemBank items={[]} selectedId={null} onSelect={jest.fn()} />);
+    const { queryAllByTestId } = render(
+      <ItemBank items={[]} selectedId={null} onSelect={jest.fn()} />,
+    );
 
     expect(queryAllByTestId('classify-item')).toHaveLength(0);
   });

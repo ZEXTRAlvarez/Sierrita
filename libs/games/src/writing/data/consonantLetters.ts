@@ -57,7 +57,8 @@ export const CONSONANT_LETTERS: LetterDef[] = [
   {
     letter: 'S',
     guidePath: 'M85,15 C85,5 15,5 15,45 C15,65 85,55 85,75 C85,98 15,98 15,85',
-    cursivePath: 'M85,15 C85,5 15,5 15,45 C15,65 85,55 85,75 C85,98 15,98 15,85',
+    cursivePath:
+      'M85,15 C85,5 15,5 15,45 C15,65 85,55 85,75 C85,98 15,98 15,85',
     checkpoints: [
       { x: 85, y: 15, r: 12 },
       { x: 15, y: 30, r: 12 },

@@ -13,7 +13,11 @@ export interface UseMazeGameStateOptions {
 }
 
 /** Owns the maze grid, rocket position and finished state for the single-maze round. */
-export function useMazeGameState({ gridSize, onRoundComplete, onGameFinish }: UseMazeGameStateOptions) {
+export function useMazeGameState({
+  gridSize,
+  onRoundComplete,
+  onGameFinish,
+}: UseMazeGameStateOptions) {
   const [maze] = useState(() => generateMaze(gridSize));
   const [pos, setPos] = useState<[number, number]>([0, 0]);
   const [finished, setFinished] = useState(false);
@@ -24,27 +28,33 @@ export function useMazeGameState({ gridSize, onRoundComplete, onGameFinish }: Us
 
   const cellSize = Math.min(Math.floor((SCREEN_W - 48) / gridSize), 58);
 
-  const canMove = useCallback((dir: Dir) => {
-    const [r, c] = pos;
-    return !maze[r][c][dir];
-  }, [maze, pos]);
+  const canMove = useCallback(
+    (dir: Dir) => {
+      const [r, c] = pos;
+      return !maze[r][c][dir];
+    },
+    [maze, pos],
+  );
 
-  const move = useCallback(async (dir: Dir) => {
-    if (finished || !canMove(dir)) return;
+  const move = useCallback(
+    async (dir: Dir) => {
+      if (finished || !canMove(dir)) return;
 
-    const [dr, dc] = MOVES[dir];
-    const [r, c] = pos;
-    const nr = r + dr;
-    const nc = c + dc;
-    setPos([nr, nc]);
+      const [dr, dc] = MOVES[dir];
+      const [r, c] = pos;
+      const nr = r + dr;
+      const nc = c + dc;
+      setPos([nr, nc]);
 
-    if (nr === gridSize - 1 && nc === gridSize - 1) {
-      setFinished(true);
-      speak('¡Llegaste a la estrella!');
-      await onRoundComplete(true, 0);
-      setTimeout(onGameFinish, 800);
-    }
-  }, [finished, canMove, pos, gridSize, onRoundComplete, onGameFinish]);
+      if (nr === gridSize - 1 && nc === gridSize - 1) {
+        setFinished(true);
+        speak('¡Llegaste a la estrella!');
+        await onRoundComplete(true, 0);
+        setTimeout(onGameFinish, 800);
+      }
+    },
+    [finished, canMove, pos, gridSize, onRoundComplete, onGameFinish],
+  );
 
   return { maze, pos, finished, cellSize, canMove, move };
 }

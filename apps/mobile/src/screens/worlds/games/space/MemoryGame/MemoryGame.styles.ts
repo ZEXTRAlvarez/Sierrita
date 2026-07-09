@@ -7,8 +7,18 @@ export const styles = StyleSheet.create({
     paddingTop: 12,
     backgroundColor: '#F3E5F5',
   },
-  progress: { fontSize: 16, color: '#7B1FA2', fontWeight: '600', marginBottom: 4 },
-  instruction: { fontSize: 20, fontWeight: '700', color: '#4A148C', marginBottom: 16 },
+  progress: {
+    fontSize: 16,
+    color: '#7B1FA2',
+    fontWeight: '600',
+    marginBottom: 4,
+  },
+  instruction: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#4A148C',
+    marginBottom: 16,
+  },
   grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',

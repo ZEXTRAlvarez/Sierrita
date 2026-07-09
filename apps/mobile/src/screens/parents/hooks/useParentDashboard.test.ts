@@ -4,7 +4,9 @@ import { exportReportPdf } from '@sierrita/pdf';
 import { useParentDashboard } from './useParentDashboard';
 
 jest.mock('jotai', () => ({
-  useAtomValue: jest.fn((atom) => (atom === 'profile' ? { name: 'Sofía', age: 5 } : 'p1')),
+  useAtomValue: jest.fn((atom) =>
+    atom === 'profile' ? { name: 'Sofía', age: 5 } : 'p1',
+  ),
 }));
 jest.mock('../../../store/atoms', () => ({
   activeProfileAtom: 'profile',
@@ -18,7 +20,12 @@ const mockConfig = {
   worldsEnabled: ['jungle', 'ocean', 'space'],
   updatedAt: 0,
 };
-const mockGlobalStats = { totalSessions: 3, totalMinutes: 20, avgScore: 80, bestScore: 100 };
+const mockGlobalStats = {
+  totalSessions: 3,
+  totalMinutes: 20,
+  avgScore: 80,
+  bestScore: 100,
+};
 
 jest.mock('@sierrita/storage', () => ({
   getParentConfig: jest.fn(async () => mockConfig),
@@ -26,7 +33,9 @@ jest.mock('@sierrita/storage', () => ({
   getProfileStats: jest.fn(async () => mockGlobalStats),
   getGameStats: jest.fn(async () => []),
 }));
-jest.mock('@sierrita/parents', () => ({ hashPin: jest.fn(async (pin: string) => `hash(${pin})`) }));
+jest.mock('@sierrita/parents', () => ({
+  hashPin: jest.fn(async (pin: string) => `hash(${pin})`),
+}));
 jest.mock('@sierrita/pdf', () => ({
   buildReportHtml: jest.fn(() => '<html></html>'),
   exportReportPdf: jest.fn(async () => ({ uri: 'file://r.pdf', shared: true })),
@@ -50,7 +59,9 @@ describe('useParentDashboard', () => {
       await result.current.unlock('1234');
     });
 
-    expect(upsertParentConfig).toHaveBeenCalledWith(expect.objectContaining({ pinHash: 'hash(1234)' }));
+    expect(upsertParentConfig).toHaveBeenCalledWith(
+      expect.objectContaining({ pinHash: 'hash(1234)' }),
+    );
   });
 
   it('exportPdf() returns ok:false without calling exportReportPdf when data is not loaded yet', async () => {

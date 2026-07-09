@@ -1,7 +1,17 @@
 import { useCallback } from 'react';
 import { useAtom, useSetAtom } from 'jotai';
-import { profilesAtom, activeProfileIdAtom, petStateAtom } from '../../store/atoms';
-import { getAllProfiles, createProfile, deleteProfile, upsertPetState, upsertParentConfig } from '@sierrita/storage';
+import {
+  profilesAtom,
+  activeProfileIdAtom,
+  petStateAtom,
+} from '../../store/atoms';
+import {
+  getAllProfiles,
+  createProfile,
+  deleteProfile,
+  upsertPetState,
+  upsertParentConfig,
+} from '@sierrita/storage';
 import { createInitialPetState } from '@sierrita/pet';
 import { createDefaultParentConfig } from '@sierrita/parents';
 import type { Profile, PetType } from '@sierrita/profiles';
@@ -20,7 +30,13 @@ export function useProfiles() {
   const addProfile = useCallback(
     async (name: string, age: 4 | 5 | 6, avatar: PetType): Promise<Profile> => {
       const id = `p_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
-      const profile: Profile = { id, name, age, avatar, createdAt: Math.floor(Date.now() / 1000) };
+      const profile: Profile = {
+        id,
+        name,
+        age,
+        avatar,
+        createdAt: Math.floor(Date.now() / 1000),
+      };
       await createProfile(profile);
       const pet = createInitialPetState(id, avatar);
       await upsertPetState(pet);
@@ -43,9 +59,20 @@ export function useProfiles() {
     [activeProfileId, setActiveProfileId, setProfiles, setPetState],
   );
 
-  const selectProfile = useCallback((id: string) => setActiveProfileId(id), [setActiveProfileId]);
+  const selectProfile = useCallback(
+    (id: string) => setActiveProfileId(id),
+    [setActiveProfileId],
+  );
 
   const activeProfile = profiles.find((p) => p.id === activeProfileId) ?? null;
 
-  return { profiles, activeProfile, activeProfileId, loadProfiles, addProfile, removeProfile, selectProfile };
+  return {
+    profiles,
+    activeProfile,
+    activeProfileId,
+    loadProfiles,
+    addProfile,
+    removeProfile,
+    selectProfile,
+  };
 }

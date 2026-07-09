@@ -8,7 +8,11 @@ export interface OutfitGridProps {
   onSelect: (outfitId: string) => void;
 }
 
-export function OutfitGrid({ totalXp, selectedOutfit, onSelect }: OutfitGridProps) {
+export function OutfitGrid({
+  totalXp,
+  selectedOutfit,
+  onSelect,
+}: OutfitGridProps) {
   return (
     <View style={styles.container}>
       {OUTFITS.map((outfit) => {
@@ -19,21 +23,31 @@ export function OutfitGrid({ totalXp, selectedOutfit, onSelect }: OutfitGridProp
             key={outfit.id}
             style={[
               styles.card,
-              active && { borderColor: outfit.color, borderWidth: 3, backgroundColor: outfit.color + '18' },
+              active && {
+                borderColor: outfit.color,
+                borderWidth: 3,
+                backgroundColor: outfit.color + '18',
+              },
               !unlocked && styles.locked,
             ]}
             onPress={() => unlocked && onSelect(outfit.id)}
             activeOpacity={unlocked ? 0.8 : 1}
           >
-            <Text style={[styles.emoji, !unlocked && { opacity: 0.35 }]}>{outfit.emoji}</Text>
-            <Text style={[styles.name, !unlocked && { color: '#CCC' }]}>{outfit.name}</Text>
+            <Text style={[styles.emoji, !unlocked && { opacity: 0.35 }]}>
+              {outfit.emoji}
+            </Text>
+            <Text style={[styles.name, !unlocked && { color: '#CCC' }]}>
+              {outfit.name}
+            </Text>
             {!unlocked && (
               <View style={styles.lockBadge}>
                 <Text style={styles.lockText}>🔒 {outfit.xpRequired} XP</Text>
               </View>
             )}
             {active && (
-              <View style={[styles.activeBadge, { backgroundColor: outfit.color }]}>
+              <View
+                style={[styles.activeBadge, { backgroundColor: outfit.color }]}
+              >
                 <Text style={styles.activeBadgeText}>✓</Text>
               </View>
             )}

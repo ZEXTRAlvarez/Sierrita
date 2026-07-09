@@ -14,7 +14,11 @@ type Chosen = { h: number | null; d: number | null; u: number | null };
 type Field = keyof Chosen;
 
 /** Shows a number and lets the child pick its hundreds, tens and units digits separately. */
-export function DecomposeMode({ problem, onAnswer, result }: DecomposeModeProps) {
+export function DecomposeMode({
+  problem,
+  onAnswer,
+  result,
+}: DecomposeModeProps) {
   const [chosen, setChosen] = useState<Chosen>({ h: null, d: null, u: null });
 
   const hOptions = useRef(generateDigitOptions(problem.hundreds)).current;
@@ -23,7 +27,11 @@ export function DecomposeMode({ problem, onAnswer, result }: DecomposeModeProps)
 
   useEffect(() => {
     if (chosen.h !== null && chosen.d !== null && chosen.u !== null) {
-      onAnswer(chosen.h === problem.hundreds && chosen.d === problem.tens && chosen.u === problem.units);
+      onAnswer(
+        chosen.h === problem.hundreds &&
+          chosen.d === problem.tens &&
+          chosen.u === problem.units,
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chosen]);
@@ -33,9 +41,17 @@ export function DecomposeMode({ problem, onAnswer, result }: DecomposeModeProps)
     setChosen((prev) => ({ ...prev, [field]: value }));
   }
 
-  function DigitRow(
-    { label, options, value, field }: { label: string; options: number[]; value: number | null; field: Field },
-  ) {
+  function DigitRow({
+    label,
+    options,
+    value,
+    field,
+  }: {
+    label: string;
+    options: number[];
+    value: number | null;
+    field: Field;
+  }) {
     return (
       <View style={styles.decomposeRow}>
         <Text style={styles.decomposeLabel}>{label}</Text>

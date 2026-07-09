@@ -11,7 +11,11 @@ jest.mock('../components/LetterCanvas', () => {
   const { TouchableOpacity, Text } = require('react-native');
   return {
     __esModule: true,
-    default: function LetterCanvas({ onStrokeEnd }: { onStrokeEnd: (points: unknown[]) => void }) {
+    default: function LetterCanvas({
+      onStrokeEnd,
+    }: {
+      onStrokeEnd: (points: unknown[]) => void;
+    }) {
       return ReactActual.createElement(
         TouchableOpacity,
         { testID: 'letter-canvas', onPress: () => onStrokeEnd([]) },

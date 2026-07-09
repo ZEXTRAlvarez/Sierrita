@@ -18,6 +18,8 @@ module.exports = {
   },
   // Tamagui ships ESM in node_modules; the default RN preset only unignores
   // react-native itself, so extend it to also transform tamagui's packages.
-  transformIgnorePatterns: ['node_modules/(?!((jest-)?react-native|@react-native(-community)?|@?tamagui)/)'],
+  transformIgnorePatterns: [
+    'node_modules/(?!((jest-)?react-native|@react-native(-community)?|@?tamagui)/)',
+  ],
   coverageDirectory: '../../coverage/libs/ui',
 };

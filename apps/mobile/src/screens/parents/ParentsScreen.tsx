@@ -20,7 +20,8 @@ type Nav = NativeStackNavigationProp<RootStackParamList>;
 export default function ParentsScreen() {
   const navigation = useNavigation<Nav>();
   const dashboard = useParentDashboard();
-  const { profile, parentConfig, globalStats, gameStats, loading, exporting } = dashboard;
+  const { profile, parentConfig, globalStats, gameStats, loading, exporting } =
+    dashboard;
 
   const [unlocked, setUnlocked] = useState(false);
   const [activeScreen, setActiveScreen] = useState<ParentsTab>('stats');
@@ -57,14 +58,24 @@ export default function ParentsScreen() {
   if (!parentConfig) {
     return (
       <View style={styles.center}>
-        <Text style={styles.errorText}>No se encontró configuración. Seleccioná un perfil.</Text>
-        <Text style={styles.linkText} onPress={() => navigation.goBack()}>← Volver</Text>
+        <Text style={styles.errorText}>
+          No se encontró configuración. Seleccioná un perfil.
+        </Text>
+        <Text style={styles.linkText} onPress={() => navigation.goBack()}>
+          ← Volver
+        </Text>
       </View>
     );
   }
 
   if (!unlocked) {
-    return <PinGate isSetup={parentConfig.pinHash === ''} storedHash={parentConfig.pinHash} onSuccess={handleUnlock} />;
+    return (
+      <PinGate
+        isSetup={parentConfig.pinHash === ''}
+        storedHash={parentConfig.pinHash}
+        onSuccess={handleUnlock}
+      />
+    );
   }
 
   return (
@@ -76,9 +87,19 @@ export default function ParentsScreen() {
         onLock={() => setUnlocked(false)}
       />
       <ParentsTabBar active={activeScreen} onChange={setActiveScreen} />
-      <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
-        {activeScreen === 'stats' && globalStats && <StatsSection globalStats={globalStats} gameStats={gameStats} />}
-        {activeScreen === 'settings' && <SettingsSection config={parentConfig} onChange={dashboard.updateConfig} />}
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
+      >
+        {activeScreen === 'stats' && globalStats && (
+          <StatsSection globalStats={globalStats} gameStats={gameStats} />
+        )}
+        {activeScreen === 'settings' && (
+          <SettingsSection
+            config={parentConfig}
+            onChange={dashboard.updateConfig}
+          />
+        )}
         <ParentsActions
           exporting={exporting}
           onExportPdf={handleExportPDF}

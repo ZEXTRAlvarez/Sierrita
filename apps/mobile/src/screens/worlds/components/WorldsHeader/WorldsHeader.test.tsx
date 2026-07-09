@@ -4,7 +4,9 @@ import { WorldsHeader } from './WorldsHeader';
 
 describe('WorldsHeader', () => {
   it('shows the profile name and age when a profile is given', () => {
-    const { getByText } = render(<WorldsHeader profileName="Sofía" profileAge={5} />);
+    const { getByText } = render(
+      <WorldsHeader profileName="Sofía" profileAge={5} />,
+    );
 
     expect(getByText('¡Elegí tu mundo!')).toBeTruthy();
     expect(getByText('Sofía · 5 años')).toBeTruthy();

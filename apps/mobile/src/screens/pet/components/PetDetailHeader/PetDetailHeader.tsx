@@ -10,11 +10,22 @@ export interface PetDetailHeaderProps {
   onBack: () => void;
 }
 
-export function PetDetailHeader({ petColor, petName, stageName, totalXp, onBack }: PetDetailHeaderProps) {
+export function PetDetailHeader({
+  petColor,
+  petName,
+  stageName,
+  totalXp,
+  onBack,
+}: PetDetailHeaderProps) {
   const anim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    Animated.spring(anim, { toValue: 1, damping: 14, stiffness: 100, useNativeDriver: true }).start();
+    Animated.spring(anim, {
+      toValue: 1,
+      damping: 14,
+      stiffness: 100,
+      useNativeDriver: true,
+    }).start();
   }, [anim]);
 
   return (
@@ -22,7 +33,17 @@ export function PetDetailHeader({ petColor, petName, stageName, totalXp, onBack 
       style={[
         styles.header,
         { backgroundColor: petColor },
-        { opacity: anim, transform: [{ translateY: anim.interpolate({ inputRange: [0, 1], outputRange: [-20, 0] }) }] },
+        {
+          opacity: anim,
+          transform: [
+            {
+              translateY: anim.interpolate({
+                inputRange: [0, 1],
+                outputRange: [-20, 0],
+              }),
+            },
+          ],
+        },
       ]}
     >
       <TouchableOpacity onPress={onBack} hitSlop={16} style={styles.backBtn}>

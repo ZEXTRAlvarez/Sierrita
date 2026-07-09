@@ -15,13 +15,24 @@ export function VisualBlocks({ a, b, op }: VisualBlocksProps) {
     <View style={styles.visualRow}>
       <View style={styles.blockGroup}>
         {Array.from({ length: a }).map((_, i) => (
-          <View key={i} testID="block-a" style={[styles.block, { backgroundColor: '#1565C0' }]} />
+          <View
+            key={i}
+            testID="block-a"
+            style={[styles.block, { backgroundColor: '#1565C0' }]}
+          />
         ))}
       </View>
       <Text style={styles.opSymbol}>{op === 'add' ? '+' : '−'}</Text>
       <View style={styles.blockGroup}>
         {Array.from({ length: b }).map((_, i) => (
-          <View key={i} testID="block-b" style={[styles.block, { backgroundColor: op === 'add' ? '#0288D1' : '#F44336' }]} />
+          <View
+            key={i}
+            testID="block-b"
+            style={[
+              styles.block,
+              { backgroundColor: op === 'add' ? '#0288D1' : '#F44336' },
+            ]}
+          />
         ))}
       </View>
     </View>

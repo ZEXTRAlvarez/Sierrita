@@ -24,14 +24,19 @@ export default function WorldsScreen() {
     <View style={styles.container}>
       <WorldsHeader profileName={profile?.name} profileAge={profileAge} />
 
-      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
         {WORLDS.map((world, i) => (
           <WorldSection
             key={world.id}
             world={world}
             profileAge={profileAge}
             entrance={entranceAnims[i]}
-            onPressGame={(gameId) => navigation.navigate('Game', { worldId: world.id, gameId })}
+            onPressGame={(gameId) =>
+              navigation.navigate('Game', { worldId: world.id, gameId })
+            }
           />
         ))}
 

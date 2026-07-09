@@ -9,7 +9,12 @@ export interface GameScreenHeaderProps {
   onBack: () => void;
 }
 
-export function GameScreenHeader({ title, currentLevel, color, onBack }: GameScreenHeaderProps) {
+export function GameScreenHeader({
+  title,
+  currentLevel,
+  color,
+  onBack,
+}: GameScreenHeaderProps) {
   return (
     <View style={[styles.header, { backgroundColor: color }]}>
       <TouchableOpacity onPress={onBack} hitSlop={16}>

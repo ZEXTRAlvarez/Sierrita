@@ -29,7 +29,11 @@ describe('processRoundResult', () => {
     let levelChanged = false;
     let levelUp = false;
     for (let i = 0; i < 3; i++) {
-      ({ next: state, levelChanged, levelUp } = processRoundResult(state, true));
+      ({
+        next: state,
+        levelChanged,
+        levelUp,
+      } = processRoundResult(state, true));
     }
 
     expect(state.currentLevel).toBe(2);
@@ -65,7 +69,11 @@ describe('processRoundResult', () => {
     let levelChanged = false;
     let levelUp = true;
     for (let i = 0; i < 2; i++) {
-      ({ next: state, levelChanged, levelUp } = processRoundResult(state, false));
+      ({
+        next: state,
+        levelChanged,
+        levelUp,
+      } = processRoundResult(state, false));
     }
 
     expect(state.currentLevel).toBe(1);
@@ -103,7 +111,10 @@ describe('processRoundResult', () => {
     const sequence = [true, true, false, true, true, true];
     let lastLevelUp = false;
     for (const correct of sequence) {
-      ({ next: state, levelUp: lastLevelUp } = processRoundResult(state, correct));
+      ({ next: state, levelUp: lastLevelUp } = processRoundResult(
+        state,
+        correct,
+      ));
     }
 
     // hit, hit, miss(resets), hit, hit, hit -> levels up on the 3rd consecutive hit

@@ -15,7 +15,11 @@ describe('computeStars', () => {
 });
 
 describe('summarizeSession', () => {
-  const round = (correct: boolean): RoundResult => ({ correct, responseTimeMs: 1000, hintsUsed: 0 });
+  const round = (correct: boolean): RoundResult => ({
+    correct,
+    responseTimeMs: 1000,
+    hintsUsed: 0,
+  });
 
   const session: GameSession = {
     gameId: 'counting',
@@ -63,24 +67,32 @@ describe('speedBonus', () => {
   });
 
   it('gives the top bonus for very fast average responses', () => {
-    const rounds: RoundResult[] = [{ correct: true, responseTimeMs: 1000, hintsUsed: 0 }];
+    const rounds: RoundResult[] = [
+      { correct: true, responseTimeMs: 1000, hintsUsed: 0 },
+    ];
     // difficulty 1 threshold is 8000ms; 1000 < 8000 * 0.5
     expect(speedBonus(rounds, 1)).toBe(10);
   });
 
   it('gives the mid bonus for moderately fast responses', () => {
-    const rounds: RoundResult[] = [{ correct: true, responseTimeMs: 5000, hintsUsed: 0 }];
+    const rounds: RoundResult[] = [
+      { correct: true, responseTimeMs: 5000, hintsUsed: 0 },
+    ];
     // 5000 is between 8000*0.5=4000 and 8000*0.75=6000
     expect(speedBonus(rounds, 1)).toBe(5);
   });
 
   it('gives no bonus for slow responses', () => {
-    const rounds: RoundResult[] = [{ correct: true, responseTimeMs: 8000, hintsUsed: 0 }];
+    const rounds: RoundResult[] = [
+      { correct: true, responseTimeMs: 8000, hintsUsed: 0 },
+    ];
     expect(speedBonus(rounds, 1)).toBe(0);
   });
 
   it('scales the threshold down for higher difficulty', () => {
-    const rounds: RoundResult[] = [{ correct: true, responseTimeMs: 1900, hintsUsed: 0 }];
+    const rounds: RoundResult[] = [
+      { correct: true, responseTimeMs: 1900, hintsUsed: 0 },
+    ];
     // difficulty 3 threshold is 4000ms; 1900 < 4000*0.5=2000 -> top bonus
     expect(speedBonus(rounds, 3)).toBe(10);
   });

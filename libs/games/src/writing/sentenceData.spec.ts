@@ -1,12 +1,15 @@
 import { getSentences, shuffleWords } from './sentenceData';
 
 describe('getSentences', () => {
-  it.each([3, 4, 5] as const)('returns sentences with %i words each', (wordCount) => {
-    const sentences = getSentences(wordCount, 3);
+  it.each([3, 4, 5] as const)(
+    'returns sentences with %i words each',
+    (wordCount) => {
+      const sentences = getSentences(wordCount, 3);
 
-    expect(sentences.length).toBeGreaterThan(0);
-    for (const s of sentences) expect(s.words).toHaveLength(wordCount);
-  });
+      expect(sentences.length).toBeGreaterThan(0);
+      for (const s of sentences) expect(s.words).toHaveLength(wordCount);
+    },
+  );
 
   it('never returns more than the requested count', () => {
     expect(getSentences(3, 1)).toHaveLength(1);

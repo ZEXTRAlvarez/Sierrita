@@ -9,7 +9,12 @@ export interface WordTrayProps {
 }
 
 /** The sentence-in-progress: words the player has placed, tap one to send it back to the bank. */
-export function WordTray({ placed, status, disabled, onRemove }: WordTrayProps) {
+export function WordTray({
+  placed,
+  status,
+  disabled,
+  onRemove,
+}: WordTrayProps) {
   if (placed.length === 0) {
     return (
       <View style={styles.tray}>
@@ -24,7 +29,11 @@ export function WordTray({ placed, status, disabled, onRemove }: WordTrayProps) 
         <TouchableOpacity
           key={`placed-${i}`}
           testID="sentence-placed-word"
-          style={[styles.wordChip, status === 'correct' && styles.correctChip, status === 'wrong' && styles.wrongChip]}
+          style={[
+            styles.wordChip,
+            status === 'correct' && styles.correctChip,
+            status === 'wrong' && styles.wrongChip,
+          ]}
           onPress={() => onRemove(word, i)}
           disabled={disabled}
         >

@@ -5,7 +5,10 @@ import { TamaguiProvider } from '@tamagui/core';
 import tamaguiConfig from '../theme/tamaguiConfig';
 
 /** RTL render() wrapped in the app's TamaguiProvider, for testing components in ../components. */
-export function renderWithTamagui(ui: React.ReactElement, options?: RenderOptions) {
+export function renderWithTamagui(
+  ui: React.ReactElement,
+  options?: RenderOptions,
+) {
   return render(
     <TamaguiProvider config={tamaguiConfig} defaultTheme="light">
       {ui}

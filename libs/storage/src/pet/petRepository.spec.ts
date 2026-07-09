@@ -37,7 +37,9 @@ describe('upsertPetState / getPetState', () => {
 
     await upsertPetState(petState({ hunger: 40, petName: 'Chispita' }));
 
-    await expect(getPetState('p1')).resolves.toEqual(petState({ hunger: 40, petName: 'Chispita' }));
+    await expect(getPetState('p1')).resolves.toEqual(
+      petState({ hunger: 40, petName: 'Chispita' }),
+    );
   });
 
   it('returns null for a profile with no pet state yet', async () => {

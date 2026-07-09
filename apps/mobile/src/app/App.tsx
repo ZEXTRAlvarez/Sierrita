@@ -8,14 +8,18 @@ import * as SplashScreen from 'expo-splash-screen';
 import tamaguiConfig from '../theme';
 import { AppNavigator } from '../navigation';
 import { getDatabase, getAllProfiles } from '@sierrita/storage';
-import { profilesAtom, activeProfileIdAtom, appReadyAtom } from '../store/atoms';
+import {
+  profilesAtom,
+  activeProfileIdAtom,
+  appReadyAtom,
+} from '../store/atoms';
 
 SplashScreen.preventAutoHideAsync();
 
 function AppInit({ children }: { children: React.ReactNode }) {
-  const setProfiles       = useSetAtom(profilesAtom);
+  const setProfiles = useSetAtom(profilesAtom);
   const [activeProfileId, setActiveProfileId] = useAtom(activeProfileIdAtom);
-  const [, setAppReady]   = useAtom(appReadyAtom);
+  const [, setAppReady] = useAtom(appReadyAtom);
 
   useEffect(() => {
     async function init() {
@@ -34,7 +38,7 @@ function AppInit({ children }: { children: React.ReactNode }) {
       }
     }
     init();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <>{children}</>;
@@ -68,7 +72,12 @@ export const App = () => {
 
 const styles = StyleSheet.create({
   root: { flex: 1 },
-  loading: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#FAFAFA' },
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FAFAFA',
+  },
 });
 
 export default App;

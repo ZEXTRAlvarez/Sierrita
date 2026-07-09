@@ -5,7 +5,13 @@ import { PetDetailHeader } from './PetDetailHeader';
 describe('PetDetailHeader', () => {
   it('renders the pet name, stage and xp', () => {
     const { getByText } = render(
-      <PetDetailHeader petColor="#FF6F00" petName="Chispita" stageName="Niño" totalXp={200} onBack={jest.fn()} />,
+      <PetDetailHeader
+        petColor="#FF6F00"
+        petName="Chispita"
+        stageName="Niño"
+        totalXp={200}
+        onBack={jest.fn()}
+      />,
     );
 
     expect(getByText('Chispita')).toBeTruthy();
@@ -15,7 +21,13 @@ describe('PetDetailHeader', () => {
   it('calls onBack when the back button is tapped', () => {
     const onBack = jest.fn();
     const { getByText } = render(
-      <PetDetailHeader petColor="#FF6F00" petName="Chispita" stageName="Niño" totalXp={0} onBack={onBack} />,
+      <PetDetailHeader
+        petColor="#FF6F00"
+        petName="Chispita"
+        stageName="Niño"
+        totalXp={0}
+        onBack={onBack}
+      />,
     );
 
     fireEvent.press(getByText('← Volver'));

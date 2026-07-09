@@ -4,7 +4,9 @@ import { ParentsTabBar } from './ParentsTabBar';
 
 describe('ParentsTabBar', () => {
   it('renders both tabs', () => {
-    const { getByText } = render(<ParentsTabBar active="stats" onChange={jest.fn()} />);
+    const { getByText } = render(
+      <ParentsTabBar active="stats" onChange={jest.fn()} />,
+    );
 
     expect(getByText('📊 Estadísticas')).toBeTruthy();
     expect(getByText('⚙️ Configuración')).toBeTruthy();
@@ -12,7 +14,9 @@ describe('ParentsTabBar', () => {
 
   it('calls onChange with the tapped tab id', () => {
     const onChange = jest.fn();
-    const { getByText } = render(<ParentsTabBar active="stats" onChange={onChange} />);
+    const { getByText } = render(
+      <ParentsTabBar active="stats" onChange={onChange} />,
+    );
 
     fireEvent.press(getByText('⚙️ Configuración'));
 

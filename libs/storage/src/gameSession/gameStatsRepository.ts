@@ -21,7 +21,9 @@ export async function getGameStats(profileId: string): Promise<GameStat[]> {
   return rows.map(rowToGameStat);
 }
 
-export async function getProfileStats(profileId: string): Promise<ProfileStats> {
+export async function getProfileStats(
+  profileId: string,
+): Promise<ProfileStats> {
   const db = await getDatabase();
   const row = await db.getFirstAsync<Record<string, unknown>>(
     `SELECT

@@ -11,7 +11,13 @@ export interface MemoryCardProps {
 }
 
 /** A single flippable memory card: shows the back glyph until flipped or matched. */
-export function MemoryCard({ card, size, locked, scale, onPress }: MemoryCardProps) {
+export function MemoryCard({
+  card,
+  size,
+  locked,
+  scale,
+  onPress,
+}: MemoryCardProps) {
   const revealed = card.flipped || card.matched;
 
   return (

@@ -7,7 +7,10 @@ export const VOICE_OPTIONS: Speech.SpeechOptions = {
   rate: 0.85, // más lento para que entiendan bien
 };
 
-export async function speak(text: string, options?: Partial<Speech.SpeechOptions>): Promise<void> {
+export async function speak(
+  text: string,
+  options?: Partial<Speech.SpeechOptions>,
+): Promise<void> {
   Speech.stop();
   Speech.speak(text, { ...VOICE_OPTIONS, ...options });
 }

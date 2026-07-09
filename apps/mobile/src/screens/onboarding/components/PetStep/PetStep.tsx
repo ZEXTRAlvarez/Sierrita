@@ -20,7 +20,10 @@ export function PetStep({ pet, saving, onSelectPet, onCreate }: PetStepProps) {
         {PET_OPTIONS.map((p) => (
           <TouchableOpacity
             key={p.type}
-            style={[styles.petOption, pet === p.type && styles.petOptionSelected]}
+            style={[
+              styles.petOption,
+              pet === p.type && styles.petOptionSelected,
+            ]}
             onPress={() => onSelectPet(p.type)}
             activeOpacity={0.8}
           >
@@ -35,10 +38,11 @@ export function PetStep({ pet, saving, onSelectPet, onCreate }: PetStepProps) {
         activeOpacity={0.8}
         disabled={saving}
       >
-        {saving
-          ? <ActivityIndicator color="#FFF" />
-          : <Text style={styles.btnText}>¡Empezar!</Text>
-        }
+        {saving ? (
+          <ActivityIndicator color="#FFF" />
+        ) : (
+          <Text style={styles.btnText}>¡Empezar!</Text>
+        )}
       </TouchableOpacity>
     </>
   );

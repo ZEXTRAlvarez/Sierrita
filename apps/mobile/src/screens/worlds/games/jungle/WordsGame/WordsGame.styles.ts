@@ -1,9 +1,19 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', paddingTop: 16, backgroundColor: '#F1F8E9' },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: 16,
+    backgroundColor: '#F1F8E9',
+  },
   emoji: { fontSize: 72, marginBottom: 4 },
-  progress: { fontSize: 16, color: '#66BB6A', marginBottom: 16, fontWeight: '600' },
+  progress: {
+    fontSize: 16,
+    color: '#66BB6A',
+    marginBottom: 16,
+    fontWeight: '600',
+  },
   eraseBtn: {
     marginBottom: 16,
     paddingHorizontal: 20,

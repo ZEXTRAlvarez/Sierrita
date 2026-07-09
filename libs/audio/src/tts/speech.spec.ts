@@ -13,7 +13,9 @@ describe('speak', () => {
   it('stops any in-flight speech before starting a new utterance', () => {
     const callOrder: string[] = [];
     (Speech.stop as jest.Mock).mockImplementation(() => callOrder.push('stop'));
-    (Speech.speak as jest.Mock).mockImplementation(() => callOrder.push('speak'));
+    (Speech.speak as jest.Mock).mockImplementation(() =>
+      callOrder.push('speak'),
+    );
 
     speak('hola');
 
@@ -23,7 +25,10 @@ describe('speak', () => {
   it('merges the default voice options with call-site overrides', () => {
     speak('hola', { rate: 0.5 });
 
-    expect(Speech.speak).toHaveBeenCalledWith('hola', { ...VOICE_OPTIONS, rate: 0.5 });
+    expect(Speech.speak).toHaveBeenCalledWith('hola', {
+      ...VOICE_OPTIONS,
+      rate: 0.5,
+    });
   });
 
   it('uses the default voice options when none are provided', () => {

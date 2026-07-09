@@ -12,7 +12,12 @@ export interface ComposeModeProps {
 }
 
 /** Shows H + D + U and lets the child pick the number they compose. */
-export function ComposeMode({ problem, maxNumber, onAnswer, result }: ComposeModeProps) {
+export function ComposeMode({
+  problem,
+  maxNumber,
+  onAnswer,
+  result,
+}: ComposeModeProps) {
   const options = useRef(generateNumOptions(problem.number, maxNumber)).current;
 
   return (

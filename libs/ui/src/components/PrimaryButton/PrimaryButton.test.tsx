@@ -11,7 +11,9 @@ describe('PrimaryButton', () => {
 
   it('calls onPress when tapped', () => {
     const onPress = jest.fn();
-    const { getByText } = renderWithTamagui(<PrimaryButton label="Guardar" onPress={onPress} />);
+    const { getByText } = renderWithTamagui(
+      <PrimaryButton label="Guardar" onPress={onPress} />,
+    );
 
     fireEvent.press(getByText('Guardar'));
 
@@ -24,7 +26,9 @@ describe('PrimaryButton', () => {
     // way an actual touch would — assert on the mechanism Tamagui's Button
     // actually uses to block presses instead (see @tamagui/button's
     // `disabled` variant).
-    const { getByRole } = renderWithTamagui(<PrimaryButton label="Guardar" disabled />);
+    const { getByRole } = renderWithTamagui(
+      <PrimaryButton label="Guardar" disabled />,
+    );
 
     const button = getByRole('button');
     expect(button.props.accessibilityState).toMatchObject({ disabled: true });

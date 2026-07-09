@@ -22,16 +22,16 @@ export function generateProblem(maxNumber: number, mode: Mode): Problem {
 
   if (mode === 'visual') {
     // Small numbers for visual counting
-    left  = rand(1, Math.min(10, maxNumber));
+    left = rand(1, Math.min(10, maxNumber));
     right = rand(1, Math.min(10, maxNumber));
   } else if (mode === 'expression') {
     // A = a+b, B = c (or d+e)
     const a = rand(1, Math.floor(maxNumber / 4));
     const b = rand(1, Math.floor(maxNumber / 4));
-    left  = a + b;
+    left = a + b;
     right = rand(Math.max(1, left - 5), Math.min(maxNumber, left + 5));
   } else {
-    left  = rand(1, maxNumber);
+    left = rand(1, maxNumber);
     right = rand(1, maxNumber);
   }
 

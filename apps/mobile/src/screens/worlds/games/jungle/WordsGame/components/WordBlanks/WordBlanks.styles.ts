@@ -12,7 +12,11 @@ export const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#A5D6A7',
   },
-  blankBox: { backgroundColor: '#FFF9C4', borderColor: '#F9A825', borderStyle: 'dashed' },
+  blankBox: {
+    backgroundColor: '#FFF9C4',
+    borderColor: '#F9A825',
+    borderStyle: 'dashed',
+  },
   correctBox: { backgroundColor: '#A5D6A7', borderColor: '#4CAF50' },
   wrongBox: { backgroundColor: '#FFCDD2', borderColor: '#F44336' },
   letterText: { fontSize: 26, fontWeight: '800', color: '#1B5E20' },

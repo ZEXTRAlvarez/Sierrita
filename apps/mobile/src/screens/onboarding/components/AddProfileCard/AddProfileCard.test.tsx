@@ -6,7 +6,9 @@ import { AddProfileCard } from './AddProfileCard';
 describe('AddProfileCard', () => {
   it('calls onPress when tapped', () => {
     const onPress = jest.fn();
-    const { getByText } = render(<AddProfileCard anim={new Animated.Value(1)} onPress={onPress} />);
+    const { getByText } = render(
+      <AddProfileCard anim={new Animated.Value(1)} onPress={onPress} />,
+    );
 
     fireEvent.press(getByText('Nuevo perfil'));
 

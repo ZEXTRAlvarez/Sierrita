@@ -1,8 +1,18 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', paddingTop: 12, backgroundColor: '#E3F2FD' },
-  progress: { fontSize: 16, color: '#1976D2', fontWeight: '600', marginBottom: 8 },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: 12,
+    backgroundColor: '#E3F2FD',
+  },
+  progress: {
+    fontSize: 16,
+    color: '#1976D2',
+    fontWeight: '600',
+    marginBottom: 8,
+  },
   badge: {
     marginTop: 16,
     marginBottom: 12,

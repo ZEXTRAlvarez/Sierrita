@@ -4,7 +4,9 @@ import { renderWithProviders } from '../../test-utils/renderWithProviders';
 import SplashScreen from './SplashScreen';
 
 const mockReplace = jest.fn();
-jest.mock('@react-navigation/native', () => ({ useNavigation: () => ({ replace: mockReplace }) }));
+jest.mock('@react-navigation/native', () => ({
+  useNavigation: () => ({ replace: mockReplace }),
+}));
 jest.mock('../../store/atoms', () => ({
   profilesAtom: 'profiles',
   activeProfileIdAtom: 'activeProfileId',
@@ -47,7 +49,9 @@ describe('SplashScreen', () => {
   it('redirects to Onboarding when there is no profile yet', () => {
     renderWithProviders(<SplashScreen />);
 
-    act(() => { jest.advanceTimersByTime(2400); });
+    act(() => {
+      jest.advanceTimersByTime(2400);
+    });
 
     expect(mockReplace).toHaveBeenCalledWith('Onboarding');
   });
@@ -56,7 +60,9 @@ describe('SplashScreen', () => {
     mockProfiles = [{ id: 'p1' }];
     renderWithProviders(<SplashScreen />);
 
-    act(() => { jest.advanceTimersByTime(2400); });
+    act(() => {
+      jest.advanceTimersByTime(2400);
+    });
 
     expect(mockReplace).toHaveBeenCalledWith('ProfileSelect');
   });
@@ -65,7 +71,9 @@ describe('SplashScreen', () => {
     mockActiveProfileId = 'p1';
     renderWithProviders(<SplashScreen />);
 
-    act(() => { jest.advanceTimersByTime(2400); });
+    act(() => {
+      jest.advanceTimersByTime(2400);
+    });
 
     expect(mockReplace).toHaveBeenCalledWith('Main');
   });
@@ -74,7 +82,9 @@ describe('SplashScreen', () => {
     mockAppReady = false;
     renderWithProviders(<SplashScreen />);
 
-    act(() => { jest.advanceTimersByTime(5000); });
+    act(() => {
+      jest.advanceTimersByTime(5000);
+    });
 
     expect(mockReplace).not.toHaveBeenCalled();
   });

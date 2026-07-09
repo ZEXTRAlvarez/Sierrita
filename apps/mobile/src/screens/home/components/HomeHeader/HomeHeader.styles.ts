@@ -12,7 +12,12 @@ export const styles = StyleSheet.create({
   },
   greetingRow: { flexDirection: 'row', alignItems: 'center', gap: 4 },
   greeting: { fontSize: 24, fontWeight: '900', color: '#fff' },
-  subgreeting: { fontSize: 14, color: '#A5D6A7', fontWeight: '600', marginTop: 2 },
+  subgreeting: {
+    fontSize: 14,
+    color: '#A5D6A7',
+    fontWeight: '600',
+    marginTop: 2,
+  },
   parentBtn: {
     width: 58,
     height: 58,

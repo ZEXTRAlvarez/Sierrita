@@ -5,7 +5,9 @@ import { AgeStep } from './AgeStep';
 describe('AgeStep', () => {
   it('calls onSelectAge when an age pill is pressed', () => {
     const onSelectAge = jest.fn();
-    const { getByText } = render(<AgeStep age={null} onSelectAge={onSelectAge} onNext={jest.fn()} />);
+    const { getByText } = render(
+      <AgeStep age={null} onSelectAge={onSelectAge} onNext={jest.fn()} />,
+    );
 
     fireEvent.press(getByText('5'));
 
@@ -14,7 +16,9 @@ describe('AgeStep', () => {
 
   it('does not advance when no age is selected', () => {
     const onNext = jest.fn();
-    const { getByText } = render(<AgeStep age={null} onSelectAge={jest.fn()} onNext={onNext} />);
+    const { getByText } = render(
+      <AgeStep age={null} onSelectAge={jest.fn()} onNext={onNext} />,
+    );
 
     fireEvent.press(getByText('¡Siguiente!'));
 
@@ -23,7 +27,9 @@ describe('AgeStep', () => {
 
   it('advances once an age is selected', () => {
     const onNext = jest.fn();
-    const { getByText } = render(<AgeStep age={5} onSelectAge={jest.fn()} onNext={onNext} />);
+    const { getByText } = render(
+      <AgeStep age={5} onSelectAge={jest.fn()} onNext={onNext} />,
+    );
 
     fireEvent.press(getByText('¡Siguiente!'));
 

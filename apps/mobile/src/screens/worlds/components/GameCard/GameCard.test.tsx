@@ -12,7 +12,13 @@ describe('GameCard', () => {
   it('calls onPress when an unlocked game is tapped', () => {
     const onPress = jest.fn();
     const { getByText } = render(
-      <GameCard game={unlockedGame} world={world} profileAge={10} cardAnim={new Animated.Value(1)} onPress={onPress} />,
+      <GameCard
+        game={unlockedGame}
+        world={world}
+        profileAge={10}
+        cardAnim={new Animated.Value(1)}
+        onPress={onPress}
+      />,
     );
 
     fireEvent.press(getByText(unlockedGame.name));
@@ -23,7 +29,13 @@ describe('GameCard', () => {
   it('shows a lock badge and ignores presses for a game above the profile age', () => {
     const onPress = jest.fn();
     const { getByText } = render(
-      <GameCard game={lockedGame} world={world} profileAge={4} cardAnim={new Animated.Value(1)} onPress={onPress} />,
+      <GameCard
+        game={lockedGame}
+        world={world}
+        profileAge={4}
+        cardAnim={new Animated.Value(1)}
+        onPress={onPress}
+      />,
     );
 
     expect(getByText('🔒 99+')).toBeTruthy();

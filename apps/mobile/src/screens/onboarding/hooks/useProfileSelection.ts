@@ -22,7 +22,11 @@ export function useProfileSelection() {
       `¿Querés borrar el perfil de ${name}? Se perderá todo su progreso.`,
       [
         { text: 'Cancelar', style: 'cancel' },
-        { text: 'Borrar', style: 'destructive', onPress: () => removeProfile(id) },
+        {
+          text: 'Borrar',
+          style: 'destructive',
+          onPress: () => removeProfile(id),
+        },
       ],
     );
   }

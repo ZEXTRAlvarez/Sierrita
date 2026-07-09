@@ -59,8 +59,14 @@ describe('getGameStats', () => {
 
 describe('getProfileStats', () => {
   it('aggregates totals across all games for the profile', async () => {
-    await saveGameSession('p1', summary({ scorePercent: 0.5, durationSecs: 60 }));
-    await saveGameSession('p1', summary({ scorePercent: 1.0, durationSecs: 120 }));
+    await saveGameSession(
+      'p1',
+      summary({ scorePercent: 0.5, durationSecs: 60 }),
+    );
+    await saveGameSession(
+      'p1',
+      summary({ scorePercent: 1.0, durationSecs: 120 }),
+    );
 
     const stats = await getProfileStats('p1');
 

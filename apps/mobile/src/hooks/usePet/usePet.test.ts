@@ -19,18 +19,29 @@ jest.mock('jotai', () => ({
   useAtom: jest.fn(() => [
     mockPetState,
     (updater: unknown) => {
-      mockPetState = typeof updater === 'function' ? (updater as (mockPrev: typeof basePet | null) => typeof basePet)(mockPetState) : (updater as typeof basePet);
+      mockPetState =
+        typeof updater === 'function'
+          ? (updater as (mockPrev: typeof basePet | null) => typeof basePet)(
+              mockPetState,
+            )
+          : (updater as typeof basePet);
     },
   ]),
   useAtomValue: jest.fn(() => 'p1'),
 }));
-jest.mock('../../store/atoms', () => ({ petStateAtom: 'petState', activeProfileIdAtom: 'activeProfileId' }));
+jest.mock('../../store/atoms', () => ({
+  petStateAtom: 'petState',
+  activeProfileIdAtom: 'activeProfileId',
+}));
 jest.mock('@sierrita/storage', () => ({
   getPetState: jest.fn(async () => null),
   upsertPetState: jest.fn(async () => undefined),
 }));
 jest.mock('@sierrita/pet', () => ({
-  applyNeedEvent: jest.fn((pet, event) => ({ ...pet, hunger: event.type === 'feed' ? pet.hunger + event.amount : pet.hunger })),
+  applyNeedEvent: jest.fn((pet, event) => ({
+    ...pet,
+    hunger: event.type === 'feed' ? pet.hunger + event.amount : pet.hunger,
+  })),
   applySessionDecay: jest.fn((pet) => pet),
   getMood: jest.fn(() => 'happy'),
 }));

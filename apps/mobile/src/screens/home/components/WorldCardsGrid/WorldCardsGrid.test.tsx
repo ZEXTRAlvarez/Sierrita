@@ -6,7 +6,10 @@ import { WorldCardsGrid } from './WorldCardsGrid';
 describe('WorldCardsGrid', () => {
   it('renders one card per world, each with its subject and game count', () => {
     const { getByText, getAllByText } = render(
-      <WorldCardsGrid cardEntrance={new Animated.Value(1)} onPressWorld={jest.fn()} />,
+      <WorldCardsGrid
+        cardEntrance={new Animated.Value(1)}
+        onPressWorld={jest.fn()}
+      />,
     );
 
     expect(getByText('Escritura')).toBeTruthy();
@@ -18,7 +21,10 @@ describe('WorldCardsGrid', () => {
   it('calls onPressWorld when a card is tapped', () => {
     const onPressWorld = jest.fn();
     const { getByText } = render(
-      <WorldCardsGrid cardEntrance={new Animated.Value(1)} onPressWorld={onPressWorld} />,
+      <WorldCardsGrid
+        cardEntrance={new Animated.Value(1)}
+        onPressWorld={onPressWorld}
+      />,
     );
 
     fireEvent.press(getByText('Escritura'));

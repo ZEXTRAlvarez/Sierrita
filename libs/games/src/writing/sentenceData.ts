@@ -16,27 +16,79 @@ const SENTENCES_3: SentenceEntry[] = [
 ];
 
 const SENTENCES_4: SentenceEntry[] = [
-  { words: ['EL', 'PERRO', 'CORRE', 'RÁPIDO'], emoji: '🐶', category: 'action' },
-  { words: ['LA', 'LUNA', 'ES', 'GRANDE'], emoji: '🌙', category: 'description' },
-  { words: ['EL', 'GATO', 'ES', 'SUAVE'], emoji: '🐱', category: 'description' },
-  { words: ['EL', 'TIGRE', 'ES', 'FUERTE'], emoji: '🐯', category: 'description' },
-  { words: ['LA', 'FLOR', 'ES', 'LINDA'], emoji: '🌸', category: 'description' },
+  {
+    words: ['EL', 'PERRO', 'CORRE', 'RÁPIDO'],
+    emoji: '🐶',
+    category: 'action',
+  },
+  {
+    words: ['LA', 'LUNA', 'ES', 'GRANDE'],
+    emoji: '🌙',
+    category: 'description',
+  },
+  {
+    words: ['EL', 'GATO', 'ES', 'SUAVE'],
+    emoji: '🐱',
+    category: 'description',
+  },
+  {
+    words: ['EL', 'TIGRE', 'ES', 'FUERTE'],
+    emoji: '🐯',
+    category: 'description',
+  },
+  {
+    words: ['LA', 'FLOR', 'ES', 'LINDA'],
+    emoji: '🌸',
+    category: 'description',
+  },
   { words: ['EL', 'PATO', 'NADA', 'BIEN'], emoji: '🦆', category: 'action' },
   { words: ['EL', 'LOBO', 'CORRE', 'SOLO'], emoji: '🐺', category: 'action' },
 ];
 
 const SENTENCES_5: SentenceEntry[] = [
-  { words: ['EL', 'PERRO', 'JUEGA', 'CON', 'PEPE'], emoji: '🐶', category: 'action' },
-  { words: ['LA', 'NUBE', 'TRAE', 'AGUA', 'HOY'], emoji: '☁️', category: 'action' },
-  { words: ['EL', 'PUMA', 'CORRE', 'MUY', 'RÁPIDO'], emoji: '🐆', category: 'action' },
-  { words: ['MI', 'GATO', 'DUERME', 'EN', 'CASA'], emoji: '🐱', category: 'action' },
-  { words: ['EL', 'SOL', 'SALE', 'POR', 'ALLI'], emoji: '☀️', category: 'action' },
-  { words: ['EL', 'LIBRO', 'ES', 'MUY', 'BONITO'], emoji: '📚', category: 'description' },
-  { words: ['LA', 'LUNA', 'BRILLA', 'EN', 'NOCHE'], emoji: '🌙', category: 'action' },
+  {
+    words: ['EL', 'PERRO', 'JUEGA', 'CON', 'PEPE'],
+    emoji: '🐶',
+    category: 'action',
+  },
+  {
+    words: ['LA', 'NUBE', 'TRAE', 'AGUA', 'HOY'],
+    emoji: '☁️',
+    category: 'action',
+  },
+  {
+    words: ['EL', 'PUMA', 'CORRE', 'MUY', 'RÁPIDO'],
+    emoji: '🐆',
+    category: 'action',
+  },
+  {
+    words: ['MI', 'GATO', 'DUERME', 'EN', 'CASA'],
+    emoji: '🐱',
+    category: 'action',
+  },
+  {
+    words: ['EL', 'SOL', 'SALE', 'POR', 'ALLI'],
+    emoji: '☀️',
+    category: 'action',
+  },
+  {
+    words: ['EL', 'LIBRO', 'ES', 'MUY', 'BONITO'],
+    emoji: '📚',
+    category: 'description',
+  },
+  {
+    words: ['LA', 'LUNA', 'BRILLA', 'EN', 'NOCHE'],
+    emoji: '🌙',
+    category: 'action',
+  },
 ];
 
-export function getSentences(wordCount: 3 | 4 | 5, count: number): SentenceEntry[] {
-  const pool = wordCount === 3 ? SENTENCES_3 : wordCount === 4 ? SENTENCES_4 : SENTENCES_5;
+export function getSentences(
+  wordCount: 3 | 4 | 5,
+  count: number,
+): SentenceEntry[] {
+  const pool =
+    wordCount === 3 ? SENTENCES_3 : wordCount === 4 ? SENTENCES_4 : SENTENCES_5;
   return [...pool].sort(() => Math.random() - 0.5).slice(0, count);
 }
 

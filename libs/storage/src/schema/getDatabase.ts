@@ -15,7 +15,9 @@ export async function getDatabase(): Promise<SqliteAdapter> {
   // only its `params` argument typing is narrower (required, not optional), so a
   // single cast isolates that impedance mismatch here instead of widening the
   // adapter interface (which exists precisely to stay narrow for testability).
-  const opened = (await SQLite.openDatabaseAsync(DB_NAME)) as unknown as SqliteAdapter;
+  const opened = (await SQLite.openDatabaseAsync(
+    DB_NAME,
+  )) as unknown as SqliteAdapter;
   await opened.execAsync(CREATE_TABLES_SQL);
   await runMigrations(opened);
   db = opened;

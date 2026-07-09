@@ -2,7 +2,9 @@ import { renderHook, act } from '@testing-library/react-native';
 import { useGameSession } from './useGameSession';
 
 jest.mock('jotai', () => ({ useAtomValue: () => 'p1' }));
-jest.mock('../../store/atoms', () => ({ activeProfileIdAtom: 'activeProfileId' }));
+jest.mock('../../store/atoms', () => ({
+  activeProfileIdAtom: 'activeProfileId',
+}));
 jest.mock('@sierrita/games', () => ({
   getGameConfig: jest.fn(() => ({ titleEs: 'Trazos y Letras', roundCount: 3 })),
   summarizeSession: jest.fn((session) => ({
@@ -25,12 +27,24 @@ jest.mock('@sierrita/storage', () => ({
   upsertDifficultyState: jest.fn(async () => undefined),
 }));
 jest.mock('@sierrita/adaptive', () => ({
-  processRoundResult: jest.fn((ds) => ({ next: ds, levelChanged: false, levelUp: false })),
+  processRoundResult: jest.fn((ds) => ({
+    next: ds,
+    levelChanged: false,
+    levelUp: false,
+  })),
 }));
 jest.mock('./logic/loadOrCreateDifficultyState', () => ({
-  loadOrCreateDifficultyState: jest.fn(async (profileId: string, gameId: string) => ({ profileId, gameId, currentLevel: 1 })),
+  loadOrCreateDifficultyState: jest.fn(
+    async (profileId: string, gameId: string) => ({
+      profileId,
+      gameId,
+      currentLevel: 1,
+    }),
+  ),
 }));
-jest.mock('./logic/playRoundFeedback', () => ({ playRoundFeedback: jest.fn(async () => undefined) }));
+jest.mock('./logic/playRoundFeedback', () => ({
+  playRoundFeedback: jest.fn(async () => undefined),
+}));
 
 describe('useGameSession', () => {
   it('starts a session with an empty round list', async () => {
@@ -40,7 +54,11 @@ describe('useGameSession', () => {
       await result.current.startSession('tracing', 'jungle');
     });
 
-    expect(result.current.session).toMatchObject({ gameId: 'tracing', world: 'jungle', rounds: [] });
+    expect(result.current.session).toMatchObject({
+      gameId: 'tracing',
+      world: 'jungle',
+      rounds: [],
+    });
     expect(result.current.difficultyState).toMatchObject({ currentLevel: 1 });
   });
 
@@ -54,7 +72,9 @@ describe('useGameSession', () => {
       await result.current.recordRound(true, 1200);
     });
 
-    expect(result.current.session?.rounds).toEqual([{ correct: true, responseTimeMs: 1200, hintsUsed: 0 }]);
+    expect(result.current.session?.rounds).toEqual([
+      { correct: true, responseTimeMs: 1200, hintsUsed: 0 },
+    ]);
   });
 
   it('finishes the session with a bonus-adjusted xp total', async () => {

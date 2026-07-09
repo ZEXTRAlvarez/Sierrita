@@ -4,7 +4,9 @@ import GameResultScreen from './GameResultScreen';
 import type { GameSummary } from '@sierrita/games';
 
 const mockRewardXp = jest.fn();
-jest.mock('../../hooks/usePet', () => ({ usePet: () => ({ rewardXp: mockRewardXp }) }));
+jest.mock('../../hooks/usePet', () => ({
+  usePet: () => ({ rewardXp: mockRewardXp }),
+}));
 
 const summary: GameSummary = {
   gameId: 'tracing',
@@ -29,7 +31,13 @@ describe('GameResultScreen', () => {
   });
 
   it('shows the stats and star message, and rewards the earned xp on mount', () => {
-    const { getByText } = render(<GameResultScreen summary={summary} onPlayAgain={jest.fn()} onBack={jest.fn()} />);
+    const { getByText } = render(
+      <GameResultScreen
+        summary={summary}
+        onPlayAgain={jest.fn()}
+        onBack={jest.fn()}
+      />,
+    );
 
     expect(getByText('¡Súper bien!')).toBeTruthy();
     expect(getByText('4/5')).toBeTruthy();
@@ -40,7 +48,13 @@ describe('GameResultScreen', () => {
   it('calls onPlayAgain and onBack from their buttons', () => {
     const onPlayAgain = jest.fn();
     const onBack = jest.fn();
-    const { getByText } = render(<GameResultScreen summary={summary} onPlayAgain={onPlayAgain} onBack={onBack} />);
+    const { getByText } = render(
+      <GameResultScreen
+        summary={summary}
+        onPlayAgain={onPlayAgain}
+        onBack={onBack}
+      />,
+    );
 
     fireEvent.press(getByText('🔄 Jugar de nuevo'));
     fireEvent.press(getByText('🏠 Volver'));

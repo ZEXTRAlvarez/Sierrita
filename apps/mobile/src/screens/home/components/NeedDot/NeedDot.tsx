@@ -8,7 +8,12 @@ export interface NeedDotProps {
 /** Dims once a need is comfortably satisfied; stays bright as a low-need warning. */
 export function NeedDot({ value, color }: NeedDotProps) {
   const opacity = value < 30 ? 1 : 0.3;
-  return <View testID="need-dot" style={[styles.dot, { backgroundColor: color, opacity }]} />;
+  return (
+    <View
+      testID="need-dot"
+      style={[styles.dot, { backgroundColor: color, opacity }]}
+    />
+  );
 }
 
 const styles = StyleSheet.create({

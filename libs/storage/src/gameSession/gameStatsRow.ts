@@ -27,7 +27,9 @@ export function rowToGameStat(row: Record<string, unknown>): GameStat {
   };
 }
 
-export function rowToProfileStats(row: Record<string, unknown> | null): ProfileStats {
+export function rowToProfileStats(
+  row: Record<string, unknown> | null,
+): ProfileStats {
   return {
     totalSessions: (row?.total_sessions as number) ?? 0,
     totalMinutes: Math.round(((row?.total_secs as number) ?? 0) / 60),

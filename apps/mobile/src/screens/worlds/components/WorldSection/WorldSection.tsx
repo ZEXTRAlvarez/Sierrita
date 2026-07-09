@@ -11,14 +11,31 @@ export interface WorldSectionProps {
   onPressGame: (gameId: string) => void;
 }
 
-export function WorldSection({ world, profileAge, entrance, onPressGame }: WorldSectionProps) {
-  const unlockedCount = world.games.filter((g) => g.minAge <= profileAge).length;
+export function WorldSection({
+  world,
+  profileAge,
+  entrance,
+  onPressGame,
+}: WorldSectionProps) {
+  const unlockedCount = world.games.filter(
+    (g) => g.minAge <= profileAge,
+  ).length;
 
   return (
     <Animated.View
       style={[
         styles.card,
-        { opacity: entrance, transform: [{ translateY: entrance.interpolate({ inputRange: [0, 1], outputRange: [30, 0] }) }] },
+        {
+          opacity: entrance,
+          transform: [
+            {
+              translateY: entrance.interpolate({
+                inputRange: [0, 1],
+                outputRange: [30, 0],
+              }),
+            },
+          ],
+        },
       ]}
     >
       <View style={[styles.header, { backgroundColor: world.dark }]}>
@@ -28,16 +45,21 @@ export function WorldSection({ world, profileAge, entrance, onPressGame }: World
           <Text style={styles.subject}>{world.subject}</Text>
         </View>
         <View style={[styles.progressBadge, { backgroundColor: world.color }]}>
-          <Text style={styles.progressText}>{unlockedCount}/{world.games.length}</Text>
+          <Text style={styles.progressText}>
+            {unlockedCount}/{world.games.length}
+          </Text>
         </View>
       </View>
 
       <View style={[styles.progressTrack, { backgroundColor: world.light }]}>
         <View
-          style={[styles.progressFill, {
-            width: `${(unlockedCount / world.games.length) * 100}%` as any,
-            backgroundColor: world.color,
-          }]}
+          style={[
+            styles.progressFill,
+            {
+              width: `${(unlockedCount / world.games.length) * 100}%` as any,
+              backgroundColor: world.color,
+            },
+          ]}
         />
       </View>
 

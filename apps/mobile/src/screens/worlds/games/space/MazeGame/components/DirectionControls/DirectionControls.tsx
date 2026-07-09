@@ -7,7 +7,12 @@ export interface DirectionControlsProps {
   onMove: (dir: Dir) => void;
 }
 
-const LABELS: Record<Dir, string> = { top: '↑', left: '←', right: '→', bottom: '↓' };
+const LABELS: Record<Dir, string> = {
+  top: '↑',
+  left: '←',
+  right: '→',
+  bottom: '↓',
+};
 
 /** The 4-direction D-pad; dims (but does not disable) a direction the rocket can't currently move in. */
 export function DirectionControls({ canMove, onMove }: DirectionControlsProps) {

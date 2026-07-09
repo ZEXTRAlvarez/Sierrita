@@ -41,7 +41,10 @@ describe('buildReportGameTable', () => {
   });
 
   it('renders one row per game stat', () => {
-    const html = buildReportGameTable([stat({ gameId: 'counting' }), stat({ gameId: 'sums' })]);
+    const html = buildReportGameTable([
+      stat({ gameId: 'counting' }),
+      stat({ gameId: 'sums' }),
+    ]);
 
     expect(html.match(/<tr>/g)).toHaveLength(3); // header row + 2 data rows
   });

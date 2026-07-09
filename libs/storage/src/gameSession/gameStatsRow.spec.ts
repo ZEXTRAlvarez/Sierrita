@@ -26,7 +26,12 @@ describe('rowToGameStat', () => {
 
 describe('rowToProfileStats', () => {
   it('maps a populated aggregation row, converting seconds to minutes', () => {
-    const row = { total_sessions: 10, total_secs: 600, avg_score: 82.4, best_score: 100 };
+    const row = {
+      total_sessions: 10,
+      total_secs: 600,
+      avg_score: 82.4,
+      best_score: 100,
+    };
 
     expect(rowToProfileStats(row)).toEqual({
       totalSessions: 10,
@@ -37,7 +42,12 @@ describe('rowToProfileStats', () => {
   });
 
   it('coalesces NULL aggregates (no sessions yet) to zero instead of NaN', () => {
-    const row = { total_sessions: 0, total_secs: null, avg_score: null, best_score: null };
+    const row = {
+      total_sessions: 0,
+      total_secs: null,
+      avg_score: null,
+      best_score: null,
+    };
 
     expect(rowToProfileStats(row)).toEqual({
       totalSessions: 0,

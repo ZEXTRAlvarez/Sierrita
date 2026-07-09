@@ -8,19 +8,11 @@
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "bundler",
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
     "jsx": "react-jsx",
-    "lib": [
-      "es2022",
-      "dom"
-    ]
+    "lib": ["es2022", "dom"]
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx"
-  ],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "references": [],
   "exclude": [
     "jest.config.ts",

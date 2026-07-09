@@ -9,7 +9,9 @@ jest.mock('@react-navigation/native', () => ({
   useIsFocused: () => true,
 }));
 jest.mock('expo-linear-gradient', () => ({ LinearGradient: 'LinearGradient' }));
-jest.mock('../../components/PetAnimation', () => ({ PetAnimation: () => null }));
+jest.mock('../../components/PetAnimation', () => ({
+  PetAnimation: () => null,
+}));
 
 const mockProfile = { id: 'p1', name: 'Sofía', age: 5, avatar: 'dragon' };
 const mockPet = {

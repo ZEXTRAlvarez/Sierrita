@@ -1,7 +1,10 @@
 import { useEffect, useCallback } from 'react';
 import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import type { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
+import type {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../../navigation';
 import { useGameSession } from '../../hooks/useGameSession';
 import { getGameConfig } from '@sierrita/games';
@@ -14,7 +17,11 @@ import { styles } from './GameScreen.styles';
 export interface GameProps {
   difficulty: 1 | 2 | 3;
   params: Record<string, unknown>;
-  onRoundComplete: (correct: boolean, responseTimeMs: number, hintsUsed?: number) => Promise<void>;
+  onRoundComplete: (
+    correct: boolean,
+    responseTimeMs: number,
+    hintsUsed?: number,
+  ) => Promise<void>;
   onGameFinish: () => void;
   roundCount: number;
 }
@@ -22,13 +29,19 @@ export interface GameProps {
 type Props = NativeStackScreenProps<RootStackParamList, 'Game'>;
 
 export default function GameScreen() {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const route = useRoute<Props['route']>();
   const { worldId, gameId } = route.params;
 
   const {
-    session, difficultyState, summary, isFinished,
-    startSession, recordRound, finishSession,
+    session,
+    difficultyState,
+    summary,
+    isFinished,
+    startSession,
+    recordRound,
+    finishSession,
   } = useGameSession();
 
   useEffect(() => {
@@ -71,8 +84,13 @@ export default function GameScreen() {
   if (!GameComponent) {
     return (
       <View style={styles.container}>
-        <Text style={styles.errorText}>Juego "{gameId}" no implementado aún</Text>
-        <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
+        <Text style={styles.errorText}>
+          Juego "{gameId}" no implementado aún
+        </Text>
+        <TouchableOpacity
+          style={styles.backBtn}
+          onPress={() => navigation.goBack()}
+        >
           <Text style={styles.backBtnText}>← Volver</Text>
         </TouchableOpacity>
       </View>
@@ -81,8 +99,17 @@ export default function GameScreen() {
 
   return (
     <View style={styles.container}>
-      <GameScreenHeader title={config.titleEs} currentLevel={difficultyState.currentLevel} color={color} onBack={() => navigation.goBack()} />
-      <RoundProgressDots roundCount={config.roundCount} rounds={session.rounds} color={color} />
+      <GameScreenHeader
+        title={config.titleEs}
+        currentLevel={difficultyState.currentLevel}
+        color={color}
+        onBack={() => navigation.goBack()}
+      />
+      <RoundProgressDots
+        roundCount={config.roundCount}
+        rounds={session.rounds}
+        color={color}
+      />
       <GameComponent
         difficulty={difficultyState.currentLevel}
         params={config.params(difficultyState.currentLevel)}

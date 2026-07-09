@@ -19,7 +19,13 @@ export const styles = StyleSheet.create({
   locked: { backgroundColor: '#F5F5F5' },
   emoji: { fontSize: 32 },
   name: { fontSize: 11, fontWeight: '700', color: '#444', textAlign: 'center' },
-  lockBadge: { backgroundColor: '#EEEEEE', borderRadius: 6, paddingHorizontal: 6, paddingVertical: 2, marginTop: 2 },
+  lockBadge: {
+    backgroundColor: '#EEEEEE',
+    borderRadius: 6,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    marginTop: 2,
+  },
   lockText: { fontSize: 9, color: '#999', fontWeight: '700' },
   activeBadge: {
     position: 'absolute',

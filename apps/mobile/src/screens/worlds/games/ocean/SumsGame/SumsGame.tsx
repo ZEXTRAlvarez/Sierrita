@@ -8,10 +8,15 @@ import { generateOptions } from './logic/generateOptions';
 import { VisualBlocks } from './components/VisualBlocks';
 import { styles } from './SumsGame.styles';
 
-export default function SumsGame({ params, onRoundComplete, onGameFinish, roundCount }: GameProps) {
+export default function SumsGame({
+  params,
+  onRoundComplete,
+  onGameFinish,
+  roundCount,
+}: GameProps) {
   const maxOperand = (params.maxOperand as number) || 10;
   const operations = (params.operations as string[]) || ['add'];
-  const resultMax  = (params.resultMax as number) || 10;
+  const resultMax = (params.resultMax as number) || 10;
 
   const [problem, setProblem] = useState<Problem | null>(null);
   const [options, setOptions] = useState<number[]>([]);
@@ -26,16 +31,35 @@ export default function SumsGame({ params, onRoundComplete, onGameFinish, roundC
   }, [maxOperand, operations, resultMax]);
 
   const { result, roundsDone, submitAnswer } = useGameRound({
-    roundCount, onRoundComplete, onGameFinish, startRound,
+    roundCount,
+    onRoundComplete,
+    onGameFinish,
+    startRound,
   });
 
   function shake() {
     shakeAnim.setValue(0);
     Animated.sequence([
-      Animated.timing(shakeAnim, { toValue: 10, duration: 60, useNativeDriver: true }),
-      Animated.timing(shakeAnim, { toValue: -10, duration: 60, useNativeDriver: true }),
-      Animated.timing(shakeAnim, { toValue: 6, duration: 60, useNativeDriver: true }),
-      Animated.timing(shakeAnim, { toValue: 0, duration: 60, useNativeDriver: true }),
+      Animated.timing(shakeAnim, {
+        toValue: 10,
+        duration: 60,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnim, {
+        toValue: -10,
+        duration: 60,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnim, {
+        toValue: 6,
+        duration: 60,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnim, {
+        toValue: 0,
+        duration: 60,
+        useNativeDriver: true,
+      }),
     ]).start();
   }
 
@@ -51,10 +75,16 @@ export default function SumsGame({ params, onRoundComplete, onGameFinish, roundC
 
   return (
     <View style={styles.container}>
-      <Text style={styles.progress}>{roundsDone + 1} / {roundCount}</Text>
+      <Text style={styles.progress}>
+        {roundsDone + 1} / {roundCount}
+      </Text>
 
-      <Animated.View style={[styles.equationBox, { transform: [{ translateX: shakeAnim }] }]}>
-        <Text style={styles.equationText}>{problem.a} {opSymbol} {problem.b} = ?</Text>
+      <Animated.View
+        style={[styles.equationBox, { transform: [{ translateX: shakeAnim }] }]}
+      >
+        <Text style={styles.equationText}>
+          {problem.a} {opSymbol} {problem.b} = ?
+        </Text>
       </Animated.View>
 
       <VisualBlocks a={problem.a} b={problem.b} op={problem.op} />
@@ -77,8 +107,14 @@ export default function SumsGame({ params, onRoundComplete, onGameFinish, roundC
         ))}
       </View>
 
-      {result === 'correct' && <Text style={[styles.badge, styles.badgeCorrect]}>¡Correcto! ⭐</Text>}
-      {result === 'wrong'   && <Text style={[styles.badge, styles.badgeWrong]}>¡Casi! La respuesta es {problem.result}</Text>}
+      {result === 'correct' && (
+        <Text style={[styles.badge, styles.badgeCorrect]}>¡Correcto! ⭐</Text>
+      )}
+      {result === 'wrong' && (
+        <Text style={[styles.badge, styles.badgeWrong]}>
+          ¡Casi! La respuesta es {problem.result}
+        </Text>
+      )}
     </View>
   );
 }

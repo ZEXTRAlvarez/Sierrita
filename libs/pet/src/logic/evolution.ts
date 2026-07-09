@@ -27,6 +27,7 @@ export function getXpProgress(state: PetState): number {
   const stage = state.evolutionStage;
   if (stage === 3) return 1;
   const current = state.totalXp - XP_THRESHOLDS[stage];
-  const needed = XP_THRESHOLDS[(stage + 1) as EvolutionStage] - XP_THRESHOLDS[stage];
+  const needed =
+    XP_THRESHOLDS[(stage + 1) as EvolutionStage] - XP_THRESHOLDS[stage];
   return Math.min(1, current / needed);
 }

@@ -13,7 +13,11 @@ export interface IdentifyModeProps {
 
 type DigitField = 'hundreds' | 'tens' | 'units';
 
-const LABELS: Record<DigitField, string> = { hundreds: 'centenas', tens: 'decenas', units: 'unidades' };
+const LABELS: Record<DigitField, string> = {
+  hundreds: 'centenas',
+  tens: 'decenas',
+  units: 'unidades',
+};
 
 /** Shows a number and asks how many hundreds/tens/units it has. */
 export function IdentifyMode({ problem, onAnswer, result }: IdentifyModeProps) {
@@ -21,7 +25,10 @@ export function IdentifyMode({ problem, onAnswer, result }: IdentifyModeProps) {
   // si no, la respuesta sería siempre 0 sin importar el número mostrado.
   const questionType = useRef<DigitField>(
     (() => {
-      const types: DigitField[] = problem.number >= 100 ? ['hundreds', 'tens', 'units'] : ['tens', 'units'];
+      const types: DigitField[] =
+        problem.number >= 100
+          ? ['hundreds', 'tens', 'units']
+          : ['tens', 'units'];
       return types[rand(0, types.length - 1)];
     })(),
   ).current;
@@ -32,7 +39,9 @@ export function IdentifyMode({ problem, onAnswer, result }: IdentifyModeProps) {
   return (
     <View style={styles.modeContainer}>
       <Text style={styles.bigNumber}>{problem.number}</Text>
-      <Text style={styles.modeQuestion}>¿Cuántas {LABELS[questionType]} tiene?</Text>
+      <Text style={styles.modeQuestion}>
+        ¿Cuántas {LABELS[questionType]} tiene?
+      </Text>
       <View style={styles.optionsRow}>
         {options.map((opt) => (
           <TouchableOpacity

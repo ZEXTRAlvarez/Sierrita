@@ -1,10 +1,32 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  modeContainer: { flex: 1, alignItems: 'center', width: '100%', paddingHorizontal: 16 },
-  bigNumber: { fontSize: 80, fontWeight: '900', color: '#0D47A1', lineHeight: 92, marginBottom: 4 },
-  modeQuestion: { fontSize: 20, fontWeight: '700', color: '#1565C0', marginBottom: 20, textAlign: 'center' },
-  optionsRow: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 14 },
+  modeContainer: {
+    flex: 1,
+    alignItems: 'center',
+    width: '100%',
+    paddingHorizontal: 16,
+  },
+  bigNumber: {
+    fontSize: 80,
+    fontWeight: '900',
+    color: '#0D47A1',
+    lineHeight: 92,
+    marginBottom: 4,
+  },
+  modeQuestion: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#1565C0',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  optionsRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 14,
+  },
   optionBtn: {
     width: 80,
     height: 80,

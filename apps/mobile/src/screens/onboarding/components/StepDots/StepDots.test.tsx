@@ -7,7 +7,9 @@ describe('StepDots', () => {
     const { getByTestId } = render(<StepDots step="age" />);
 
     expect(getByTestId('step-dot-age').props.style).toEqual(
-      expect.arrayContaining([expect.objectContaining({ backgroundColor: '#4CAF50' })]),
+      expect.arrayContaining([
+        expect.objectContaining({ backgroundColor: '#4CAF50' }),
+      ]),
     );
   });
 });

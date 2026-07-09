@@ -1,13 +1,20 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useAtomValue } from 'jotai';
 import { activeProfileAtom, activeProfileIdAtom } from '../../../store/atoms';
-import { getParentConfig, upsertParentConfig, getProfileStats, getGameStats } from '@sierrita/storage';
+import {
+  getParentConfig,
+  upsertParentConfig,
+  getProfileStats,
+  getGameStats,
+} from '@sierrita/storage';
 import { hashPin } from '@sierrita/parents';
 import { buildReportHtml, exportReportPdf } from '@sierrita/pdf';
 import type { ParentConfig } from '@sierrita/parents';
 import type { GameStat, ProfileStats } from '@sierrita/storage';
 
-export type ExportPdfResult = { ok: true; shared: boolean; uri: string } | { ok: false };
+export type ExportPdfResult =
+  | { ok: true; shared: boolean; uri: string }
+  | { ok: false };
 
 export function useParentDashboard() {
   const profile = useAtomValue(activeProfileAtom);
@@ -34,32 +41,50 @@ export function useParentDashboard() {
     })();
   }, [profileId]);
 
-  const unlock = useCallback(async (pin: string) => {
-    if (!parentConfig || !profileId) return;
-    if (parentConfig.pinHash === '') {
-      const updated: ParentConfig = { ...parentConfig, pinHash: await hashPin(pin), updatedAt: Date.now() };
-      await upsertParentConfig(updated);
-      setParentConfig(updated);
-    }
-  }, [parentConfig, profileId]);
+  const unlock = useCallback(
+    async (pin: string) => {
+      if (!parentConfig || !profileId) return;
+      if (parentConfig.pinHash === '') {
+        const updated: ParentConfig = {
+          ...parentConfig,
+          pinHash: await hashPin(pin),
+          updatedAt: Date.now(),
+        };
+        await upsertParentConfig(updated);
+        setParentConfig(updated);
+      }
+    },
+    [parentConfig, profileId],
+  );
 
   const updateConfig = useCallback(async (updated: ParentConfig) => {
     setParentConfig(updated);
     await upsertParentConfig(updated);
   }, []);
 
-  const changePin = useCallback(async (newHash: string) => {
-    if (!parentConfig) return;
-    const updated: ParentConfig = { ...parentConfig, pinHash: newHash, updatedAt: Date.now() };
-    await upsertParentConfig(updated);
-    setParentConfig(updated);
-  }, [parentConfig]);
+  const changePin = useCallback(
+    async (newHash: string) => {
+      if (!parentConfig) return;
+      const updated: ParentConfig = {
+        ...parentConfig,
+        pinHash: newHash,
+        updatedAt: Date.now(),
+      };
+      await upsertParentConfig(updated);
+      setParentConfig(updated);
+    },
+    [parentConfig],
+  );
 
   const exportPdf = useCallback(async (): Promise<ExportPdfResult> => {
     if (!profile || !parentConfig || !globalStats) return { ok: false };
     setExporting(true);
     try {
-      const date = new Date().toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+      const date = new Date().toLocaleDateString('es-AR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+      });
       const html = buildReportHtml({
         profile: { name: profile.name, age: profile.age },
         globalStats,
@@ -67,7 +92,10 @@ export function useParentDashboard() {
         config: parentConfig,
         date,
       });
-      const { uri, shared } = await exportReportPdf(html, `Reporte de ${profile.name}`);
+      const { uri, shared } = await exportReportPdf(
+        html,
+        `Reporte de ${profile.name}`,
+      );
       return { ok: true, shared, uri };
     } catch {
       return { ok: false };
@@ -76,5 +104,16 @@ export function useParentDashboard() {
     }
   }, [profile, parentConfig, globalStats, gameStats]);
 
-  return { profile, parentConfig, globalStats, gameStats, loading, exporting, unlock, updateConfig, changePin, exportPdf };
+  return {
+    profile,
+    parentConfig,
+    globalStats,
+    gameStats,
+    loading,
+    exporting,
+    unlock,
+    updateConfig,
+    changePin,
+    exportPdf,
+  };
 }

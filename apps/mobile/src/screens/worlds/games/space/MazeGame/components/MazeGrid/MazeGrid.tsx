@@ -14,7 +14,12 @@ export function MazeGrid({ maze, gridSize, cellSize, pos }: MazeGridProps) {
   const [pr, pc] = pos;
 
   return (
-    <View style={[styles.mazeWrapper, { width: gridSize * cellSize + 4, height: gridSize * cellSize + 4 }]}>
+    <View
+      style={[
+        styles.mazeWrapper,
+        { width: gridSize * cellSize + 4, height: gridSize * cellSize + 4 },
+      ]}
+    >
       {maze.map((row, r) => (
         <View key={r} style={styles.row}>
           {row.map((cell, c) => (
@@ -32,10 +37,14 @@ export function MazeGrid({ maze, gridSize, cellSize, pos }: MazeGridProps) {
                 },
               ]}
             >
-              {r === pr && c === pc && <Text style={{ fontSize: cellSize * 0.55 }}>🚀</Text>}
-              {r === gridSize - 1 && c === gridSize - 1 && !(r === pr && c === pc) && (
-                <Text style={{ fontSize: cellSize * 0.55 }}>⭐</Text>
+              {r === pr && c === pc && (
+                <Text style={{ fontSize: cellSize * 0.55 }}>🚀</Text>
               )}
+              {r === gridSize - 1 &&
+                c === gridSize - 1 &&
+                !(r === pr && c === pc) && (
+                  <Text style={{ fontSize: cellSize * 0.55 }}>⭐</Text>
+                )}
             </View>
           ))}
         </View>

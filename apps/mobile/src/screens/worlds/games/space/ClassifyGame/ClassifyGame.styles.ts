@@ -8,8 +8,18 @@ export const styles = StyleSheet.create({
     backgroundColor: '#F3E5F5',
     minHeight: '100%',
   },
-  progress: { fontSize: 16, color: '#7B1FA2', fontWeight: '600', marginBottom: 4 },
-  instruction: { fontSize: 20, fontWeight: '700', color: '#4A148C', marginBottom: 12 },
+  progress: {
+    fontSize: 16,
+    color: '#7B1FA2',
+    fontWeight: '600',
+    marginBottom: 4,
+  },
+  instruction: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#4A148C',
+    marginBottom: 12,
+  },
   badge: {
     marginTop: 16,
     paddingHorizontal: 24,

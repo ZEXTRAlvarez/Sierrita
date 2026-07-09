@@ -29,12 +29,18 @@ export function PetShowcase({
     <View style={[styles.card, { borderColor: petColor + '44' }]}>
       <View style={[styles.bg, { backgroundColor: petColor + '18' }]}>
         <PetAnimation petType={petState.petType} mood={mood} size={96} />
-        {currentOutfit.id !== 'none' && <Text style={styles.outfitBadge}>{currentOutfit.emoji}</Text>}
+        {currentOutfit.id !== 'none' && (
+          <Text style={styles.outfitBadge}>{currentOutfit.emoji}</Text>
+        )}
       </View>
       <View style={styles.info}>
         <View style={styles.nameRow}>
           <Text style={styles.name}>{petName}</Text>
-          <TouchableOpacity onPress={onRename} hitSlop={10} style={styles.editBtn}>
+          <TouchableOpacity
+            onPress={onRename}
+            hitSlop={10}
+            style={styles.editBtn}
+          >
             <Text style={styles.editIcon}>✏️</Text>
           </TouchableOpacity>
         </View>
@@ -44,10 +50,20 @@ export function PetShowcase({
           <View style={styles.xpSection}>
             <View style={styles.xpLabelRow}>
               <Text style={styles.xpLabel}>Progreso de evolución</Text>
-              <Text style={[styles.xpPct, { color: petColor }]}>{Math.round(xpProgress * 100)}%</Text>
+              <Text style={[styles.xpPct, { color: petColor }]}>
+                {Math.round(xpProgress * 100)}%
+              </Text>
             </View>
             <View style={styles.xpTrack}>
-              <View style={[styles.xpFill, { width: `${Math.round(xpProgress * 100)}%`, backgroundColor: petColor }]} />
+              <View
+                style={[
+                  styles.xpFill,
+                  {
+                    width: `${Math.round(xpProgress * 100)}%`,
+                    backgroundColor: petColor,
+                  },
+                ]}
+              />
             </View>
           </View>
         ) : (

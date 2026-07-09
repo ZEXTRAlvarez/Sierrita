@@ -11,7 +11,9 @@ export function VisualGroup({ count, emoji }: VisualGroupProps) {
   return (
     <View style={styles.visualGroup}>
       {Array.from({ length: count }).map((_, i) => (
-        <Text key={i} style={styles.visualEmoji}>{emoji}</Text>
+        <Text key={i} style={styles.visualEmoji}>
+          {emoji}
+        </Text>
       ))}
     </View>
   );

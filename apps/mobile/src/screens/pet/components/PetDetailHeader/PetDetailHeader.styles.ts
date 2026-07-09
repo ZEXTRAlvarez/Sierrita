@@ -9,5 +9,10 @@ export const styles = StyleSheet.create({
   backBtn: { marginBottom: 8 },
   backText: { fontSize: 16, fontWeight: '700', color: 'rgba(255,255,255,0.9)' },
   title: { fontSize: 28, fontWeight: '900', color: '#fff' },
-  stage: { fontSize: 13, color: 'rgba(255,255,255,0.8)', fontWeight: '600', marginTop: 4 },
+  stage: {
+    fontSize: 13,
+    color: 'rgba(255,255,255,0.8)',
+    fontWeight: '600',
+    marginTop: 4,
+  },
 });

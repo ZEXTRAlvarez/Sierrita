@@ -8,13 +8,9 @@
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "bundler",
-    "types": [
-      "node"
-    ]
+    "types": ["node"]
   },
-  "include": [
-    "src/**/*.ts"
-  ],
+  "include": ["src/**/*.ts"],
   "references": [],
   "exclude": [
     "jest.config.ts",

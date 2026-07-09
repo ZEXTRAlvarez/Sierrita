@@ -6,7 +6,15 @@ describe('getLetterSet', () => {
   });
 
   it('returns the 7 easy consonants', () => {
-    expect(getLetterSet('consonants-easy')).toEqual(['L', 'M', 'N', 'P', 'S', 'T', 'C']);
+    expect(getLetterSet('consonants-easy')).toEqual([
+      'L',
+      'M',
+      'N',
+      'P',
+      'S',
+      'T',
+      'C',
+    ]);
   });
 
   it('returns all 12 letters', () => {

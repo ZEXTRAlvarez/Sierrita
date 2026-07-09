@@ -19,6 +19,8 @@ export function getAudioModule(): ExpoAudioModule | null {
 }
 
 /** Test-only seam to inject a fake audio module (or force the unavailable case with null). */
-export function __setAudioModuleForTesting(mod: ExpoAudioModule | null | undefined): void {
+export function __setAudioModuleForTesting(
+  mod: ExpoAudioModule | null | undefined,
+): void {
   cachedModule = mod;
 }

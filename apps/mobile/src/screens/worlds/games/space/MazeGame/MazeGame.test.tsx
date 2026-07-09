@@ -4,8 +4,14 @@ import MazeGame from './MazeGame';
 
 // 2x2 fully-open maze: right from (0,0), then bottom from (0,1) reaches the goal (1,1).
 const mockMaze = [
-  [{ top: true, right: false, bottom: true, left: true }, { top: true, right: true, bottom: false, left: false }],
-  [{ top: true, right: true, bottom: true, left: true }, { top: false, right: true, bottom: true, left: true }],
+  [
+    { top: true, right: false, bottom: true, left: true },
+    { top: true, right: true, bottom: false, left: false },
+  ],
+  [
+    { top: true, right: true, bottom: true, left: true },
+    { top: false, right: true, bottom: true, left: true },
+  ],
 ];
 
 jest.mock('./logic/generateMaze', () => ({

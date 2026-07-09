@@ -12,7 +12,9 @@ export function ObjectGrid({ count, emoji }: ObjectGridProps) {
     return (
       <View style={styles.grid}>
         {Array.from({ length: count }).map((_, i) => (
-          <Text key={i} style={styles.emoji}>{emoji}</Text>
+          <Text key={i} style={styles.emoji}>
+            {emoji}
+          </Text>
         ))}
       </View>
     );
@@ -29,7 +31,9 @@ export function ObjectGrid({ count, emoji }: ObjectGridProps) {
         </View>
       ))}
       {Array.from({ length: units }).map((_, i) => (
-        <Text key={`u${i}`} style={styles.emoji}>{emoji}</Text>
+        <Text key={`u${i}`} style={styles.emoji}>
+          {emoji}
+        </Text>
       ))}
     </View>
   );

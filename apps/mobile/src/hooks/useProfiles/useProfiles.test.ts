@@ -7,13 +7,27 @@ const mockSetPetState = jest.fn();
 jest.mock('jotai', () => ({
   useAtom: jest.fn((atom: string) => {
     if (atom === 'profiles') {
-      return [mockProfiles, (updater: unknown) => {
-        mockProfiles = typeof updater === 'function' ? (updater as (mockPrev: any[]) => any[])(mockProfiles) : (updater as any[]);
-      }];
+      return [
+        mockProfiles,
+        (updater: unknown) => {
+          mockProfiles =
+            typeof updater === 'function'
+              ? (updater as (mockPrev: any[]) => any[])(mockProfiles)
+              : (updater as any[]);
+        },
+      ];
     }
-    return [mockActiveId, (updater: unknown) => {
-      mockActiveId = typeof updater === 'function' ? (updater as (mockPrev: string | null) => string | null)(mockActiveId) : (updater as string | null);
-    }];
+    return [
+      mockActiveId,
+      (updater: unknown) => {
+        mockActiveId =
+          typeof updater === 'function'
+            ? (updater as (mockPrev: string | null) => string | null)(
+                mockActiveId,
+              )
+            : (updater as string | null);
+      },
+    ];
   }),
   useSetAtom: jest.fn(() => mockSetPetState),
 }));
@@ -29,8 +43,12 @@ jest.mock('@sierrita/storage', () => ({
   upsertPetState: jest.fn(async () => undefined),
   upsertParentConfig: jest.fn(async () => undefined),
 }));
-jest.mock('@sierrita/pet', () => ({ createInitialPetState: jest.fn(() => ({})) }));
-jest.mock('@sierrita/parents', () => ({ createDefaultParentConfig: jest.fn(() => ({})) }));
+jest.mock('@sierrita/pet', () => ({
+  createInitialPetState: jest.fn(() => ({})),
+}));
+jest.mock('@sierrita/parents', () => ({
+  createDefaultParentConfig: jest.fn(() => ({})),
+}));
 
 describe('useProfiles', () => {
   beforeEach(() => {
@@ -48,11 +66,17 @@ describe('useProfiles', () => {
     rerender(undefined);
 
     expect(result.current.profiles).toHaveLength(1);
-    expect(result.current.profiles[0]).toMatchObject({ name: 'Sofía', age: 5, avatar: 'dragon' });
+    expect(result.current.profiles[0]).toMatchObject({
+      name: 'Sofía',
+      age: 5,
+      avatar: 'dragon',
+    });
   });
 
   it('resets the active profile and pet state when the active profile is removed', async () => {
-    mockProfiles = [{ id: 'p1', name: 'Sofía', age: 5, avatar: 'dragon', createdAt: 0 }];
+    mockProfiles = [
+      { id: 'p1', name: 'Sofía', age: 5, avatar: 'dragon', createdAt: 0 },
+    ];
     mockActiveId = 'p1';
     const { result, rerender } = renderHook(() => useProfiles());
 
@@ -67,7 +91,9 @@ describe('useProfiles', () => {
   });
 
   it('resolves the active profile object from the active id', () => {
-    mockProfiles = [{ id: 'p1', name: 'Sofía', age: 5, avatar: 'dragon', createdAt: 0 }];
+    mockProfiles = [
+      { id: 'p1', name: 'Sofía', age: 5, avatar: 'dragon', createdAt: 0 },
+    ];
     mockActiveId = 'p1';
     const { result } = renderHook(() => useProfiles());
 

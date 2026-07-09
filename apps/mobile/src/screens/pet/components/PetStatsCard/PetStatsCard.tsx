@@ -12,7 +12,12 @@ export interface PetStatsCardProps {
   nextXp: number;
 }
 
-export function PetStatsCard({ petState, stageName, xpProgress, nextXp }: PetStatsCardProps) {
+export function PetStatsCard({
+  petState,
+  stageName,
+  xpProgress,
+  nextXp,
+}: PetStatsCardProps) {
   return (
     <BlurView intensity={50} tint="light" style={styles.card}>
       <View style={styles.header}>
@@ -25,16 +30,36 @@ export function PetStatsCard({ petState, stageName, xpProgress, nextXp }: PetSta
       {petState.evolutionStage < 3 && (
         <View style={styles.xpBarRow}>
           <View style={styles.xpTrack}>
-            <View style={[styles.xpFill, { width: `${Math.round(xpProgress * 100)}%` as any }]} />
+            <View
+              style={[
+                styles.xpFill,
+                { width: `${Math.round(xpProgress * 100)}%` as any },
+              ]}
+            />
           </View>
           <Text style={styles.xpBarLabel}>Faltan {nextXp} XP para crecer</Text>
         </View>
       )}
 
       <View style={styles.needsGrid}>
-        <PetNeedBar icon={<IconAnimation name="apple" size={18} />} label="Hambre" value={petState.hunger} color="#FF7043" />
-        <PetNeedBar icon={<IconAnimation name="water" size={18} />} label="Sed" value={petState.thirst} color="#42A5F5" />
-        <PetNeedBar icon={<IconAnimation name="carino" size={18} />} label="Cariño" value={petState.happiness} color="#FFCA28" />
+        <PetNeedBar
+          icon={<IconAnimation name="apple" size={18} />}
+          label="Hambre"
+          value={petState.hunger}
+          color="#FF7043"
+        />
+        <PetNeedBar
+          icon={<IconAnimation name="water" size={18} />}
+          label="Sed"
+          value={petState.thirst}
+          color="#42A5F5"
+        />
+        <PetNeedBar
+          icon={<IconAnimation name="carino" size={18} />}
+          label="Cariño"
+          value={petState.happiness}
+          color="#FFCA28"
+        />
       </View>
     </BlurView>
   );

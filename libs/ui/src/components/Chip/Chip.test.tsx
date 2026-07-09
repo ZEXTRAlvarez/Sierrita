@@ -11,7 +11,9 @@ describe('Chip', () => {
 
   it('calls onPress when tapped', () => {
     const onPress = jest.fn();
-    const { getByText } = renderWithTamagui(<Chip label="30min" onPress={onPress} />);
+    const { getByText } = renderWithTamagui(
+      <Chip label="30min" onPress={onPress} />,
+    );
 
     fireEvent.press(getByText('30min'));
 
@@ -21,12 +23,16 @@ describe('Chip', () => {
   it('defaults to unselected', () => {
     const { getByRole } = renderWithTamagui(<Chip label="30min" />);
 
-    expect(getByRole('button').props.accessibilityState).toMatchObject({ selected: false });
+    expect(getByRole('button').props.accessibilityState).toMatchObject({
+      selected: false,
+    });
   });
 
   it('reflects selected state via accessibilityState', () => {
     const { getByRole } = renderWithTamagui(<Chip label="30min" selected />);
 
-    expect(getByRole('button').props.accessibilityState).toMatchObject({ selected: true });
+    expect(getByRole('button').props.accessibilityState).toMatchObject({
+      selected: true,
+    });
   });
 });

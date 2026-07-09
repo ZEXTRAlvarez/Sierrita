@@ -12,15 +12,27 @@ describe('ALL_GAMES', () => {
 });
 
 describe('getGameConfig', () => {
-  it.each(['tracing', 'words', 'sentences', 'cursive', 'counting', 'sums', 'hundreds', 'compare', 'patterns', 'memory', 'classify', 'maze'])(
-    'resolves the %s game config',
-    (gameId) => {
-      expect(getGameConfig(gameId).id).toBe(gameId);
-    },
-  );
+  it.each([
+    'tracing',
+    'words',
+    'sentences',
+    'cursive',
+    'counting',
+    'sums',
+    'hundreds',
+    'compare',
+    'patterns',
+    'memory',
+    'classify',
+    'maze',
+  ])('resolves the %s game config', (gameId) => {
+    expect(getGameConfig(gameId).id).toBe(gameId);
+  });
 
   it('throws for an unknown game id', () => {
-    expect(() => getGameConfig('does-not-exist')).toThrow('Game not found: does-not-exist');
+    expect(() => getGameConfig('does-not-exist')).toThrow(
+      'Game not found: does-not-exist',
+    );
   });
 });
 

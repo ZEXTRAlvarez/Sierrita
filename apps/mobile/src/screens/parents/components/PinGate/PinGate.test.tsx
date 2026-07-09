@@ -3,7 +3,9 @@ import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { verifyPin } from '@sierrita/parents';
 import { PinGate } from './PinGate';
 
-jest.mock('@react-navigation/native', () => ({ useNavigation: () => ({ goBack: jest.fn() }) }));
+jest.mock('@react-navigation/native', () => ({
+  useNavigation: () => ({ goBack: jest.fn() }),
+}));
 jest.mock('@sierrita/parents', () => ({ verifyPin: jest.fn() }));
 
 describe('PinGate', () => {

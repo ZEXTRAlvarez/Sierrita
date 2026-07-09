@@ -34,8 +34,13 @@ export function StatsSection({ globalStats, gameStats }: StatsSectionProps) {
         <StatTile value={`${globalStats.avgScore}%`} label="prom." />
       </View>
 
-      <TouchableOpacity style={styles.expandBtn} onPress={() => setExpanded((e) => !e)}>
-        <Text style={styles.expandText}>{expanded ? '▲ Ocultar detalle' : '▼ Ver por juego'}</Text>
+      <TouchableOpacity
+        style={styles.expandBtn}
+        onPress={() => setExpanded((e) => !e)}
+      >
+        <Text style={styles.expandText}>
+          {expanded ? '▲ Ocultar detalle' : '▼ Ver por juego'}
+        </Text>
       </TouchableOpacity>
 
       {expanded &&
@@ -61,13 +66,28 @@ export function StatsSection({ globalStats, gameStats }: StatsSectionProps) {
 }
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: '#fff', borderRadius: 20, padding: 18, elevation: 2 },
-  title: { fontSize: 18, fontWeight: '800', color: colorTokens.brand700, marginBottom: 14 },
+  container: {
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    padding: 18,
+    elevation: 2,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: colorTokens.brand700,
+    marginBottom: 14,
+  },
   statRow: { flexDirection: 'row', gap: 10, marginBottom: 10 },
   expandBtn: { alignSelf: 'center', marginTop: 4 },
   expandText: { color: colorTokens.brand500, fontWeight: '700', fontSize: 14 },
   worldBlock: { marginTop: 14 },
-  worldLabel: { fontSize: 15, fontWeight: '800', color: '#333', marginBottom: 6 },
+  worldLabel: {
+    fontSize: 15,
+    fontWeight: '800',
+    color: '#333',
+    marginBottom: 6,
+  },
   gameRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',

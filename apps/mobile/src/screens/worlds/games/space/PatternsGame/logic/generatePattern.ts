@@ -10,7 +10,11 @@ export interface PatternRound {
 }
 
 /** Builds a repeating-pattern round: a sequence with the last item blanked out, plus answer choices. */
-export function generatePattern(patternLength: number, attributes: string[], choices: number): PatternRound {
+export function generatePattern(
+  patternLength: number,
+  attributes: string[],
+  choices: number,
+): PatternRound {
   // Pick a repeating unit length (2 or 3 elements)
   const unitLen = patternLength <= 3 ? 2 : attributes.length === 1 ? 2 : 3;
 
@@ -21,7 +25,10 @@ export function generatePattern(patternLength: number, attributes: string[], cho
   } else if (attributes.includes('color')) {
     pool = shuffle([...COLOR_SETS[0]]).slice(0, unitLen);
   } else {
-    pool = shuffle([...SHAPE_COMBOS[rand(0, SHAPE_COMBOS.length - 1)]]).slice(0, unitLen);
+    pool = shuffle([...SHAPE_COMBOS[rand(0, SHAPE_COMBOS.length - 1)]]).slice(
+      0,
+      unitLen,
+    );
   }
 
   const unit = pool.slice(0, unitLen);
@@ -36,7 +43,9 @@ export function generatePattern(patternLength: number, attributes: string[], cho
   const answer = sequence[missingIdx];
 
   // Distractors
-  const distractors = shuffle(SPACE_EMOJIS.filter((e) => !unit.includes(e))).slice(0, choices - 1);
+  const distractors = shuffle(
+    SPACE_EMOJIS.filter((e) => !unit.includes(e)),
+  ).slice(0, choices - 1);
   const choiceSet = shuffle([answer, ...distractors]).slice(0, choices);
 
   return { sequence, missingIdx, choices: choiceSet, answer };

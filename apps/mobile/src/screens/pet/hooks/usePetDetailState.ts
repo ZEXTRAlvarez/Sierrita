@@ -6,7 +6,9 @@ import { getOutfit } from '../data/outfits';
 
 export function usePetDetailState() {
   const [petState, setPetState] = useAtom(petStateAtom);
-  const [selectedOutfit, setSelectedOutfit] = useState<string>(petState?.outfitId ?? 'none');
+  const [selectedOutfit, setSelectedOutfit] = useState<string>(
+    petState?.outfitId ?? 'none',
+  );
   const [showRename, setShowRename] = useState(false);
 
   function applyOutfit(outfitId: string) {

@@ -16,7 +16,9 @@ describe('hapticSuccess', () => {
   });
 
   it('swallows errors instead of throwing (haptics not available on all devices)', async () => {
-    (Haptics.notificationAsync as jest.Mock).mockRejectedValueOnce(new Error('no haptics'));
+    (Haptics.notificationAsync as jest.Mock).mockRejectedValueOnce(
+      new Error('no haptics'),
+    );
 
     await expect(hapticSuccess()).resolves.toBeUndefined();
   });
@@ -30,7 +32,9 @@ describe('hapticError', () => {
   });
 
   it('swallows errors instead of throwing', async () => {
-    (Haptics.notificationAsync as jest.Mock).mockRejectedValueOnce(new Error('no haptics'));
+    (Haptics.notificationAsync as jest.Mock).mockRejectedValueOnce(
+      new Error('no haptics'),
+    );
 
     await expect(hapticError()).resolves.toBeUndefined();
   });
@@ -44,7 +48,9 @@ describe('hapticLight', () => {
   });
 
   it('swallows errors instead of throwing', async () => {
-    (Haptics.impactAsync as jest.Mock).mockRejectedValueOnce(new Error('no haptics'));
+    (Haptics.impactAsync as jest.Mock).mockRejectedValueOnce(
+      new Error('no haptics'),
+    );
 
     await expect(hapticLight()).resolves.toBeUndefined();
   });

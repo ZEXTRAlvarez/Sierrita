@@ -3,7 +3,10 @@ import { getDatabase } from '../schema/getDatabase';
 import type { StoredGameSession } from './gameSessionRow';
 import { rowToGameSession } from './gameSessionRow';
 
-export async function saveGameSession(profileId: string, summary: GameSummary): Promise<void> {
+export async function saveGameSession(
+  profileId: string,
+  summary: GameSummary,
+): Promise<void> {
   const db = await getDatabase();
   const id = `gs_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
   await db.runAsync(
@@ -24,7 +27,10 @@ export async function saveGameSession(profileId: string, summary: GameSummary): 
   );
 }
 
-export async function getRecentSessions(profileId: string, limit = 20): Promise<StoredGameSession[]> {
+export async function getRecentSessions(
+  profileId: string,
+  limit = 20,
+): Promise<StoredGameSession[]> {
   const db = await getDatabase();
   const rows = await db.getAllAsync<Record<string, unknown>>(
     `SELECT * FROM game_sessions WHERE profile_id = ? ORDER BY played_at DESC LIMIT ?`,

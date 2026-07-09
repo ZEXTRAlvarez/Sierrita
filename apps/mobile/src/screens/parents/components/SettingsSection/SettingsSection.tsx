@@ -22,12 +22,20 @@ export function SettingsSection({ config, onChange }: SettingsSectionProps) {
             key={mins}
             label={`${mins}min`}
             selected={config.maxSessionMinutes === mins}
-            onPress={() => onChange({ ...config, maxSessionMinutes: mins, updatedAt: Date.now() })}
+            onPress={() =>
+              onChange({
+                ...config,
+                maxSessionMinutes: mins,
+                updatedAt: Date.now(),
+              })
+            }
           />
         ))}
       </View>
 
-      <Text style={[styles.settingLabel, styles.worldsLabel]}>Mundos habilitados</Text>
+      <Text style={[styles.settingLabel, styles.worldsLabel]}>
+        Mundos habilitados
+      </Text>
       {WORLDS.map((world) => (
         <View key={world} style={styles.switchRow}>
           <Text style={styles.switchLabel}>{WORLD_LABEL[world]}</Text>
@@ -38,7 +46,11 @@ export function SettingsSection({ config, onChange }: SettingsSectionProps) {
                 ? [...config.worldsEnabled, world]
                 : config.worldsEnabled.filter((w) => w !== world);
               if (next.length === 0) return; // at least 1 world must be enabled
-              onChange({ ...config, worldsEnabled: next, updatedAt: Date.now() });
+              onChange({
+                ...config,
+                worldsEnabled: next,
+                updatedAt: Date.now(),
+              });
             }}
             trackColor={{ false: '#DDD', true: colorTokens.worldJungle }}
             thumbColor="#fff"
@@ -50,9 +62,24 @@ export function SettingsSection({ config, onChange }: SettingsSectionProps) {
 }
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: '#fff', borderRadius: 20, padding: 18, elevation: 2 },
-  title: { fontSize: 18, fontWeight: '800', color: colorTokens.brand700, marginBottom: 14 },
-  settingLabel: { fontSize: 15, fontWeight: '700', color: '#333', marginBottom: 10 },
+  container: {
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    padding: 18,
+    elevation: 2,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: colorTokens.brand700,
+    marginBottom: 14,
+  },
+  settingLabel: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: '#333',
+    marginBottom: 10,
+  },
   worldsLabel: { marginTop: 16 },
   timeRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   switchRow: {

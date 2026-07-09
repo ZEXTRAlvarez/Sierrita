@@ -4,13 +4,17 @@ import { renderWithProviders } from '../../test-utils/renderWithProviders';
 import PetScreen from './PetScreen';
 
 const mockNavigate = jest.fn();
-jest.mock('@react-navigation/native', () => ({ useNavigation: () => ({ navigate: mockNavigate }) }));
+jest.mock('@react-navigation/native', () => ({
+  useNavigation: () => ({ navigate: mockNavigate }),
+}));
 jest.mock('expo-linear-gradient', () => ({ LinearGradient: 'LinearGradient' }));
 jest.mock('expo-blur', () => {
   const { View } = require('react-native');
   return { BlurView: View };
 });
-jest.mock('../../components/PetAnimation', () => ({ PetAnimation: () => null }));
+jest.mock('../../components/PetAnimation', () => ({
+  PetAnimation: () => null,
+}));
 
 const mockPet = {
   profileId: 'p1',

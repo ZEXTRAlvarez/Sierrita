@@ -8,7 +8,12 @@ export interface ParentsActionsProps {
   onSwitchProfile: () => void;
 }
 
-export function ParentsActions({ exporting, onExportPdf, onChangePin, onSwitchProfile }: ParentsActionsProps) {
+export function ParentsActions({
+  exporting,
+  onExportPdf,
+  onChangePin,
+  onSwitchProfile,
+}: ParentsActionsProps) {
   return (
     <View style={styles.container}>
       <PrimaryButton
@@ -17,8 +22,16 @@ export function ParentsActions({ exporting, onExportPdf, onChangePin, onSwitchPr
         onPress={onExportPdf}
         disabled={exporting}
       />
-      <PrimaryButton label="🔐 Cambiar PIN" color="purple" onPress={onChangePin} />
-      <PrimaryButton label="🔄 Cambiar de perfil" color="success" onPress={onSwitchProfile} />
+      <PrimaryButton
+        label="🔐 Cambiar PIN"
+        color="purple"
+        onPress={onChangePin}
+      />
+      <PrimaryButton
+        label="🔄 Cambiar de perfil"
+        color="success"
+        onPress={onSwitchProfile}
+      />
     </View>
   );
 }

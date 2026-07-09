@@ -4,12 +4,17 @@ import { renderWithProviders } from '../../test-utils/renderWithProviders';
 import OnboardingScreen from './OnboardingScreen';
 
 const mockReplace = jest.fn();
-jest.mock('@react-navigation/native', () => ({ useNavigation: () => ({ replace: mockReplace }) }));
+jest.mock('@react-navigation/native', () => ({
+  useNavigation: () => ({ replace: mockReplace }),
+}));
 
 const mockAddProfile = jest.fn();
 const mockSelectProfile = jest.fn();
 jest.mock('../../hooks/useProfiles', () => ({
-  useProfiles: () => ({ addProfile: mockAddProfile, selectProfile: mockSelectProfile }),
+  useProfiles: () => ({
+    addProfile: mockAddProfile,
+    selectProfile: mockSelectProfile,
+  }),
 }));
 
 describe('OnboardingScreen', () => {
@@ -21,7 +26,9 @@ describe('OnboardingScreen', () => {
 
   it('walks through name, age and pet before creating a profile', async () => {
     mockAddProfile.mockResolvedValue({ id: 'p1' });
-    const { getByText, getByPlaceholderText } = renderWithProviders(<OnboardingScreen />);
+    const { getByText, getByPlaceholderText } = renderWithProviders(
+      <OnboardingScreen />,
+    );
 
     fireEvent.changeText(getByPlaceholderText('Tu nombre...'), 'Sofía');
     fireEvent.press(getByText('¡Siguiente!'));

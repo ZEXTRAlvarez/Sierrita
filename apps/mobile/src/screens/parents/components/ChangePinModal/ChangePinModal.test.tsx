@@ -10,7 +10,9 @@ jest.mock('@sierrita/parents', () => ({
 
 describe('ChangePinModal', () => {
   it('skips the verify step when there is no current PIN set', () => {
-    const { getByText } = render(<ChangePinModal currentHash="" onSave={jest.fn()} onCancel={jest.fn()} />);
+    const { getByText } = render(
+      <ChangePinModal currentHash="" onSave={jest.fn()} onCancel={jest.fn()} />,
+    );
 
     expect(getByText('Nuevo PIN (mínimo 4 dígitos)')).toBeTruthy();
   });
@@ -18,7 +20,11 @@ describe('ChangePinModal', () => {
   it('requires verifying the current PIN before allowing a new one', async () => {
     (verifyPin as jest.Mock).mockResolvedValue(false);
     const { getByText, getByTestId } = render(
-      <ChangePinModal currentHash="oldhash" onSave={jest.fn()} onCancel={jest.fn()} />,
+      <ChangePinModal
+        currentHash="oldhash"
+        onSave={jest.fn()}
+        onCancel={jest.fn()}
+      />,
     );
 
     expect(getByText('Ingresá tu PIN actual')).toBeTruthy();
@@ -33,12 +39,18 @@ describe('ChangePinModal', () => {
     (verifyPin as jest.Mock).mockResolvedValue(true);
     const onSave = jest.fn();
     const { getByText, getByTestId } = render(
-      <ChangePinModal currentHash="oldhash" onSave={onSave} onCancel={jest.fn()} />,
+      <ChangePinModal
+        currentHash="oldhash"
+        onSave={onSave}
+        onCancel={jest.fn()}
+      />,
     );
 
     fireEvent.changeText(getByTestId('change-pin-input'), '0000');
     fireEvent.press(getByText('Siguiente →'));
-    await waitFor(() => expect(getByText('Nuevo PIN (mínimo 4 dígitos)')).toBeTruthy());
+    await waitFor(() =>
+      expect(getByText('Nuevo PIN (mínimo 4 dígitos)')).toBeTruthy(),
+    );
 
     fireEvent.changeText(getByTestId('change-pin-input'), '1234');
     fireEvent.press(getByText('Siguiente →'));
@@ -52,7 +64,9 @@ describe('ChangePinModal', () => {
 
   it('calls onCancel when the cancel button is tapped', () => {
     const onCancel = jest.fn();
-    const { getByText } = render(<ChangePinModal currentHash="" onSave={jest.fn()} onCancel={onCancel} />);
+    const { getByText } = render(
+      <ChangePinModal currentHash="" onSave={jest.fn()} onCancel={onCancel} />,
+    );
 
     fireEvent.press(getByText('Cancelar'));
 

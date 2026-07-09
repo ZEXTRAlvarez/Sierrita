@@ -9,7 +9,9 @@ export interface Card {
 
 /** Builds a shuffled deck of `pairs` matched card pairs, each starting face-down. */
 export function buildDeck(pairs: number): Card[] {
-  const emojis = [...CARD_EMOJIS].sort(() => Math.random() - 0.5).slice(0, pairs);
+  const emojis = [...CARD_EMOJIS]
+    .sort(() => Math.random() - 0.5)
+    .slice(0, pairs);
   const cards: Card[] = [];
   let id = 0;
   for (const emoji of emojis) {

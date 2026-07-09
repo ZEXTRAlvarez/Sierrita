@@ -9,8 +9,16 @@ export function usePetScreenAnimations() {
   useEffect(() => {
     const loop = Animated.loop(
       Animated.sequence([
-        Animated.timing(bounceY, { toValue: -10, duration: 1100, useNativeDriver: true }),
-        Animated.timing(bounceY, { toValue: 0, duration: 1100, useNativeDriver: true }),
+        Animated.timing(bounceY, {
+          toValue: -10,
+          duration: 1100,
+          useNativeDriver: true,
+        }),
+        Animated.timing(bounceY, {
+          toValue: 0,
+          duration: 1100,
+          useNativeDriver: true,
+        }),
       ]),
     );
     loop.start();
@@ -20,7 +28,11 @@ export function usePetScreenAnimations() {
 
   function animateAction(fn: () => void) {
     actionScale.setValue(0.92);
-    Animated.spring(actionScale, { toValue: 1, friction: 4, useNativeDriver: true }).start();
+    Animated.spring(actionScale, {
+      toValue: 1,
+      friction: 4,
+      useNativeDriver: true,
+    }).start();
     fn();
   }
 

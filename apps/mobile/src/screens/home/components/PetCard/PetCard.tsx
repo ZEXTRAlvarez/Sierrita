@@ -1,4 +1,10 @@
-import { Animated, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import {
+  Animated,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { PetAnimation } from '../../../../components/PetAnimation';
 import type { PetState, PetMood, PetType } from '@sierrita/pet';
@@ -14,10 +20,22 @@ export interface PetCardProps {
   stageName: string;
   xpProgress: number;
   petBounce: Animated.Value;
-  entranceStyle: { opacity: Animated.Value; transform: { translateY: Animated.AnimatedInterpolation<number> }[] };
+  entranceStyle: {
+    opacity: Animated.Value;
+    transform: { translateY: Animated.AnimatedInterpolation<number> }[];
+  };
 }
 
-export function PetCard({ pet, petType, mood, moodCfg, stageName, xpProgress, petBounce, entranceStyle }: PetCardProps) {
+export function PetCard({
+  pet,
+  petType,
+  mood,
+  moodCfg,
+  stageName,
+  xpProgress,
+  petBounce,
+  entranceStyle,
+}: PetCardProps) {
   return (
     <Animated.View style={[styles.wrap, entranceStyle]}>
       <ImageBackground
@@ -32,13 +50,19 @@ export function PetCard({ pet, petType, mood, moodCfg, stageName, xpProgress, pe
           style={StyleSheet.absoluteFill}
         />
 
-        <Animated.View style={[styles.left, { transform: [{ translateY: petBounce }] }]}>
-          <View style={[styles.glow, { backgroundColor: moodCfg.accent + '33' }]} />
+        <Animated.View
+          style={[styles.left, { transform: [{ translateY: petBounce }] }]}
+        >
+          <View
+            style={[styles.glow, { backgroundColor: moodCfg.accent + '33' }]}
+          />
           <PetAnimation petType={petType} mood={mood} size={88} />
         </Animated.View>
 
         <View style={styles.right}>
-          <View style={[styles.moodBubble, { borderLeftColor: moodCfg.accent }]}>
+          <View
+            style={[styles.moodBubble, { borderLeftColor: moodCfg.accent }]}
+          >
             <Text style={styles.moodText}>{moodCfg.text}</Text>
           </View>
 
@@ -53,7 +77,12 @@ export function PetCard({ pet, petType, mood, moodCfg, stageName, xpProgress, pe
           <View style={styles.xpRow}>
             <Text style={styles.xpLabel}>{stageName}</Text>
             <View style={styles.xpTrack}>
-              <Animated.View style={[styles.xpFill, { width: `${Math.round(xpProgress * 100)}%` as any }]} />
+              <Animated.View
+                style={[
+                  styles.xpFill,
+                  { width: `${Math.round(xpProgress * 100)}%` as any },
+                ]}
+              />
             </View>
           </View>
 

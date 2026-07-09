@@ -30,9 +30,13 @@ describe('upsertParentConfig / getParentConfig', () => {
   it('updates an existing config on conflict, round-tripping the worldsEnabled CSV', async () => {
     await upsertParentConfig(config());
 
-    await upsertParentConfig(config({ pinHash: 'hash123', worldsEnabled: ['ocean'] }));
+    await upsertParentConfig(
+      config({ pinHash: 'hash123', worldsEnabled: ['ocean'] }),
+    );
 
-    await expect(getParentConfig('p1')).resolves.toEqual(config({ pinHash: 'hash123', worldsEnabled: ['ocean'] }));
+    await expect(getParentConfig('p1')).resolves.toEqual(
+      config({ pinHash: 'hash123', worldsEnabled: ['ocean'] }),
+    );
   });
 
   it('returns null when no config exists for the profile', async () => {

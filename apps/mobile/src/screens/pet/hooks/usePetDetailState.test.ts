@@ -22,13 +22,17 @@ jest.mock('jotai', () => ({
     (updater: unknown) => {
       mockAtomValue =
         typeof updater === 'function'
-          ? (updater as (mockPrev: typeof basePet | null) => typeof basePet)(mockAtomValue)
+          ? (updater as (mockPrev: typeof basePet | null) => typeof basePet)(
+              mockAtomValue,
+            )
           : (updater as typeof basePet);
     },
   ]),
 }));
 jest.mock('../../../store/atoms', () => ({ petStateAtom: 'petState' }));
-jest.mock('@sierrita/storage', () => ({ upsertPetState: jest.fn(async () => undefined) }));
+jest.mock('@sierrita/storage', () => ({
+  upsertPetState: jest.fn(async () => undefined),
+}));
 
 describe('usePetDetailState', () => {
   beforeEach(() => {
@@ -48,7 +52,9 @@ describe('usePetDetailState', () => {
     act(() => result.current.applyOutfit('hat'));
 
     expect(result.current.selectedOutfit).toBe('hat');
-    expect(upsertPetState).toHaveBeenCalledWith(expect.objectContaining({ outfitId: 'hat' }));
+    expect(upsertPetState).toHaveBeenCalledWith(
+      expect.objectContaining({ outfitId: 'hat' }),
+    );
   });
 
   it('applyName trims the name and closes the rename modal', () => {
@@ -58,7 +64,9 @@ describe('usePetDetailState', () => {
     act(() => result.current.applyName('  Chispita  '));
 
     expect(result.current.showRename).toBe(false);
-    expect(upsertPetState).toHaveBeenCalledWith(expect.objectContaining({ petName: 'Chispita' }));
+    expect(upsertPetState).toHaveBeenCalledWith(
+      expect.objectContaining({ petName: 'Chispita' }),
+    );
   });
 
   it('applyName treats a blank name as clearing the custom name', () => {
@@ -66,6 +74,8 @@ describe('usePetDetailState', () => {
 
     act(() => result.current.applyName('   '));
 
-    expect(upsertPetState).toHaveBeenCalledWith(expect.objectContaining({ petName: null }));
+    expect(upsertPetState).toHaveBeenCalledWith(
+      expect.objectContaining({ petName: null }),
+    );
   });
 });

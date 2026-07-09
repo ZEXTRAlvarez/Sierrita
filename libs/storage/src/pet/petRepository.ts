@@ -4,9 +4,10 @@ import { rowToPetState } from './petStateRow';
 
 export async function getPetState(profileId: string): Promise<PetState | null> {
   const db = await getDatabase();
-  const row = await db.getFirstAsync<Record<string, unknown>>('SELECT * FROM pet_state WHERE profile_id = ?', [
-    profileId,
-  ]);
+  const row = await db.getFirstAsync<Record<string, unknown>>(
+    'SELECT * FROM pet_state WHERE profile_id = ?',
+    [profileId],
+  );
   return row ? rowToPetState(row) : null;
 }
 
@@ -43,5 +44,8 @@ export async function upsertPetState(state: PetState): Promise<void> {
 
 export async function addXp(profileId: string, xp: number): Promise<void> {
   const db = await getDatabase();
-  await db.runAsync('UPDATE pet_state SET total_xp = total_xp + ? WHERE profile_id = ?', [xp, profileId]);
+  await db.runAsync(
+    'UPDATE pet_state SET total_xp = total_xp + ? WHERE profile_id = ?',
+    [xp, profileId],
+  );
 }

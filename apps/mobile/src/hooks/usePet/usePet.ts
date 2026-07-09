@@ -48,10 +48,22 @@ export function usePet() {
     [setPetState],
   );
 
-  const feed      = useCallback(() => applyEvent({ type: 'feed',   amount: 25 }), [applyEvent]);
-  const giveWater = useCallback(() => applyEvent({ type: 'water',  amount: 25 }), [applyEvent]);
-  const play      = useCallback(() => applyEvent({ type: 'play',   amount: 20 }), [applyEvent]);
-  const rewardXp  = useCallback((xp: number) => applyEvent({ type: 'reward', amount: xp }), [applyEvent]);
+  const feed = useCallback(
+    () => applyEvent({ type: 'feed', amount: 25 }),
+    [applyEvent],
+  );
+  const giveWater = useCallback(
+    () => applyEvent({ type: 'water', amount: 25 }),
+    [applyEvent],
+  );
+  const play = useCallback(
+    () => applyEvent({ type: 'play', amount: 20 }),
+    [applyEvent],
+  );
+  const rewardXp = useCallback(
+    (xp: number) => applyEvent({ type: 'reward', amount: xp }),
+    [applyEvent],
+  );
 
   const renamePet = useCallback(
     (name: string) => {

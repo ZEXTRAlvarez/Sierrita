@@ -1,8 +1,19 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  modeContainer: { flex: 1, alignItems: 'center', width: '100%', paddingHorizontal: 16 },
-  modeQuestion: { fontSize: 20, fontWeight: '700', color: '#1565C0', marginBottom: 20, textAlign: 'center' },
+  modeContainer: {
+    flex: 1,
+    alignItems: 'center',
+    width: '100%',
+    paddingHorizontal: 16,
+  },
+  modeQuestion: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#1565C0',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
   composeExpression: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -21,7 +32,12 @@ export const styles = StyleSheet.create({
     borderRadius: 12,
   },
   composePlus: { fontSize: 26, fontWeight: '900', color: '#1565C0' },
-  optionsRow: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 14 },
+  optionsRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 14,
+  },
   optionBtn: {
     width: 80,
     height: 80,

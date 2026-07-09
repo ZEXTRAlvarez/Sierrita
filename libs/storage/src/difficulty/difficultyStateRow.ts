@@ -1,7 +1,9 @@
 import type { DifficultyState } from '@sierrita/adaptive';
 import type { Difficulty } from '@sierrita/games';
 
-export function rowToDifficultyState(row: Record<string, unknown>): DifficultyState {
+export function rowToDifficultyState(
+  row: Record<string, unknown>,
+): DifficultyState {
   return {
     profileId: row.profile_id as string,
     gameId: row.game_id as string,

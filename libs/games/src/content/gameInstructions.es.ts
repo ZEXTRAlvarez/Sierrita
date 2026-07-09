@@ -1,7 +1,11 @@
 // Frases de instrucción por juego
 
 export const GAME_INSTRUCTIONS: Record<string, string[]> = {
-  tracing: ['¡Seguí el camino con tu dedo!', '¡Trazá la letra!', '¡Vamos, dibujá!'],
+  tracing: [
+    '¡Seguí el camino con tu dedo!',
+    '¡Trazá la letra!',
+    '¡Vamos, dibujá!',
+  ],
   words: ['¡Completá la palabra!', '¿Qué letra falta?', '¡Pensá bien!'],
   sentences: ['¡Armá la oración!', '¡Ordená las palabras!'],
   cursive: ['¡Escribí en cursiva!', '¡Seguí la guía!'],

@@ -26,7 +26,13 @@ export const styles = StyleSheet.create({
   needsRow: { flexDirection: 'row', gap: 6, alignItems: 'center' },
   xpRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   xpLabel: { fontSize: 11, fontWeight: '700', color: '#888', minWidth: 56 },
-  xpTrack: { flex: 1, height: 8, backgroundColor: '#EEE', borderRadius: 4, overflow: 'hidden' },
+  xpTrack: {
+    flex: 1,
+    height: 8,
+    backgroundColor: '#EEE',
+    borderRadius: 4,
+    overflow: 'hidden',
+  },
   xpFill: { height: '100%', borderRadius: 4, backgroundColor: '#FFC107' },
   xpAmount: { fontSize: 11, fontWeight: '700', color: '#FFA000' },
 });

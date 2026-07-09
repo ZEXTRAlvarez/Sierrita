@@ -8,7 +8,10 @@ export interface WorldCardsGridProps {
   onPressWorld: () => void;
 }
 
-export function WorldCardsGrid({ cardEntrance, onPressWorld }: WorldCardsGridProps) {
+export function WorldCardsGrid({
+  cardEntrance,
+  onPressWorld,
+}: WorldCardsGridProps) {
   return (
     <View style={[styles.grid, IS_TABLET && styles.gridTablet]}>
       {WORLD_CARDS.map((w, idx) => (
@@ -16,11 +19,14 @@ export function WorldCardsGrid({ cardEntrance, onPressWorld }: WorldCardsGridPro
           key={w.id}
           style={{
             opacity: cardEntrance,
-            transform: [{
-              translateY: cardEntrance.interpolate({
-                inputRange: [0, 1], outputRange: [60 + idx * 20, 0],
-              }),
-            }],
+            transform: [
+              {
+                translateY: cardEntrance.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [60 + idx * 20, 0],
+                }),
+              },
+            ],
           }}
         >
           <TouchableOpacity
@@ -33,7 +39,9 @@ export function WorldCardsGrid({ cardEntrance, onPressWorld }: WorldCardsGridPro
             <Text style={styles.cardName}>{w.name}</Text>
             <Text style={styles.cardSubject}>{w.subject}</Text>
             <View style={[styles.cardBadge, { backgroundColor: w.accent }]}>
-              <Text style={[styles.cardBadgeText, { color: w.dark }]}>{w.games} juegos</Text>
+              <Text style={[styles.cardBadgeText, { color: w.dark }]}>
+                {w.games} juegos
+              </Text>
             </View>
           </TouchableOpacity>
         </Animated.View>

@@ -36,9 +36,15 @@ const WORDS: WordEntry[] = [
   { word: 'FLOR', emoji: '🌸', category: 'objects' },
 ];
 
-export function getWords(length: 3 | 4 | 5, category: 'animals' | 'objects' | 'mixed', count: number): WordEntry[] {
+export function getWords(
+  length: 3 | 4 | 5,
+  category: 'animals' | 'objects' | 'mixed',
+  count: number,
+): WordEntry[] {
   const filtered = WORDS.filter(
-    (w) => w.word.length === length && (category === 'mixed' || w.category === category),
+    (w) =>
+      w.word.length === length &&
+      (category === 'mixed' || w.category === category),
   );
   // Barajar y devolver `count` palabras
   return [...filtered].sort(() => Math.random() - 0.5).slice(0, count);
@@ -47,11 +53,17 @@ export function getWords(length: 3 | 4 | 5, category: 'animals' | 'objects' | 'm
 /** Devuelve índices de blancos en la palabra. blanks = cuántas letras ocultar */
 export function getBlanks(word: string, blanks: number): number[] {
   const indices = Array.from({ length: word.length }, (_, i) => i);
-  return [...indices].sort(() => Math.random() - 0.5).slice(0, blanks).sort((a, b) => a - b);
+  return [...indices]
+    .sort(() => Math.random() - 0.5)
+    .slice(0, blanks)
+    .sort((a, b) => a - b);
 }
 
 /** Genera opciones de letras para elegir (incluye la correcta + distractores) */
-export function getLetterOptions(word: string, blankIndices: number[]): string[] {
+export function getLetterOptions(
+  word: string,
+  blankIndices: number[],
+): string[] {
   const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const correct = blankIndices.map((i) => word[i]);
   const distractors = Array.from(

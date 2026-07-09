@@ -8,15 +8,31 @@ import nx from '@nx/eslint-plugin';
 //   scope:app            apps/mobile (depends on everything)
 const depConstraints = [
   { sourceTag: 'scope:ui', onlyDependOnLibsWithTags: ['scope:ui'] },
-  { sourceTag: 'scope:domain-core', onlyDependOnLibsWithTags: ['scope:domain-core'] },
-  { sourceTag: 'scope:infra', onlyDependOnLibsWithTags: ['scope:domain-core', 'scope:infra'] },
+  {
+    sourceTag: 'scope:domain-core',
+    onlyDependOnLibsWithTags: ['scope:domain-core'],
+  },
+  {
+    sourceTag: 'scope:infra',
+    onlyDependOnLibsWithTags: ['scope:domain-core', 'scope:infra'],
+  },
   {
     sourceTag: 'scope:feature',
-    onlyDependOnLibsWithTags: ['scope:domain-core', 'scope:infra', 'scope:feature'],
+    onlyDependOnLibsWithTags: [
+      'scope:domain-core',
+      'scope:infra',
+      'scope:feature',
+    ],
   },
   {
     sourceTag: 'scope:app',
-    onlyDependOnLibsWithTags: ['scope:domain-core', 'scope:infra', 'scope:feature', 'scope:ui', 'scope:app'],
+    onlyDependOnLibsWithTags: [
+      'scope:domain-core',
+      'scope:infra',
+      'scope:feature',
+      'scope:ui',
+      'scope:app',
+    ],
   },
 ];
 
@@ -57,14 +73,27 @@ export default [
   },
   {
     // Hard 100-line cap across libs/** and apps/mobile/src/**.
-    files: ['libs/**/*.ts', 'libs/**/*.tsx', 'apps/mobile/src/**/*.ts', 'apps/mobile/src/**/*.tsx'],
+    files: [
+      'libs/**/*.ts',
+      'libs/**/*.tsx',
+      'apps/mobile/src/**/*.ts',
+      'apps/mobile/src/**/*.tsx',
+    ],
     ignores: [
-      'libs/**/*.spec.ts', 'libs/**/*.spec.tsx', 'libs/**/*.test.ts', 'libs/**/*.test.tsx',
-      'apps/mobile/src/**/*.spec.ts', 'apps/mobile/src/**/*.spec.tsx',
-      'apps/mobile/src/**/*.test.ts', 'apps/mobile/src/**/*.test.tsx',
+      'libs/**/*.spec.ts',
+      'libs/**/*.spec.tsx',
+      'libs/**/*.test.ts',
+      'libs/**/*.test.tsx',
+      'apps/mobile/src/**/*.spec.ts',
+      'apps/mobile/src/**/*.spec.tsx',
+      'apps/mobile/src/**/*.test.ts',
+      'apps/mobile/src/**/*.test.tsx',
     ],
     rules: {
-      'max-lines': ['error', { max: 100, skipBlankLines: false, skipComments: false }],
+      'max-lines': [
+        'error',
+        { max: 100, skipBlankLines: false, skipComments: false },
+      ],
     },
   },
 ];

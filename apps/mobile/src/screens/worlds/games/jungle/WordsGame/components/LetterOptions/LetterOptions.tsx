@@ -8,7 +8,11 @@ export interface LetterOptionsProps {
 }
 
 /** Row of tappable letter choices used to fill in a word's blanks. */
-export function LetterOptions({ options, disabled, onPress }: LetterOptionsProps) {
+export function LetterOptions({
+  options,
+  disabled,
+  onPress,
+}: LetterOptionsProps) {
   return (
     <View style={styles.optionsRow}>
       {options.map((letter, i) => (

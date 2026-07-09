@@ -1,12 +1,15 @@
 import { validatePinFormat } from './pinValidation';
 
 describe('validatePinFormat', () => {
-  it.each(['', '1', '12', '123'])('rejects a PIN shorter than 4 digits ("%s")', (pin) => {
-    const result = validatePinFormat(pin);
+  it.each(['', '1', '12', '123'])(
+    'rejects a PIN shorter than 4 digits ("%s")',
+    (pin) => {
+      const result = validatePinFormat(pin);
 
-    expect(result.valid).toBe(false);
-    expect(result.error).toBe('Mínimo 4 dígitos');
-  });
+      expect(result.valid).toBe(false);
+      expect(result.error).toBe('Mínimo 4 dígitos');
+    },
+  );
 
   it('rejects a non-numeric PIN of sufficient length', () => {
     const result = validatePinFormat('12a4');

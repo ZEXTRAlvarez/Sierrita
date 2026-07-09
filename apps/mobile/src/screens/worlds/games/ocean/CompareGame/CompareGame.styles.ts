@@ -1,10 +1,32 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', paddingTop: 12, backgroundColor: '#E3F2FD' },
-  progress: { fontSize: 16, color: '#1976D2', fontWeight: '600', marginBottom: 4 },
-  instruction: { fontSize: 20, fontWeight: '700', color: '#0D47A1', marginBottom: 16, textAlign: 'center' },
-  comparisonRow: { flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: 24, paddingHorizontal: 16 },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: 12,
+    backgroundColor: '#E3F2FD',
+  },
+  progress: {
+    fontSize: 16,
+    color: '#1976D2',
+    fontWeight: '600',
+    marginBottom: 4,
+  },
+  instruction: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#0D47A1',
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  comparisonRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    marginBottom: 24,
+    paddingHorizontal: 16,
+  },
   side: {
     flex: 1,
     alignItems: 'center',
@@ -15,7 +37,12 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   numberText: { fontSize: 52, fontWeight: '900', color: '#0D47A1' },
-  expressionText: { fontSize: 26, fontWeight: '900', color: '#0D47A1', textAlign: 'center' },
+  expressionText: {
+    fontSize: 26,
+    fontWeight: '900',
+    color: '#0D47A1',
+    textAlign: 'center',
+  },
   symbolSlot: {
     width: 40,
     height: 40,
@@ -40,8 +67,13 @@ export const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   correctSymBtn: { backgroundColor: '#4CAF50' },
-  wrongSymBtn:   { backgroundColor: '#F44336' },
-  symbolBtnText: { fontSize: 36, fontWeight: '900', color: '#fff', lineHeight: 42 },
+  wrongSymBtn: { backgroundColor: '#F44336' },
+  symbolBtnText: {
+    fontSize: 36,
+    fontWeight: '900',
+    color: '#fff',
+    lineHeight: 42,
+  },
   badge: {
     marginTop: 20,
     paddingHorizontal: 24,

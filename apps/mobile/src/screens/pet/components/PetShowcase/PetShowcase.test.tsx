@@ -4,7 +4,9 @@ import { PetShowcase } from './PetShowcase';
 import { getOutfit } from '../../data/outfits';
 import type { PetState } from '@sierrita/pet';
 
-jest.mock('../../../../components/PetAnimation', () => ({ PetAnimation: () => null }));
+jest.mock('../../../../components/PetAnimation', () => ({
+  PetAnimation: () => null,
+}));
 
 const petState: PetState = {
   profileId: 'p1',

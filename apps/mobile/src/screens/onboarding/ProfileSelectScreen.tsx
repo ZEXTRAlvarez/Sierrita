@@ -11,7 +11,8 @@ import { AddProfileCard } from './components/AddProfileCard';
 import { styles } from './ProfileSelectScreen.styles';
 
 export default function ProfileSelectScreen() {
-  const { navigation, profiles, handleSelect, handleDelete } = useProfileSelection();
+  const { navigation, profiles, handleSelect, handleDelete } =
+    useProfileSelection();
   const activeProfileId = useAtomValue(activeProfileIdAtom);
   const isSwitching = !!activeProfileId && navigation.canGoBack();
   const cardAnims = useProfileCardAnimations(profiles.length);
@@ -28,18 +29,30 @@ export default function ProfileSelectScreen() {
         style={StyleSheet.absoluteFill}
       />
 
-      <ProfileHeader isSwitching={isSwitching} onBack={() => navigation.goBack()} />
+      <ProfileHeader
+        isSwitching={isSwitching}
+        onBack={() => navigation.goBack()}
+      />
 
       <ScrollView
         contentContainerStyle={styles.grid}
         showsVerticalScrollIndicator={false}
       >
         {profiles.map((p, idx) => (
-          <ProfileCard key={p.id} profile={p} anim={cardAnims[idx]} onSelect={handleSelect} onDelete={handleDelete} />
+          <ProfileCard
+            key={p.id}
+            profile={p}
+            anim={cardAnims[idx]}
+            onSelect={handleSelect}
+            onDelete={handleDelete}
+          />
         ))}
 
         {profiles.length < 5 && (
-          <AddProfileCard anim={cardAnims[profiles.length]} onPress={() => navigation.navigate('Onboarding')} />
+          <AddProfileCard
+            anim={cardAnims[profiles.length]}
+            onPress={() => navigation.navigate('Onboarding')}
+          />
         )}
       </ScrollView>
 

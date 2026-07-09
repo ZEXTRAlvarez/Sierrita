@@ -12,7 +12,11 @@ export function StepDots({ step }: StepDotsProps) {
   return (
     <View style={styles.dots}>
       {STEPS.map((s) => (
-        <View key={s} testID={`step-dot-${s}`} style={[styles.dot, step === s && styles.dotActive]} />
+        <View
+          key={s}
+          testID={`step-dot-${s}`}
+          style={[styles.dot, step === s && styles.dotActive]}
+        />
       ))}
     </View>
   );

@@ -17,7 +17,11 @@ const PROMPTS: Record<Step, string> = {
   confirm: 'Repetí el nuevo PIN',
 };
 
-export function ChangePinModal({ currentHash, onSave, onCancel }: ChangePinModalProps) {
+export function ChangePinModal({
+  currentHash,
+  onSave,
+  onCancel,
+}: ChangePinModalProps) {
   const [current, setCurrent] = useState('');
   const [next, setNext] = useState('');
   const [confirm, setConfirm] = useState('');
@@ -34,19 +38,31 @@ export function ChangePinModal({ currentHash, onSave, onCancel }: ChangePinModal
     setError('');
     if (step === 'verify') {
       const valid = await verifyPin(current, currentHash);
-      if (!valid) { setError('PIN incorrecto'); setCurrent(''); return; }
+      if (!valid) {
+        setError('PIN incorrecto');
+        setCurrent('');
+        return;
+      }
       setStep('new');
     } else if (step === 'new') {
-      if (next.length < 4) { setError('Mínimo 4 dígitos'); return; }
+      if (next.length < 4) {
+        setError('Mínimo 4 dígitos');
+        return;
+      }
       setStep('confirm');
     } else {
-      if (next !== confirm) { setError('No coinciden'); setConfirm(''); return; }
+      if (next !== confirm) {
+        setError('No coinciden');
+        setConfirm('');
+        return;
+      }
       onSave(await hashPin(next));
     }
   }
 
   const value = step === 'verify' ? current : step === 'new' ? next : confirm;
-  const setValue = step === 'verify' ? setCurrent : step === 'new' ? setNext : setConfirm;
+  const setValue =
+    step === 'verify' ? setCurrent : step === 'new' ? setNext : setConfirm;
 
   return (
     <View style={styles.overlay}>
@@ -69,7 +85,9 @@ export function ChangePinModal({ currentHash, onSave, onCancel }: ChangePinModal
             <Text style={styles.cancelText}>Cancelar</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.saveBtn} onPress={advance}>
-            <Text style={styles.saveText}>{step === 'confirm' ? 'Guardar' : 'Siguiente →'}</Text>
+            <Text style={styles.saveText}>
+              {step === 'confirm' ? 'Guardar' : 'Siguiente →'}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -20,7 +20,11 @@ jest.mock('./data/gameRegistry', () => ({
 }));
 
 jest.mock('@sierrita/games', () => ({
-  getGameConfig: () => ({ titleEs: 'Trazos y Letras', roundCount: 3, params: () => ({}) }),
+  getGameConfig: () => ({
+    titleEs: 'Trazos y Letras',
+    roundCount: 3,
+    params: () => ({}),
+  }),
 }));
 
 const mockStartSession = jest.fn();
@@ -46,7 +50,11 @@ describe('GameScreen', () => {
   });
 
   it('shows a loading spinner while the session has not started', () => {
-    mockSessionState = { ...mockSessionState, session: null, difficultyState: null };
+    mockSessionState = {
+      ...mockSessionState,
+      session: null,
+      difficultyState: null,
+    };
     const { UNSAFE_queryByType } = renderWithProviders(<GameScreen />);
     const ActivityIndicator = require('react-native').ActivityIndicator;
 

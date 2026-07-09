@@ -47,7 +47,15 @@ export function useGameRound({
         setTimeout(startRound, advanceDelayMs);
       }
     },
-    [result, roundsDone, roundCount, onRoundComplete, onGameFinish, startRound, advanceDelayMs],
+    [
+      result,
+      roundsDone,
+      roundCount,
+      onRoundComplete,
+      onGameFinish,
+      startRound,
+      advanceDelayMs,
+    ],
   );
 
   return { result, roundsDone, submitAnswer };

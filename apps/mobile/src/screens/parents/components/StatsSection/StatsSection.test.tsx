@@ -5,14 +5,38 @@ import { StatsSection } from './StatsSection';
 import type { GameStat } from '@sierrita/storage';
 
 const gameStats: GameStat[] = [
-  { gameId: 'counting', world: 'ocean', sessions: 4, avgScore: 75, bestScore: 100, totalMinutes: 12, lastLevel: 2 },
-  { gameId: 'tracing', world: 'jungle', sessions: 2, avgScore: 60, bestScore: 80, totalMinutes: 5, lastLevel: 1 },
+  {
+    gameId: 'counting',
+    world: 'ocean',
+    sessions: 4,
+    avgScore: 75,
+    bestScore: 100,
+    totalMinutes: 12,
+    lastLevel: 2,
+  },
+  {
+    gameId: 'tracing',
+    world: 'jungle',
+    sessions: 2,
+    avgScore: 60,
+    bestScore: 80,
+    totalMinutes: 5,
+    lastLevel: 1,
+  },
 ];
 
 describe('StatsSection', () => {
   it('shows the global stat summary', () => {
     const { getByText } = renderWithProviders(
-      <StatsSection globalStats={{ totalSessions: 6, totalMinutes: 17, avgScore: 70, bestScore: 100 }} gameStats={[]} />,
+      <StatsSection
+        globalStats={{
+          totalSessions: 6,
+          totalMinutes: 17,
+          avgScore: 70,
+          bestScore: 100,
+        }}
+        gameStats={[]}
+      />,
     );
 
     expect(getByText('6')).toBeTruthy();
@@ -22,7 +46,15 @@ describe('StatsSection', () => {
 
   it('hides the per-game breakdown until expanded', () => {
     const { getByText, queryByText } = renderWithProviders(
-      <StatsSection globalStats={{ totalSessions: 6, totalMinutes: 17, avgScore: 70, bestScore: 100 }} gameStats={gameStats} />,
+      <StatsSection
+        globalStats={{
+          totalSessions: 6,
+          totalMinutes: 17,
+          avgScore: 70,
+          bestScore: 100,
+        }}
+        gameStats={gameStats}
+      />,
     );
 
     expect(queryByText('🌊 Océano')).toBeNull();
@@ -35,7 +67,15 @@ describe('StatsSection', () => {
 
   it('groups games under their world and resolves the game title from the registry', () => {
     const { getByText } = renderWithProviders(
-      <StatsSection globalStats={{ totalSessions: 6, totalMinutes: 17, avgScore: 70, bestScore: 100 }} gameStats={gameStats} />,
+      <StatsSection
+        globalStats={{
+          totalSessions: 6,
+          totalMinutes: 17,
+          avgScore: 70,
+          bestScore: 100,
+        }}
+        gameStats={gameStats}
+      />,
     );
 
     fireEvent.press(getByText('▼ Ver por juego'));

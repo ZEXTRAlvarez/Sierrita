@@ -5,11 +5,17 @@ import { MazeGrid } from './components/MazeGrid';
 import { DirectionControls } from './components/DirectionControls';
 import { styles } from './MazeGame.styles';
 
-export default function MazeGame({ params, onRoundComplete, onGameFinish }: GameProps) {
+export default function MazeGame({
+  params,
+  onRoundComplete,
+  onGameFinish,
+}: GameProps) {
   const gridSize = (params.gridSize as number) || 5;
 
   const { maze, pos, finished, cellSize, canMove, move } = useMazeGameState({
-    gridSize, onRoundComplete, onGameFinish,
+    gridSize,
+    onRoundComplete,
+    onGameFinish,
   });
 
   return (
@@ -20,7 +26,9 @@ export default function MazeGame({ params, onRoundComplete, onGameFinish }: Game
 
       {!finished && <DirectionControls canMove={canMove} onMove={move} />}
 
-      {finished && <Text style={[styles.badge, styles.badgeFinished]}>¡Llegaste! 🎉</Text>}
+      {finished && (
+        <Text style={[styles.badge, styles.badgeFinished]}>¡Llegaste! 🎉</Text>
+      )}
     </View>
   );
 }

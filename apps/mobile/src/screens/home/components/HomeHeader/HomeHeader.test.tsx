@@ -4,7 +4,9 @@ import { HomeHeader } from './HomeHeader';
 
 describe('HomeHeader', () => {
   it('greets the profile by name', () => {
-    const { getByText } = render(<HomeHeader profileName="Sofía" onOpenParents={jest.fn()} />);
+    const { getByText } = render(
+      <HomeHeader profileName="Sofía" onOpenParents={jest.fn()} />,
+    );
 
     expect(getByText('¡Hola, Sofía!')).toBeTruthy();
   });
@@ -17,7 +19,9 @@ describe('HomeHeader', () => {
 
   it('calls onOpenParents when the settings button is pressed', () => {
     const onOpenParents = jest.fn();
-    const { getByTestId } = render(<HomeHeader profileName="Sofía" onOpenParents={onOpenParents} />);
+    const { getByTestId } = render(
+      <HomeHeader profileName="Sofía" onOpenParents={onOpenParents} />,
+    );
 
     fireEvent.press(getByTestId('home-header-parent-btn'));
 

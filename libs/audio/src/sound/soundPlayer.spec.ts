@@ -34,7 +34,9 @@ describe('playSound', () => {
   it('swallows errors from a failed load instead of throwing', async () => {
     const createAsync = jest.fn().mockRejectedValue(new Error('boom'));
     __setAudioModuleForTesting({ Sound: { createAsync } } as never);
-    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+    const warnSpy = jest
+      .spyOn(console, 'warn')
+      .mockImplementation(() => undefined);
 
     await expect(playSound(1)).resolves.toBeUndefined();
 

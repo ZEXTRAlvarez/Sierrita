@@ -12,12 +12,22 @@ import { styles } from './HundredsGame.styles';
 type Mode = 'identify' | 'decompose' | 'compose';
 
 function announce(p: Problem, mode: Mode) {
-  if (mode === 'identify') speak(`¿Cuántas centenas, decenas y unidades tiene el ${p.number}?`);
-  else if (mode === 'decompose') speak(`Descomponé el número ${p.number} en centenas, decenas y unidades`);
-  else speak(`${p.hundreds} centenas más ${p.tens} decenas más ${p.units} unidades. ¿Qué número es?`);
+  if (mode === 'identify')
+    speak(`¿Cuántas centenas, decenas y unidades tiene el ${p.number}?`);
+  else if (mode === 'decompose')
+    speak(`Descomponé el número ${p.number} en centenas, decenas y unidades`);
+  else
+    speak(
+      `${p.hundreds} centenas más ${p.tens} decenas más ${p.units} unidades. ¿Qué número es?`,
+    );
 }
 
-export default function HundredsGame({ params, onRoundComplete, onGameFinish, roundCount }: GameProps) {
+export default function HundredsGame({
+  params,
+  onRoundComplete,
+  onGameFinish,
+  roundCount,
+}: GameProps) {
   const maxNumber = (params.maxNumber as number) || 99;
   const mode = (params.mode as Mode) || 'identify';
 
@@ -31,28 +41,65 @@ export default function HundredsGame({ params, onRoundComplete, onGameFinish, ro
   }, [maxNumber, mode]);
 
   const { result, roundsDone, submitAnswer } = useGameRound({
-    roundCount, onRoundComplete, onGameFinish, startRound,
+    roundCount,
+    onRoundComplete,
+    onGameFinish,
+    startRound,
   });
 
   function handleAnswer(correct: boolean) {
     if (result !== 'idle') return;
     bounceAnim.setValue(0.88);
-    Animated.spring(bounceAnim, { toValue: 1, friction: 4, useNativeDriver: true }).start();
+    Animated.spring(bounceAnim, {
+      toValue: 1,
+      friction: 4,
+      useNativeDriver: true,
+    }).start();
     submitAnswer(correct);
   }
 
   if (!problem) return null;
 
   return (
-    <Animated.View style={[styles.container, { transform: [{ scale: bounceAnim }] }]}>
-      <Text style={styles.progress}>{roundsDone + 1} / {roundCount}</Text>
+    <Animated.View
+      style={[styles.container, { transform: [{ scale: bounceAnim }] }]}
+    >
+      <Text style={styles.progress}>
+        {roundsDone + 1} / {roundCount}
+      </Text>
 
-      {mode === 'identify'  && <IdentifyMode  key={roundsDone} problem={problem} onAnswer={handleAnswer} result={result} />}
-      {mode === 'decompose' && <DecomposeMode key={roundsDone} problem={problem} onAnswer={handleAnswer} result={result} />}
-      {mode === 'compose'   && <ComposeMode   key={roundsDone} problem={problem} maxNumber={maxNumber} onAnswer={handleAnswer} result={result} />}
+      {mode === 'identify' && (
+        <IdentifyMode
+          key={roundsDone}
+          problem={problem}
+          onAnswer={handleAnswer}
+          result={result}
+        />
+      )}
+      {mode === 'decompose' && (
+        <DecomposeMode
+          key={roundsDone}
+          problem={problem}
+          onAnswer={handleAnswer}
+          result={result}
+        />
+      )}
+      {mode === 'compose' && (
+        <ComposeMode
+          key={roundsDone}
+          problem={problem}
+          maxNumber={maxNumber}
+          onAnswer={handleAnswer}
+          result={result}
+        />
+      )}
 
-      {result === 'correct' && <Text style={[styles.badge, styles.badgeCorrect]}>¡Correcto! ⭐</Text>}
-      {result === 'wrong'   && <Text style={[styles.badge, styles.badgeWrong]}>¡Inténtalo! 💪</Text>}
+      {result === 'correct' && (
+        <Text style={[styles.badge, styles.badgeCorrect]}>¡Correcto! ⭐</Text>
+      )}
+      {result === 'wrong' && (
+        <Text style={[styles.badge, styles.badgeWrong]}>¡Inténtalo! 💪</Text>
+      )}
     </Animated.View>
   );
 }

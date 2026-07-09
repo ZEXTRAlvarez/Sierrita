@@ -8,7 +8,11 @@ export interface RoundProgressDotsProps {
   color: string;
 }
 
-export function RoundProgressDots({ roundCount, rounds, color }: RoundProgressDotsProps) {
+export function RoundProgressDots({
+  roundCount,
+  rounds,
+  color,
+}: RoundProgressDotsProps) {
   return (
     <View style={styles.row}>
       {Array.from({ length: roundCount }).map((_, i) => (

@@ -25,8 +25,16 @@ export function useOnboardingFlow() {
 
   function goNext(nextStep: OnboardingStep) {
     Animated.sequence([
-      Animated.timing(cardScale, { toValue: 0.95, duration: 100, useNativeDriver: true }),
-      Animated.spring(cardScale, { toValue: 1, friction: 6, useNativeDriver: true }),
+      Animated.timing(cardScale, {
+        toValue: 0.95,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      Animated.spring(cardScale, {
+        toValue: 1,
+        friction: 6,
+        useNativeDriver: true,
+      }),
     ]).start();
     setStep(nextStep);
   }
@@ -45,5 +53,17 @@ export function useOnboardingFlow() {
     }
   }
 
-  return { step, name, setName, age, setAge, pet, setPet, saving, cardScale, goNext, handleCreate };
+  return {
+    step,
+    name,
+    setName,
+    age,
+    setAge,
+    pet,
+    setPet,
+    saving,
+    cardScale,
+    goNext,
+    handleCreate,
+  };
 }

@@ -12,7 +12,12 @@ const SCORE_THRESHOLD = 0.65;
 const { width: SCREEN_W } = Dimensions.get('window');
 const CANVAS_SIZE = Math.min(SCREEN_W - 48, 340);
 
-export default function TracingGame({ params, onRoundComplete, onGameFinish, roundCount }: GameProps) {
+export default function TracingGame({
+  params,
+  onRoundComplete,
+  onGameFinish,
+  roundCount,
+}: GameProps) {
   const letterSet = (params.letterSet as string) || 'vowels';
   const showGuide = (params.showGuide as boolean) ?? true;
   const guideOpacity = (params.guideOpacity as number) ?? 0.4;
@@ -26,8 +31,13 @@ export default function TracingGame({ params, onRoundComplete, onGameFinish, rou
 
   const startRound = useCallback(() => {
     if (letters.current.length === 0) {
-      const set = getLetterSet(letterSet as 'vowels' | 'consonants-easy' | 'all');
-      letters.current = Array.from({ length: roundCount }, (_, i) => set[i % set.length]);
+      const set = getLetterSet(
+        letterSet as 'vowels' | 'consonants-easy' | 'all',
+      );
+      letters.current = Array.from(
+        { length: roundCount },
+        (_, i) => set[i % set.length],
+      );
     }
     const letter = letters.current[nextIdx.current++] ?? letters.current[0];
     const def = getLetterDef(letter);
@@ -39,14 +49,21 @@ export default function TracingGame({ params, onRoundComplete, onGameFinish, rou
   }, [letterSet, roundCount]);
 
   const { result, roundsDone, submitAnswer } = useGameRound({
-    roundCount, onRoundComplete, onGameFinish, startRound,
+    roundCount,
+    onRoundComplete,
+    onGameFinish,
+    startRound,
   });
 
   const letterDef = currentLetter ? getLetterDef(currentLetter) : undefined;
 
   function flashScale() {
     feedbackScale.setValue(0.92);
-    Animated.spring(feedbackScale, { toValue: 1, friction: 4, useNativeDriver: true }).start();
+    Animated.spring(feedbackScale, {
+      toValue: 1,
+      friction: 4,
+      useNativeDriver: true,
+    }).start();
   }
 
   const handlePointDrawn = useCallback((point: Point, newHitMap: boolean[]) => {
@@ -54,15 +71,22 @@ export default function TracingGame({ params, onRoundComplete, onGameFinish, rou
     setAllDrawn((prev) => [...prev, point]);
   }, []);
 
-  const handleStrokeEnd = useCallback((strokePoints: Point[]) => {
-    if (!letterDef || result !== 'idle') return;
-    const allPoints = [...allDrawn, ...strokePoints];
-    const { score } = evaluatePath(allPoints, letterDef.checkpoints, CANVAS_SIZE);
-    if (score >= SCORE_THRESHOLD) {
-      flashScale();
-      submitAnswer(true);
-    }
-  }, [letterDef, allDrawn, result, submitAnswer]);
+  const handleStrokeEnd = useCallback(
+    (strokePoints: Point[]) => {
+      if (!letterDef || result !== 'idle') return;
+      const allPoints = [...allDrawn, ...strokePoints];
+      const { score } = evaluatePath(
+        allPoints,
+        letterDef.checkpoints,
+        CANVAS_SIZE,
+      );
+      if (score >= SCORE_THRESHOLD) {
+        flashScale();
+        submitAnswer(true);
+      }
+    },
+    [letterDef, allDrawn, result, submitAnswer],
+  );
 
   const handleGiveUp = useCallback(() => {
     if (result !== 'idle') return;
@@ -74,7 +98,9 @@ export default function TracingGame({ params, onRoundComplete, onGameFinish, rou
   return (
     <View style={styles.container}>
       <Text style={styles.letterLabel}>{currentLetter}</Text>
-      <Text style={styles.progress}>{roundsDone + 1} / {roundCount}</Text>
+      <Text style={styles.progress}>
+        {roundsDone + 1} / {roundCount}
+      </Text>
       <Animated.View style={{ transform: [{ scale: feedbackScale }] }}>
         <LetterCanvas
           size={CANVAS_SIZE}
@@ -86,9 +112,19 @@ export default function TracingGame({ params, onRoundComplete, onGameFinish, rou
           onStrokeEnd={handleStrokeEnd}
         />
       </Animated.View>
-      {result === 'correct' && <Text style={[styles.badge, styles.badgeCorrect]}>¡Muy bien! ⭐</Text>}
-      {result === 'wrong' && <Text style={[styles.badge, styles.badgeWrong]}>¡Inténtalo de nuevo! 💪</Text>}
-      {result === 'idle' && <Text style={styles.hint} onPress={handleGiveUp}>¿Necesitás ayuda? Toca aquí</Text>}
+      {result === 'correct' && (
+        <Text style={[styles.badge, styles.badgeCorrect]}>¡Muy bien! ⭐</Text>
+      )}
+      {result === 'wrong' && (
+        <Text style={[styles.badge, styles.badgeWrong]}>
+          ¡Inténtalo de nuevo! 💪
+        </Text>
+      )}
+      {result === 'idle' && (
+        <Text style={styles.hint} onPress={handleGiveUp}>
+          ¿Necesitás ayuda? Toca aquí
+        </Text>
+      )}
     </View>
   );
 }

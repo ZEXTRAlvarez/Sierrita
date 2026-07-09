@@ -9,9 +9,14 @@ export const styles = StyleSheet.create({
   backBtn: { alignSelf: 'flex-start', marginBottom: 10 },
   backBtnText: { fontSize: 15, fontWeight: '800', color: '#2E7D32' },
   title: {
-    fontSize: 30, fontWeight: '900', color: '#2E7D32',
+    fontSize: 30,
+    fontWeight: '900',
+    color: '#2E7D32',
   },
   subtitle: {
-    fontSize: 14, color: '#5D4037', fontWeight: '600', marginTop: 4,
+    fontSize: 14,
+    color: '#5D4037',
+    fontWeight: '600',
+    marginTop: 4,
   },
 });

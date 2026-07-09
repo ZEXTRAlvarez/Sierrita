@@ -30,7 +30,10 @@ export function processRoundResult(
   } else {
     consecutiveMiss = consecutiveMiss + 1;
     consecutiveHits = 0;
-    if (consecutiveMiss >= ADAPTIVE_CONFIG.missToLevelDown && currentLevel > 1) {
+    if (
+      consecutiveMiss >= ADAPTIVE_CONFIG.missToLevelDown &&
+      currentLevel > 1
+    ) {
       currentLevel = (currentLevel - 1) as Difficulty;
       consecutiveMiss = 0;
       levelChanged = true;

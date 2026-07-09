@@ -1,6 +1,8 @@
 const { readFileSync } = require('fs');
 
-const swcJestConfig = JSON.parse(readFileSync(`${__dirname}/.spec.swcrc`, 'utf-8'));
+const swcJestConfig = JSON.parse(
+  readFileSync(`${__dirname}/.spec.swcrc`, 'utf-8'),
+);
 swcJestConfig.swcrc = false;
 
 module.exports = {

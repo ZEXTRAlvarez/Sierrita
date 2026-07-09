@@ -11,8 +11,16 @@ export function useHomeAnimations(isFocused: boolean) {
 
     const petAnim = Animated.loop(
       Animated.sequence([
-        Animated.timing(petBounce, { toValue: -8, duration: 700, useNativeDriver: true }),
-        Animated.timing(petBounce, { toValue: 0, duration: 700, useNativeDriver: true }),
+        Animated.timing(petBounce, {
+          toValue: -8,
+          duration: 700,
+          useNativeDriver: true,
+        }),
+        Animated.timing(petBounce, {
+          toValue: 0,
+          duration: 700,
+          useNativeDriver: true,
+        }),
       ]),
     );
     petAnim.start();
@@ -30,7 +38,10 @@ export function useHomeAnimations(isFocused: boolean) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
 
-  const cardTranslate = cardEntrance.interpolate({ inputRange: [0, 1], outputRange: [40, 0] });
+  const cardTranslate = cardEntrance.interpolate({
+    inputRange: [0, 1],
+    outputRange: [40, 0],
+  });
 
   return { petBounce, cardEntrance, cardTranslate };
 }

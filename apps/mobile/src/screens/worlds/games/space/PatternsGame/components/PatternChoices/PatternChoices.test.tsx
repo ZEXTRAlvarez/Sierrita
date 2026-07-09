@@ -6,7 +6,12 @@ describe('PatternChoices', () => {
   it('renders one button per choice and reports the pressed choice', () => {
     const onChoose = jest.fn();
     const { getAllByTestId } = render(
-      <PatternChoices choices={['🔴', '🔵']} answer="🔴" result="idle" onChoose={onChoose} />,
+      <PatternChoices
+        choices={['🔴', '🔵']}
+        answer="🔴"
+        result="idle"
+        onChoose={onChoose}
+      />,
     );
 
     const buttons = getAllByTestId('pattern-choice');
@@ -19,7 +24,12 @@ describe('PatternChoices', () => {
   it('disables all buttons once a result is showing', () => {
     const onChoose = jest.fn();
     const { getAllByTestId } = render(
-      <PatternChoices choices={['🔴', '🔵']} answer="🔴" result="correct" onChoose={onChoose} />,
+      <PatternChoices
+        choices={['🔴', '🔵']}
+        answer="🔴"
+        result="correct"
+        onChoose={onChoose}
+      />,
     );
 
     fireEvent.press(getAllByTestId('pattern-choice')[0]);

@@ -16,6 +16,8 @@ describe('useProfileCardAnimations', () => {
     const { result } = renderHook(() => useProfileCardAnimations(2));
 
     expect(result.current).toHaveLength(6);
-    result.current.forEach((anim) => expect(anim).toBeInstanceOf(Animated.Value));
+    result.current.forEach((anim) =>
+      expect(anim).toBeInstanceOf(Animated.Value),
+    );
   });
 });

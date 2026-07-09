@@ -6,11 +6,11 @@ export interface MoodBubbleContent {
 }
 
 export const MOOD_BUBBLE: Record<string, MoodBubbleContent> = {
-  happy:   { text: '¡Estoy de gran humor! ✨',     accent: '#4CAF50' },
-  neutral: { text: 'Listo para una aventura 🌤️',   accent: '#FBC02D' },
-  hungry:  { text: 'Se me escucha la pancita…',    accent: '#FF7043' },
+  happy: { text: '¡Estoy de gran humor! ✨', accent: '#4CAF50' },
+  neutral: { text: 'Listo para una aventura 🌤️', accent: '#FBC02D' },
+  hungry: { text: 'Se me escucha la pancita…', accent: '#FF7043' },
   thirsty: { text: 'Necesito un trago de agua 💧', accent: '#2196F3' },
-  sad:     { text: 'Te extrañé un montón 🥺',      accent: '#E91E63' },
+  sad: { text: 'Te extrañé un montón 🥺', accent: '#E91E63' },
 };
 
 export interface WorldCard {

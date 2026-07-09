@@ -12,7 +12,12 @@ export const SPACE_GAMES: GameConfig[] = [
     roundCount: 5,
     params: (d: Difficulty) => ({
       patternLength: d === 1 ? 3 : d === 2 ? 4 : 5,
-      attributes: d === 1 ? ['color'] : d === 2 ? ['color', 'shape'] : ['color', 'shape', 'size'],
+      attributes:
+        d === 1
+          ? ['color']
+          : d === 2
+            ? ['color', 'shape']
+            : ['color', 'shape', 'size'],
       choices: d === 1 ? 2 : d === 2 ? 3 : 4,
     }),
   },

@@ -1,7 +1,13 @@
 import { View, StyleSheet } from 'react-native';
 import { useVideoPlayer, VideoView, type VideoSource } from 'expo-video';
 
-export function PetVideo({ source, size }: { source: VideoSource; size: number }) {
+export function PetVideo({
+  source,
+  size,
+}: {
+  source: VideoSource;
+  size: number;
+}) {
   const player = useVideoPlayer(source, (p) => {
     p.loop = true;
     p.muted = true;
@@ -9,7 +15,12 @@ export function PetVideo({ source, size }: { source: VideoSource; size: number }
   });
 
   return (
-    <View style={[styles.frame, { width: size, height: size, borderRadius: size / 2 }]}>
+    <View
+      style={[
+        styles.frame,
+        { width: size, height: size, borderRadius: size / 2 },
+      ]}
+    >
       <VideoView
         style={{ width: size, height: size }}
         player={player}

@@ -1,6 +1,9 @@
 import type { PetState, PetType } from '../types';
 
-export function createInitialPetState(profileId: string, petType: PetType): PetState {
+export function createInitialPetState(
+  profileId: string,
+  petType: PetType,
+): PetState {
   return {
     profileId,
     petType,

@@ -13,7 +13,11 @@ export interface Round {
 }
 
 /** Picks `categoryCount` categories for `attribute` and fills a shuffled item bank of ~itemCount items. */
-export function generateRound(categoryCount: number, attribute: string, itemCount: number): Round {
+export function generateRound(
+  categoryCount: number,
+  attribute: string,
+  itemCount: number,
+): Round {
   const sets = CATEGORY_SETS[attribute] ?? CATEGORY_SETS['color'];
   const picked = shuffle(sets).slice(0, Math.min(categoryCount, sets.length));
 

@@ -30,6 +30,9 @@ describe('WorldsScreen', () => {
 
     fireEvent.press(getByText('Trazos y Letras'));
 
-    expect(mockNavigate).toHaveBeenCalledWith('Game', { worldId: 'jungle', gameId: 'tracing' });
+    expect(mockNavigate).toHaveBeenCalledWith('Game', {
+      worldId: 'jungle',
+      gameId: 'tracing',
+    });
   });
 });

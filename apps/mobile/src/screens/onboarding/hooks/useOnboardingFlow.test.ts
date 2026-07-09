@@ -2,12 +2,17 @@ import { act, renderHook } from '@testing-library/react-native';
 import { useOnboardingFlow } from './useOnboardingFlow';
 
 const mockReplace = jest.fn();
-jest.mock('@react-navigation/native', () => ({ useNavigation: () => ({ replace: mockReplace }) }));
+jest.mock('@react-navigation/native', () => ({
+  useNavigation: () => ({ replace: mockReplace }),
+}));
 
 const mockAddProfile = jest.fn();
 const mockSelectProfile = jest.fn();
 jest.mock('../../../hooks/useProfiles', () => ({
-  useProfiles: () => ({ addProfile: mockAddProfile, selectProfile: mockSelectProfile }),
+  useProfiles: () => ({
+    addProfile: mockAddProfile,
+    selectProfile: mockSelectProfile,
+  }),
 }));
 
 describe('useOnboardingFlow', () => {

@@ -1,7 +1,13 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  grid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 6, maxWidth: 320 },
+  grid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 6,
+    maxWidth: 320,
+  },
   emoji: { fontSize: 30 },
   groupBox: {
     alignItems: 'center',

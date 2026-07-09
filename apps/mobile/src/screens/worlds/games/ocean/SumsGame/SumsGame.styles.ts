@@ -1,8 +1,18 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', paddingTop: 16, backgroundColor: '#E3F2FD' },
-  progress: { fontSize: 16, color: '#1976D2', fontWeight: '600', marginBottom: 8 },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: 16,
+    backgroundColor: '#E3F2FD',
+  },
+  progress: {
+    fontSize: 16,
+    color: '#1976D2',
+    fontWeight: '600',
+    marginBottom: 8,
+  },
   equationBox: {
     backgroundColor: '#fff',
     borderRadius: 20,
@@ -15,7 +25,12 @@ export const styles = StyleSheet.create({
     shadowRadius: 4,
     marginBottom: 16,
   },
-  equationText: { fontSize: 46, fontWeight: '900', color: '#0D47A1', letterSpacing: 2 },
+  equationText: {
+    fontSize: 46,
+    fontWeight: '900',
+    color: '#0D47A1',
+    letterSpacing: 2,
+  },
   optionsRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
