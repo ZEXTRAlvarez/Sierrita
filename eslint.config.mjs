@@ -56,11 +56,13 @@ export default [
     },
   },
   {
-    // Hard 100-line cap. Scoped to libs/** for this pass — apps/mobile
-    // screens are a follow-up pass and would fail this today. Widen to
-    // apps/mobile/src/** once that pass lands.
-    files: ['libs/**/*.ts', 'libs/**/*.tsx'],
-    ignores: ['libs/**/*.spec.ts', 'libs/**/*.spec.tsx', 'libs/**/*.test.ts', 'libs/**/*.test.tsx'],
+    // Hard 100-line cap across libs/** and apps/mobile/src/**.
+    files: ['libs/**/*.ts', 'libs/**/*.tsx', 'apps/mobile/src/**/*.ts', 'apps/mobile/src/**/*.tsx'],
+    ignores: [
+      'libs/**/*.spec.ts', 'libs/**/*.spec.tsx', 'libs/**/*.test.ts', 'libs/**/*.test.tsx',
+      'apps/mobile/src/**/*.spec.ts', 'apps/mobile/src/**/*.spec.tsx',
+      'apps/mobile/src/**/*.test.ts', 'apps/mobile/src/**/*.test.tsx',
+    ],
     rules: {
       'max-lines': ['error', { max: 100, skipBlankLines: false, skipComments: false }],
     },

@@ -1,0 +1,27 @@
+import { StyleSheet } from 'react-native';
+
+export const styles = StyleSheet.create({
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 24 },
+  card: {
+    backgroundColor: '#FFF',
+    borderRadius: 32,
+    padding: 32,
+    alignItems: 'center',
+    width: '100%',
+    elevation: 8,
+    shadowColor: '#000',
+    shadowOpacity: 0.12,
+    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 6 },
+  },
+  stars: { fontSize: 52, marginBottom: 8, letterSpacing: 4 },
+  message: { fontSize: 24, fontWeight: '800', color: '#333', textAlign: 'center', marginBottom: 24 },
+  statsRow: { flexDirection: 'row', gap: 16, marginBottom: 20 },
+  scoreBar: { width: '100%', height: 16, backgroundColor: '#EEE', borderRadius: 8, overflow: 'hidden', marginBottom: 6 },
+  scoreFill: { height: '100%', borderRadius: 8 },
+  scoreText: { fontSize: 18, fontWeight: '800', color: '#888', marginBottom: 24 },
+  actions: { gap: 12, width: '100%' },
+  btn: { borderRadius: 18, padding: 16, alignItems: 'center', width: '100%' },
+  btnSecondary: { backgroundColor: '#F5F5F5' },
+  btnText: { fontSize: 18, fontWeight: '800', color: '#FFF' },
+});

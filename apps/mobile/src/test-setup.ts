@@ -37,6 +37,24 @@ jest.mock('react-native/Libraries/Components/Switch/Switch', () => {
   };
 });
 
+// @sierrita/audio's speak() wraps expo-speech (another native-only Expo
+// module) and is called from nearly every game screen. Mock at the package
+// boundary — same reasoning as the expo-image mock below.
+jest.mock('@sierrita/audio', () => ({
+  speak: jest.fn(async () => undefined),
+  stopSpeech: jest.fn(),
+  isSpeaking: jest.fn(async () => false),
+}));
+
+// expo-image (used by IconAnimation) requires expo-modules-core's native
+// EventEmitter binding (globalThis.expo), which only the real native runtime
+// installs — @react-native/jest-preset doesn't stub it (jest-expo did). Swap
+// in RN's built-in Image; it ignores the expo-only props (contentFit, autoplay).
+jest.mock('expo-image', () => {
+  const { Image } = require('react-native');
+  return { Image };
+});
+
 jest.mock('expo/src/winter/ImportMetaRegistry', () => ({
   ImportMetaRegistry: {
     get url() {
