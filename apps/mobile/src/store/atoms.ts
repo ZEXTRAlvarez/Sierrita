@@ -1,7 +1,7 @@
 import { atom } from 'jotai';
-import type { Profile, PetType } from '../../../../libs/profiles/src/types';
-import type { PetState, PetMood } from '../../../../libs/pet/src/types';
-import type { World } from '../../../../libs/parents/src/types';
+import type { Profile, PetType } from '@sierrita/profiles';
+import type { PetState, PetMood } from '@sierrita/pet';
+import type { World } from '@sierrita/parents';
 
 export type { Profile, PetType, PetState, PetMood, World };
 

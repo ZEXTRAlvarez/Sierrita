@@ -2,9 +2,9 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity, Animated,
 } from 'react-native';
-import { getWords, getBlanks, getLetterOptions } from '../../../../../../../libs/games/writing/wordData';
-import type { WordEntry } from '../../../../../../../libs/games/writing/wordData';
-import { speak } from '../../../../../../../libs/audio/src/audioManager';
+import { getWords, getBlanks, getLetterOptions } from '@sierrita/games';
+import type { WordEntry } from '@sierrita/games';
+import { speak } from '@sierrita/audio';
 import type { GameProps } from '../../GameScreen';
 
 export default function WordsGame({

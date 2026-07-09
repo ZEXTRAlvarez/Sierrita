@@ -1,5 +1,5 @@
 import type { RoundResult, GameSummary, GameSession, Difficulty } from './types';
-import { computeGameXp } from '../../pet/src/petEngine';
+import { computeGameXp } from '@sierrita/pet';
 
 export function computeStars(scorePercent: number): 1 | 2 | 3 {
   if (scorePercent >= 0.9) return 3;

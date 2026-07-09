@@ -51,6 +51,7 @@ Thumbs.db
 # Expo
 node_modules/
 .expo/
+.tamagui/
 .yarn/*
 !.yarn/releases
 !.yarn/patches
@@ -77,3 +78,19 @@ test-output
 
 # Large build artifacts
 *.zip
+
+# Local secrets - never push
+/CredencialesKeystore.txt
+**/*-keystore-credentials.md
+
+# Stray/generated files that don't belong in the repo
+# (the real Android project lives in apps/mobile/android, the real
+# Expo config in apps/mobile/app.json)
+/android/
+/app.json
+
+# Session lock files
+.claude/scheduled_tasks.lock
+
+# Play Store submission assets (local reference only)
+/store-assets/

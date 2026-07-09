@@ -1,0 +1,9 @@
+{
+  "name": "games",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/games/src",
+  "projectType": "library",
+  "tags": [
+    "scope:domain-core"
+  ]
+}

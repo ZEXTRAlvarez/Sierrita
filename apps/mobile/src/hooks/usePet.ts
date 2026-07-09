@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { useAtom, useAtomValue } from 'jotai';
 import { petStateAtom, activeProfileIdAtom } from '../store/atoms';
-import { getPetState, upsertPetState } from '../../../../libs/storage/src/petRepository';
+import { getPetState, upsertPetState } from '@sierrita/storage';
 import {
   applyNeedEvent, applySessionDecay, getMood,
-} from '../../../../libs/pet/src/petEngine';
-import type { PetNeedEvent, PetMood } from '../../../../libs/pet/src/types';
+} from '@sierrita/pet';
+import type { PetNeedEvent, PetMood } from '@sierrita/pet';
 
 const SESSION_TICK_MS = 60_000;
 

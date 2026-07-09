@@ -5,6 +5,15 @@
   "references": [
     {
       "path": "./apps/mobile"
-    }
+    },
+    { "path": "./libs/adaptive" },
+    { "path": "./libs/audio" },
+    { "path": "./libs/games" },
+    { "path": "./libs/parents" },
+    { "path": "./libs/pdf" },
+    { "path": "./libs/pet" },
+    { "path": "./libs/profiles" },
+    { "path": "./libs/storage" },
+    { "path": "./libs/ui" }
   ]
 }

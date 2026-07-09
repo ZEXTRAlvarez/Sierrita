@@ -4,9 +4,9 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import type { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../../navigation';
 import { useGameSession } from '../../hooks/useGameSession';
-import { getGameConfig } from '../../../../../libs/games/src/gameRegistry';
+import { getGameConfig } from '@sierrita/games';
 import GameResultScreen from '../../components/GameResultScreen';
-import { levelLabel } from '../../../../../libs/adaptive/src/adaptiveEngine';
+import { levelLabel } from '@sierrita/adaptive';
 
 import TracingGame   from './games/jungle/TracingGame';
 import WordsGame     from './games/jungle/WordsGame';

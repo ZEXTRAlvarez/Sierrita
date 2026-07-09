@@ -2,10 +2,10 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   View, Text, StyleSheet, Animated, Dimensions,
 } from 'react-native';
-import { getLetterDef, getLetterSet } from '../../../../../../../libs/games/writing/letterPaths';
-import { evaluatePath } from '../../../../../../../libs/games/writing/evaluator';
-import type { Point } from '../../../../../../../libs/games/writing/evaluator';
-import { speak } from '../../../../../../../libs/audio/src/audioManager';
+import { getLetterDef, getLetterSet } from '@sierrita/games';
+import { evaluatePath } from '@sierrita/games';
+import type { Point } from '@sierrita/games';
+import { speak } from '@sierrita/audio';
 import type { GameProps } from '../../GameScreen';
 import LetterCanvas from './components/LetterCanvas';
 

@@ -2,14 +2,19 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "dist",
+    // @tamagui/element ships raw .ts as its "types" entry (no prebuilt .d.ts),
+    // and its web-only getWebElement.ts references the DOM HTMLElement value
+    // at module scope. Typecheck-only (emitDeclarationOnly) — doesn't affect
+    // the Metro/RN bundle, which never reads this lib list.
+    "lib": ["es2022", "dom"],
     "types": ["node"],
     "jsx": "react-jsx",
     "module": "esnext",
     "moduleResolution": "bundler",
     "noUnusedLocals": false,
-    "composite": false,
+    "composite": true,
+    "declaration": true,
     "declarationMap": false,
-    "emitDeclarationOnly": false,
     "rootDir": "../..",
     "typeRoots": ["./node_modules/@types", "../../node_modules/@types"],
     "baseUrl": ".",
@@ -21,7 +26,9 @@
       "@sierrita/pet": ["../../libs/pet/src/index.ts"],
       "@sierrita/audio": ["../../libs/audio/src/index.ts"],
       "@sierrita/adaptive": ["../../libs/adaptive/src/index.ts"],
-      "@sierrita/parents": ["../../libs/parents/src/index.ts"]
+      "@sierrita/parents": ["../../libs/parents/src/index.ts"],
+      "@sierrita/games": ["../../libs/games/src/index.ts"],
+      "@sierrita/pdf": ["../../libs/pdf/src/index.ts"]
     }
   },
   "files": ["../../node_modules/@nx/expo/typings/svg.d.ts"],
@@ -40,7 +47,12 @@
     "jest.config.ts",
     "jest.config.cts",
     "src/**/*.spec.ts",
-    "src/**/*.test.ts"
+    "src/**/*.test.ts",
+    "../../libs/**/*.spec.ts",
+    "../../libs/**/*.test.ts",
+    "../../libs/**/*.spec.tsx",
+    "../../libs/**/*.test.tsx",
+    "../../libs/**/__testing__/**"
   ],
   "include": [
     "src/**/*.ts",
@@ -51,5 +63,34 @@
     "expo-env.d.ts",
     "../../libs/**/*.ts",
     "../../libs/**/*.tsx"
+  ],
+  "references": [
+    {
+      "path": "../../libs/ui/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/storage/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/profiles/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/pet/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/pdf/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/parents/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/games/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/audio/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/adaptive/tsconfig.lib.json"
+    }
   ]
 }

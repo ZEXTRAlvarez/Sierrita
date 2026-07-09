@@ -1,0 +1,9 @@
+{
+  "name": "pdf",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/pdf/src",
+  "projectType": "library",
+  "tags": [
+    "scope:feature"
+  ]
+}

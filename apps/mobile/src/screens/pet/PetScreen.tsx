@@ -6,7 +6,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { BlurView } from 'expo-blur';
 import type { RootStackParamList } from '../../navigation';
 import { usePet } from '../../hooks/usePet';
-import { getEvolutionLabel, getXpProgress, getPetDisplayName } from '../../../../../libs/pet/src/petEngine';
+import { getEvolutionLabel, getXpProgress, getPetDisplayName } from '@sierrita/pet';
 import { PetAnimation } from '../../components/PetAnimation';
 import { IconAnimation } from '../../components/IconAnimation';
 import { PetRenameModal } from '../../components/PetRenameModal';

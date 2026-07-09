@@ -1,12 +1,11 @@
 import { useCallback } from 'react';
 import { useAtom, useSetAtom } from 'jotai';
 import { profilesAtom, activeProfileIdAtom, petStateAtom } from '../store/atoms';
-import { getAllProfiles, createProfile, deleteProfile } from '../../../../libs/storage/src/profileRepository';
-import { upsertPetState } from '../../../../libs/storage/src/petRepository';
-import { upsertParentConfig } from '../../../../libs/storage/src/parentConfigRepository';
-import { createInitialPetState } from '../../../../libs/pet/src/petEngine';
-import type { Profile } from '../../../../libs/profiles/src/types';
-import type { PetType } from '../../../../libs/profiles/src/types';
+import { getAllProfiles, createProfile, deleteProfile } from '@sierrita/storage';
+import { upsertPetState, upsertParentConfig } from '@sierrita/storage';
+import { createInitialPetState } from '@sierrita/pet';
+import { createDefaultParentConfig } from '@sierrita/parents';
+import type { Profile, PetType } from '@sierrita/profiles';
 
 export function useProfiles() {
   const [profiles, setProfiles] = useAtom(profilesAtom);
@@ -29,13 +28,7 @@ export function useProfiles() {
       await createProfile(profile);
       const pet = createInitialPetState(id, avatar);
       await upsertPetState(pet);
-      await upsertParentConfig({
-        profileId: id,
-        pinHash: '',
-        maxSessionMinutes: 30,
-        worldsEnabled: ['jungle', 'ocean', 'space'],
-        updatedAt: Math.floor(Date.now() / 1000),
-      });
+      await upsertParentConfig(createDefaultParentConfig(id));
       setProfiles((prev) => [...prev, profile]);
       return profile;
     },

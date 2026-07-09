@@ -1,18 +1,10 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import {
-  Canvas,
-  Path,
-  Circle,
-  Rect,
-  Skia,
-  StrokeCap,
-  StrokeJoin,
-} from '@shopify/react-native-skia';
+import { Canvas, Path, Circle, Rect, Skia } from '@shopify/react-native-skia';
 import type { GestureResponderEvent } from 'react-native';
-import type { LetterDef } from '../../../../../../../../libs/games/writing/letterPaths';
-import type { Point } from '../../../../../../../../libs/games/writing/evaluator';
-import { checkNewPoint } from '../../../../../../../../libs/games/writing/evaluator';
+import type { LetterDef } from '@sierrita/games';
+import type { Point } from '@sierrita/games';
+import { checkNewPoint } from '@sierrita/games';
 
 interface Props {
   size: number;
@@ -128,8 +120,8 @@ export default function LetterCanvas({
             color={`rgba(120, 180, 120, ${guideOpacity})`}
             style="stroke"
             strokeWidth={6 * scale}
-            strokeCap={StrokeCap.Round}
-            strokeJoin={StrokeJoin.Round}
+            strokeCap="round"
+            strokeJoin="round"
           />
         )}
 
@@ -167,8 +159,8 @@ export default function LetterCanvas({
               color="#1565C0"
               style="stroke"
               strokeWidth={7 * scale}
-              strokeCap={StrokeCap.Round}
-              strokeJoin={StrokeJoin.Round}
+              strokeCap="round"
+              strokeJoin="round"
             />
           );
         })}

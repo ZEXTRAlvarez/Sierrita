@@ -1,4 +1,4 @@
-import type { Difficulty } from '../../games/src/types';
+import type { Difficulty } from '@sierrita/games';
 
 export interface DifficultyState {
   profileId: string;
@@ -13,6 +13,6 @@ export interface DifficultyState {
 
 // Umbrales para subir/bajar de nivel
 export const ADAPTIVE_CONFIG = {
-  hitsToLevelUp:   3,   // aciertos consecutivos para subir
-  missToLevelDown: 2,   // fallos consecutivos para bajar
+  hitsToLevelUp: 3, // aciertos consecutivos para subir
+  missToLevelDown: 2, // fallos consecutivos para bajar
 } as const;

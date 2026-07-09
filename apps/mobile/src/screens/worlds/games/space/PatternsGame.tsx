@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity, Animated,
 } from 'react-native';
-import { speak } from '../../../../../../../libs/audio/src/audioManager';
+import { speak } from '@sierrita/audio';
 import type { GameProps } from '../../GameScreen';
 
 // Families of visually distinct emojis grouped by attribute type

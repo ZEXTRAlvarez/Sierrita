@@ -1,0 +1,33 @@
+import { StyleSheet } from 'react-native';
+
+export const styles = StyleSheet.create({
+  card: {
+    backgroundColor: '#fff',
+    borderRadius: 24,
+    borderWidth: 2,
+    overflow: 'hidden',
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 3 },
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  bg: { width: 120, height: 140, justifyContent: 'center', alignItems: 'center', position: 'relative' },
+  outfitBadge: { position: 'absolute', top: 8, right: 8, fontSize: 28 },
+  info: { flex: 1, padding: 16, gap: 8 },
+  nameRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  name: { fontSize: 22, fontWeight: '900', color: '#222' },
+  editBtn: { padding: 4 },
+  editIcon: { fontSize: 16 },
+  stage: { fontSize: 14, color: '#888', fontWeight: '600' },
+  xpSection: { gap: 4, marginTop: 4 },
+  xpLabelRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  xpLabel: { fontSize: 11, color: '#AAA', fontWeight: '600' },
+  xpPct: { fontSize: 12, fontWeight: '800' },
+  xpTrack: { height: 10, backgroundColor: '#EEE', borderRadius: 5, overflow: 'hidden' },
+  xpFill: { height: '100%', borderRadius: 5 },
+  maxBadge: { borderRadius: 10, paddingHorizontal: 12, paddingVertical: 6, alignSelf: 'flex-start' },
+  maxBadgeText: { color: '#fff', fontSize: 12, fontWeight: '800' },
+});

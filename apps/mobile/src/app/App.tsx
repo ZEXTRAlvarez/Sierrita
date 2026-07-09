@@ -7,8 +7,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as SplashScreen from 'expo-splash-screen';
 import tamaguiConfig from '../theme';
 import { AppNavigator } from '../navigation';
-import { getDatabase } from '../../../../libs/storage/src/schema';
-import { getAllProfiles } from '../../../../libs/storage/src/profileRepository';
+import { getDatabase, getAllProfiles } from '@sierrita/storage';
 import { profilesAtom, activeProfileIdAtom, appReadyAtom } from '../store/atoms';
 
 SplashScreen.preventAutoHideAsync();

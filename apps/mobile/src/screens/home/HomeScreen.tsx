@@ -8,7 +8,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useAtomValue } from 'jotai';
 import { activeProfileAtom, petStateAtom, petMoodAtom } from '../../store/atoms';
-import { getEvolutionLabel, getXpProgress } from '../../../../../libs/pet/src/petEngine';
+import { getEvolutionLabel, getXpProgress } from '@sierrita/pet';
 import { PetAnimation } from '../../components/PetAnimation';
 import { IconAnimation } from '../../components/IconAnimation';
 import type { IconAnimationName } from '../../components/IconAnimation';

@@ -2,9 +2,9 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity, Animated,
 } from 'react-native';
-import { getSentences, shuffleWords } from '../../../../../../../libs/games/writing/sentenceData';
-import type { SentenceEntry } from '../../../../../../../libs/games/writing/sentenceData';
-import { speak } from '../../../../../../../libs/audio/src/audioManager';
+import { getSentences, shuffleWords } from '@sierrita/games';
+import type { SentenceEntry } from '@sierrita/games';
+import { speak } from '@sierrita/audio';
 import type { GameProps } from '../../GameScreen';
 
 export default function SentencesGame({

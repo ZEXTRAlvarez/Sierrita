@@ -1,0 +1,9 @@
+{
+  "name": "profiles",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/profiles/src",
+  "projectType": "library",
+  "tags": [
+    "scope:domain-core"
+  ]
+}

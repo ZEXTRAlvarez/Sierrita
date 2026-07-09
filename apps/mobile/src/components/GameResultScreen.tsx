@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native';
-import type { GameSummary } from '../../../../libs/games/src/types';
+import type { GameSummary } from '@sierrita/games';
 import { usePet } from '../hooks/usePet';
 
 interface Props {

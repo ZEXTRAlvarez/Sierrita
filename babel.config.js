@@ -20,7 +20,10 @@ module.exports = function (api) {
           components: ['tamagui'],
           config: path.join(appDir, 'src/theme/index.ts'),
           logTimings: true,
-          disableExtraction: process.env.NODE_ENV === 'development',
+          // Extraction is a production/dev bundling optimization; disable it
+          // under Jest too so component tests exercise real runtime prop
+          // evaluation instead of the compile-time-optimized JSX.
+          disableExtraction: process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test',
         },
       ],
       resolvePlugin('react-native-reanimated/plugin'),

@@ -1,16 +1,15 @@
 import { useCallback, useRef, useState } from 'react';
 import { useAtomValue } from 'jotai';
 import { activeProfileIdAtom } from '../store/atoms';
-import { getGameConfig, summarizeSession, speedBonus } from '../../../../libs/games/src';
-import { saveGameSession } from '../../../../libs/storage/src/gameSessionRepository';
-import { processRoundResult, createInitialDifficultyState } from '../../../../libs/adaptive/src/adaptiveEngine';
-import { getDifficultyState, upsertDifficultyState } from '../../../../libs/storage/src/difficultyRepository';
 import {
-  speak, hapticSuccess, hapticError,
+  getGameConfig, summarizeSession, speedBonus,
   FEEDBACK_CORRECT, FEEDBACK_WRONG, FEEDBACK_LEVELUP, randomFrom,
-} from '../../../../libs/audio/src/audioManager';
-import type { GameSession, GameSummary, RoundResult } from '../../../../libs/games/src/types';
-import type { DifficultyState } from '../../../../libs/adaptive/src/types';
+} from '@sierrita/games';
+import { saveGameSession, getDifficultyState, upsertDifficultyState } from '@sierrita/storage';
+import { processRoundResult, createInitialDifficultyState } from '@sierrita/adaptive';
+import { speak, hapticSuccess, hapticError } from '@sierrita/audio';
+import type { GameSession, GameSummary, RoundResult } from '@sierrita/games';
+import type { DifficultyState } from '@sierrita/adaptive';
 
 interface UseGameSessionReturn {
   session: GameSession | null;
