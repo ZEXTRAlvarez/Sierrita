@@ -1,4 +1,10 @@
-import { getWords, getBlanks, getLetterOptions } from './wordData';
+import {
+  getWords,
+  getBlanks,
+  getForcedBlank,
+  getLetterOptions,
+  getPhoneticOptions,
+} from './wordData';
 
 describe('getWords', () => {
   it('returns only words matching the requested length', () => {
@@ -19,6 +25,29 @@ describe('getWords', () => {
     const words = getWords(4, 'mixed', 2);
 
     expect(words.length).toBeLessThanOrEqual(2);
+  });
+
+  it('excludes focus-tagged words (H/soft-C) from the normal pool', () => {
+    const words = getWords(4, 'mixed', 50);
+
+    expect(words.length).toBeGreaterThan(0);
+    for (const w of words) expect(w.focus).toBeUndefined();
+  });
+
+  it('returns only words tagged with the requested focus', () => {
+    const hWords = getWords(4, 'mixed', 50, 'h');
+    expect(hWords.length).toBeGreaterThan(0);
+    for (const w of hWords) {
+      expect(w.focus).toBe('h');
+      expect(w.word).toContain('H');
+    }
+
+    const softCWords = getWords(4, 'mixed', 50, 'soft-c');
+    expect(softCWords.length).toBeGreaterThan(0);
+    for (const w of softCWords) {
+      expect(w.focus).toBe('soft-c');
+      expect(w.word).toContain('C');
+    }
   });
 });
 
@@ -43,6 +72,49 @@ describe('getBlanks', () => {
     const blanks = getBlanks('LIBRO', 4);
 
     expect(new Set(blanks).size).toBe(blanks.length);
+  });
+});
+
+describe('getForcedBlank', () => {
+  it('returns the index of the first occurrence of the target letter', () => {
+    expect(getForcedBlank('HUEVO', 'H')).toEqual([0]);
+    expect(getForcedBlank('BUHO', 'H')).toEqual([2]);
+    expect(getForcedBlank('CIELO', 'C')).toEqual([0]);
+    expect(getForcedBlank('DULCE', 'C')).toEqual([3]);
+  });
+
+  it('is case-insensitive about the target letter', () => {
+    expect(getForcedBlank('HUEVO', 'h')).toEqual([0]);
+  });
+
+  it('falls back to a random single blank when the letter is absent', () => {
+    const blank = getForcedBlank('GATO', 'H');
+    expect(blank).toHaveLength(1);
+    expect(blank[0]).toBeGreaterThanOrEqual(0);
+    expect(blank[0]).toBeLessThan(4);
+  });
+});
+
+describe('getPhoneticOptions', () => {
+  it('always includes the correct letter', () => {
+    const opts = getPhoneticOptions('HUEVO', 0, 'h');
+    expect(opts).toContain('H');
+  });
+
+  it('includes S and Z as traps for a soft C', () => {
+    const opts = getPhoneticOptions('CIELO', 0, 'soft-c');
+    expect(opts).toEqual(expect.arrayContaining(['C', 'S', 'Z']));
+  });
+
+  it('includes the following letter as a trap for a silent H', () => {
+    const opts = getPhoneticOptions('HUEVO', 0, 'h');
+    expect(opts).toEqual(expect.arrayContaining(['H', 'U']));
+  });
+
+  it('returns exactly 4 unique options', () => {
+    const opts = getPhoneticOptions('HACHA', 0, 'h');
+    expect(opts).toHaveLength(4);
+    expect(new Set(opts).size).toBe(4);
   });
 });
 

@@ -17,6 +17,8 @@ import type { GameProps } from '../GameScreen';
 export const GAME_COMPONENT: Record<string, ComponentType<GameProps>> = {
   tracing: TracingGame,
   words: WordsGame,
+  wordsh: WordsGame,
+  wordsc: WordsGame,
   sentences: SentencesGame,
   cursive: CursiveGame,
   counting: CountingGame,

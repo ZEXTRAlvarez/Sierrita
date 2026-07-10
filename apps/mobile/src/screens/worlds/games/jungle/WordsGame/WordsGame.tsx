@@ -3,7 +3,9 @@ import { View, Text, TouchableOpacity, Animated } from 'react-native';
 import {
   getWords,
   getBlanks,
+  getForcedBlank,
   getLetterOptions,
+  getPhoneticOptions,
   type WordEntry,
 } from '@sierrita/games';
 import { speak } from '@sierrita/audio';
@@ -16,6 +18,16 @@ import { isWordCorrect } from './logic/isWordCorrect';
 import { fillFirstEmpty, eraseLast } from './logic/chosenLetters';
 import { styles } from './WordsGame.styles';
 
+type Focus = 'h' | 'soft-c';
+
+/** Specific spelling-rule reminder shown/narrated after a wrong answer in an H/soft-C round. */
+function focusHint(word: string, focus?: Focus): string {
+  if (focus === 'h') return `La H no suena, pero ${word} se escribe con H`;
+  if (focus === 'soft-c')
+    return `Acá la C suena como S, pero ${word} se escribe con C`;
+  return '¡Casi! Intentá de nuevo';
+}
+
 export default function WordsGame({
   params,
   onRoundComplete,
@@ -26,6 +38,7 @@ export default function WordsGame({
   const blanks = (params.blanks as number) || 1;
   const category =
     (params.category as 'animals' | 'objects' | 'mixed') || 'animals';
+  const focus = params.focus as Focus | undefined;
 
   const words = useRef<WordEntry[]>([]);
   const nextIdx = useRef(0);
@@ -40,19 +53,23 @@ export default function WordsGame({
 
   const startRound = useCallback(() => {
     if (words.current.length === 0) {
-      const list = getWords(wordLength, category, roundCount);
+      const list = getWords(wordLength, category, roundCount, focus);
       while (list.length < roundCount) list.push(...list);
       words.current = list.slice(0, roundCount);
     }
     const entry = words.current[nextIdx.current++];
     if (!entry) return;
-    const bi = getBlanks(entry.word, blanks);
+    const bi = focus
+      ? getForcedBlank(entry.word, focus === 'h' ? 'H' : 'C')
+      : getBlanks(entry.word, blanks);
     blankIndices.current = bi;
-    options.current = getLetterOptions(entry.word, bi);
+    options.current = focus
+      ? getPhoneticOptions(entry.word, bi[0], focus)
+      : getLetterOptions(entry.word, bi);
     setCurrentEntry(entry);
     setChosen(bi.map(() => null));
     speak(`Completá la palabra: ${spellWord(entry.word, bi)}`);
-  }, [wordLength, category, blanks, roundCount]);
+  }, [wordLength, category, blanks, roundCount, focus]);
 
   const { result, roundsDone, submitAnswer } = useGameRound({
     roundCount,
@@ -94,6 +111,7 @@ export default function WordsGame({
     } else {
       setWrongFlash(true);
       shake();
+      speak(focusHint(currentEntry.word, focus));
       onRoundComplete(false, 0).then(() => {
         setTimeout(() => {
           setChosen(blankIndices.current.map(() => null));
@@ -133,8 +151,11 @@ export default function WordsGame({
         <Text style={[styles.badge, styles.badgeCorrect]}>¡Perfecto! ⭐</Text>
       )}
       {wrongFlash && (
-        <Text style={[styles.badge, styles.badgeWrong]}>
-          ¡Casi! Intentá de nuevo 💪
+        <Text
+          style={[styles.badge, styles.badgeWrong]}
+          testID="words-wrong-badge"
+        >
+          {focusHint(currentEntry.word, focus)} 💪
         </Text>
       )}
     </View>
