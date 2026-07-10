@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent } from '@testing-library/react-native';
+import { act, fireEvent } from '@testing-library/react-native';
 import { renderWithProviders } from '../../test-utils/renderWithProviders';
 import ProfileSelectScreen from './ProfileSelectScreen';
 
@@ -38,11 +38,16 @@ jest.mock('jotai', () => ({ useAtomValue: () => null }));
 
 describe('ProfileSelectScreen', () => {
   beforeEach(() => {
+    jest.useFakeTimers();
     mockReplace.mockClear();
     mockNavigate.mockClear();
     mockGoBack.mockClear();
     mockCanGoBack.mockReturnValue(false);
     mockSelectProfile.mockClear();
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
   });
 
   it('lists the existing profiles and an add-profile card', () => {
@@ -56,6 +61,7 @@ describe('ProfileSelectScreen', () => {
     const { getByText } = renderWithProviders(<ProfileSelectScreen />);
 
     fireEvent.press(getByText('Sofía'));
+    act(() => jest.advanceTimersByTime(0));
 
     expect(mockSelectProfile).toHaveBeenCalledWith('p1');
     expect(mockReplace).toHaveBeenCalledWith('Main');

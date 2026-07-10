@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent } from '@testing-library/react-native';
+import { act, fireEvent } from '@testing-library/react-native';
 import { renderWithProviders } from '../../test-utils/renderWithProviders';
 import OnboardingScreen from './OnboardingScreen';
 
@@ -19,9 +19,14 @@ jest.mock('../../hooks/useProfiles', () => ({
 
 describe('OnboardingScreen', () => {
   beforeEach(() => {
+    jest.useFakeTimers();
     mockReplace.mockClear();
     mockAddProfile.mockReset();
     mockSelectProfile.mockClear();
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
   });
 
   it('walks through name, age and pet before creating a profile', async () => {
@@ -38,6 +43,7 @@ describe('OnboardingScreen', () => {
 
     fireEvent.press(getByText('Dragoncito'));
     await fireEvent.press(getByText('¡Empezar!'));
+    act(() => jest.advanceTimersByTime(0));
 
     expect(mockAddProfile).toHaveBeenCalledWith('Sofía', 5, 'dragon');
     expect(mockSelectProfile).toHaveBeenCalledWith('p1');
