@@ -51,6 +51,7 @@ describe('useOnboardingFlow', () => {
     act(() => result.current.setPet('dragon'));
 
     await act(async () => result.current.handleCreate());
+    act(() => jest.advanceTimersByTime(0));
 
     expect(mockAddProfile).toHaveBeenCalledWith('Sofía', 5, 'dragon');
     expect(mockSelectProfile).toHaveBeenCalledWith('p1');

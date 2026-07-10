@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-native';
+import { act, renderHook } from '@testing-library/react-native';
 import { Alert } from 'react-native';
 import { useProfileSelection } from './useProfileSelection';
 
@@ -21,6 +21,7 @@ jest.mock('../../../hooks/useProfiles', () => ({
 
 describe('useProfileSelection', () => {
   beforeEach(() => {
+    jest.useFakeTimers();
     mockReplace.mockClear();
     mockSelectProfile.mockClear();
     mockRemoveProfile.mockClear();
@@ -28,6 +29,7 @@ describe('useProfileSelection', () => {
   });
 
   afterEach(() => {
+    jest.useRealTimers();
     (Alert.alert as jest.Mock).mockRestore();
   });
 
@@ -37,6 +39,12 @@ describe('useProfileSelection', () => {
     result.current.handleSelect('p1');
 
     expect(mockSelectProfile).toHaveBeenCalledWith('p1');
+    expect(mockReplace).not.toHaveBeenCalled();
+
+    act(() => {
+      jest.advanceTimersByTime(0);
+    });
+
     expect(mockReplace).toHaveBeenCalledWith('Main');
   });
 

@@ -13,7 +13,11 @@ export function useProfileSelection() {
 
   function handleSelect(id: string) {
     selectProfile(id);
-    navigation.replace('Main');
+    // 'Main' solo se registra en el Stack una vez que activeProfileId pasa a
+    // ser verdadero (ver navigation/index.tsx). Si se navega en el mismo tick,
+    // React todavía no re-renderizó el navigator y la acción falla con
+    // "was not handled by any navigator" — se difiere al próximo tick.
+    setTimeout(() => navigation.replace('Main'), 0);
   }
 
   function handleDelete(id: string, name: string) {

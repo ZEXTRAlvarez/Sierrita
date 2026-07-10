@@ -45,7 +45,9 @@ export function useOnboardingFlow() {
     try {
       const profile = await addProfile(name.trim(), age, pet);
       selectProfile(profile.id);
-      navigation.replace('Main');
+      // Ver comentario en useProfileSelection.handleSelect: 'Main' no existe
+      // todavía en el Stack en este mismo tick.
+      setTimeout(() => navigation.replace('Main'), 0);
     } catch (e) {
       console.error('Error creating profile', e);
     } finally {
