@@ -5,7 +5,7 @@ import { WorldCardsGrid } from './WorldCardsGrid';
 
 describe('WorldCardsGrid', () => {
   it('renders one card per world, each with its subject and game count', () => {
-    const { getByText } = render(
+    const { getByText, getAllByText } = render(
       <WorldCardsGrid
         cardEntrance={new Animated.Value(1)}
         onPressWorld={jest.fn()}
@@ -15,9 +15,8 @@ describe('WorldCardsGrid', () => {
     expect(getByText('Escritura')).toBeTruthy();
     expect(getByText('Matemáticas')).toBeTruthy();
     expect(getByText('Lógica')).toBeTruthy();
-    expect(getByText('6 juegos')).toBeTruthy();
+    expect(getAllByText('6 juegos')).toHaveLength(2); // Selva Mágica y Espacio Estelar
     expect(getByText('5 juegos')).toBeTruthy();
-    expect(getByText('4 juegos')).toBeTruthy();
   });
 
   it('calls onPressWorld when a card is tapped', () => {

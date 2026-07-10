@@ -12,6 +12,8 @@ import PatternsGame from '../games/space/PatternsGame';
 import MemoryGame from '../games/space/MemoryGame';
 import ClassifyGame from '../games/space/ClassifyGame';
 import MazeGame from '../games/space/MazeGame';
+import OddOneOutGame from '../games/space/OddOneOutGame';
+import BalanceGame from '../games/space/BalanceGame';
 import type { GameProps } from '../GameScreen';
 
 export const GAME_COMPONENT: Record<string, ComponentType<GameProps>> = {
@@ -30,6 +32,8 @@ export const GAME_COMPONENT: Record<string, ComponentType<GameProps>> = {
   memory: MemoryGame,
   classify: ClassifyGame,
   maze: MazeGame,
+  oddOneOut: OddOneOutGame,
+  balance: BalanceGame,
 };
 
 export const WORLD_COLOR: Record<string, string> = {

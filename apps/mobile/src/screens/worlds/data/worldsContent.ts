@@ -65,6 +65,8 @@ export const WORLDS: WorldDef[] = [
       { id: 'memory', name: 'Memoria Estelar', emoji: '🃏', minAge: 4 },
       { id: 'classify', name: 'Clasificar', emoji: '📦', minAge: 4 },
       { id: 'maze', name: 'Laberinto', emoji: '🌀', minAge: 5 },
+      { id: 'oddOneOut', name: 'El Intruso', emoji: '🔍', minAge: 6 },
+      { id: 'balance', name: 'Balanza Lógica', emoji: '⚖️', minAge: 6 },
     ],
   },
 ];
