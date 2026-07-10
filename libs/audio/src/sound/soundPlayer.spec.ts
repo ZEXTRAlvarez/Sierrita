@@ -17,7 +17,9 @@ describe('playSound', () => {
     const addListener = jest.fn((_event, cb) => {
       statusCallback = cb;
     });
-    const createAudioPlayer = jest.fn().mockReturnValue({ play, addListener, remove });
+    const createAudioPlayer = jest
+      .fn()
+      .mockReturnValue({ play, addListener, remove });
     __setAudioModuleForTesting({ createAudioPlayer } as never);
 
     await playSound(42);

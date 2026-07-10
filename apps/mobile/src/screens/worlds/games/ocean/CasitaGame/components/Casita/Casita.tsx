@@ -26,12 +26,12 @@ const PLACE_LABEL: Record<Place, string> = {
  */
 export function Casita({ problem, onAnswer, result }: CasitaProps) {
   const { columns } = problem;
-  const [chosen, setChosen] = useState<(number | null)[]>(
-    () => columns.map(() => null),
+  const [chosen, setChosen] = useState<(number | null)[]>(() =>
+    columns.map(() => null),
   );
   const [revealedCount, setRevealedCount] = useState(1);
-  const [badgeShown, setBadgeShown] = useState<boolean[]>(
-    () => columns.map(() => false),
+  const [badgeShown, setBadgeShown] = useState<boolean[]>(() =>
+    columns.map(() => false),
   );
   const badgeAnims = useRef(columns.map(() => new Animated.Value(0))).current;
 
@@ -82,7 +82,9 @@ export function Casita({ problem, onAnswer, result }: CasitaProps) {
   }
 
   const opSymbol = problem.op === 'add' ? '+' : '−';
-  const displayColumns = columns.map((col, index) => ({ col, index })).reverse();
+  const displayColumns = columns
+    .map((col, index) => ({ col, index }))
+    .reverse();
   const halfRoofWidth = columns.length * 55;
 
   return (
@@ -113,17 +115,25 @@ export function Casita({ problem, onAnswer, result }: CasitaProps) {
               // first; if IT needed to regroup, THIS column is the one that
               // lent (sub) or handed over (add) the 1 — show what changed
               // once this column has actually unlocked.
-              const receivedRegroup = isRevealed && index > 0 && columns[index - 1].regroups;
+              const receivedRegroup =
+                isRevealed && index > 0 && columns[index - 1].regroups;
               return (
                 <View style={{ flexDirection: 'row' }} key={col.place}>
                   {displayIndex > 0 && <View style={styles.divider} />}
-                  <View style={styles.column} testID={`casita-column-${col.place}`}>
-                    <Text style={styles.colLabel}>{PLACE_LABEL[col.place]}</Text>
+                  <View
+                    style={styles.column}
+                    testID={`casita-column-${col.place}`}
+                  >
+                    <Text style={styles.colLabel}>
+                      {PLACE_LABEL[col.place]}
+                    </Text>
                     <View style={styles.aDigitWrap}>
                       <Text
                         style={[
                           styles.digit,
-                          receivedRegroup && problem.op === 'sub' && styles.struckDigit,
+                          receivedRegroup &&
+                            problem.op === 'sub' &&
+                            styles.struckDigit,
                         ]}
                         testID={`casita-${col.place}-a-digit`}
                       >
@@ -152,7 +162,10 @@ export function Casita({ problem, onAnswer, result }: CasitaProps) {
                         </Text>
                       )}
                     </View>
-                    <Text style={styles.digit} testID={`casita-${col.place}-b-digit`}>
+                    <Text
+                      style={styles.digit}
+                      testID={`casita-${col.place}-b-digit`}
+                    >
                       {col.bDigit}
                     </Text>
                     <View style={styles.line} />
@@ -168,7 +181,9 @@ export function Casita({ problem, onAnswer, result }: CasitaProps) {
                               chosen[index] === opt && styles.selectedBtn,
                             ]}
                             onPress={() => selectDigit(index, opt)}
-                            disabled={result !== 'idle' || chosen[index] !== null}
+                            disabled={
+                              result !== 'idle' || chosen[index] !== null
+                            }
                           >
                             <Text style={styles.digitBtnText}>{opt}</Text>
                           </TouchableOpacity>
@@ -201,7 +216,9 @@ export function Casita({ problem, onAnswer, result }: CasitaProps) {
                           },
                         ]}
                       >
-                        {problem.op === 'add' ? 'Me llevo 1 👈' : 'Le pido 1 👈'}
+                        {problem.op === 'add'
+                          ? 'Me llevo 1 👈'
+                          : 'Le pido 1 👈'}
                       </Animated.Text>
                     )}
                   </View>

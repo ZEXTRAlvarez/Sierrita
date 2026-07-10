@@ -1,6 +1,9 @@
 import type * as ExpoAudio from 'expo-audio';
 
-type AudioModuleApi = Pick<typeof ExpoAudio, 'createAudioPlayer' | 'setAudioModeAsync'>;
+type AudioModuleApi = Pick<
+  typeof ExpoAudio,
+  'createAudioPlayer' | 'setAudioModeAsync'
+>;
 
 // expo-audio requires a native module — guard against it being unavailable in
 // Expo Go / dev environments, and allow tests to inject a fake.

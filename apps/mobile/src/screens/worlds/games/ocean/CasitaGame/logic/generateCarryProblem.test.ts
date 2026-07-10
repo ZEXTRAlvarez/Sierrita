@@ -82,7 +82,11 @@ describe('generateCarryProblem (three columns: hundreds/tens/units)', () => {
       expect(p.a).toBeLessThanOrEqual(500);
       expect(p.b).toBeGreaterThanOrEqual(100);
       expect(p.b).toBeLessThanOrEqual(500);
-      expect(p.columns.map((c) => c.place)).toEqual(['units', 'tens', 'hundreds']);
+      expect(p.columns.map((c) => c.place)).toEqual([
+        'units',
+        'tens',
+        'hundreds',
+      ]);
     }
   });
 
@@ -90,12 +94,13 @@ describe('generateCarryProblem (three columns: hundreds/tens/units)', () => {
     for (let i = 0; i < 30; i++) {
       const p = generateCarryProblem(500, ['add', 'sub'], 999, false, true);
       const [units, tens, hundreds] = p.columns;
-      const toNumber = (h: number, t: number, u: number) => h * 100 + t * 10 + u;
+      const toNumber = (h: number, t: number, u: number) =>
+        h * 100 + t * 10 + u;
       expect(toNumber(hundreds.aDigit, tens.aDigit, units.aDigit)).toBe(p.a);
       expect(toNumber(hundreds.bDigit, tens.bDigit, units.bDigit)).toBe(p.b);
-      expect(toNumber(hundreds.resultDigit, tens.resultDigit, units.resultDigit)).toBe(
-        p.result,
-      );
+      expect(
+        toNumber(hundreds.resultDigit, tens.resultDigit, units.resultDigit),
+      ).toBe(p.result);
     }
   });
 
@@ -137,10 +142,11 @@ describe('generateCarryProblem (three columns: hundreds/tens/units)', () => {
       const [units, tens, hundreds] = p.columns;
       if (units.regroups && tens.regroups) {
         sawDoubleRegroup = true;
-        const toNumber = (h: number, t: number, u: number) => h * 100 + t * 10 + u;
-        expect(toNumber(hundreds.resultDigit, tens.resultDigit, units.resultDigit)).toBe(
-          p.result,
-        );
+        const toNumber = (h: number, t: number, u: number) =>
+          h * 100 + t * 10 + u;
+        expect(
+          toNumber(hundreds.resultDigit, tens.resultDigit, units.resultDigit),
+        ).toBe(p.result);
       }
     }
     expect(sawDoubleRegroup).toBe(true);

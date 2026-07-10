@@ -22,7 +22,11 @@ export interface CasitaProblem {
   result: number;
 }
 
-function digitsOf(n: number): { hundreds: number; tens: number; units: number } {
+function digitsOf(n: number): {
+  hundreds: number;
+  tens: number;
+  units: number;
+} {
   return {
     hundreds: Math.floor(n / 100) % 10,
     tens: Math.floor(n / 10) % 10,
@@ -30,31 +34,54 @@ function digitsOf(n: number): { hundreds: number; tens: number; units: number } 
   };
 }
 
-function buildColumns(a: number, b: number, op: Operation, useHundreds: boolean): CasitaColumn[] {
+function buildColumns(
+  a: number,
+  b: number,
+  op: Operation,
+  useHundreds: boolean,
+): CasitaColumn[] {
   const da = digitsOf(a);
   const db = digitsOf(b);
-  const places: Place[] = useHundreds ? ['units', 'tens', 'hundreds'] : ['units', 'tens'];
+  const places: Place[] = useHundreds
+    ? ['units', 'tens', 'hundreds']
+    : ['units', 'tens'];
   const columns: CasitaColumn[] = [];
 
   if (op === 'add') {
     let carry = 0;
     for (const place of places) {
-      const aDigit = place === 'units' ? da.units : place === 'tens' ? da.tens : da.hundreds;
-      const bDigit = place === 'units' ? db.units : place === 'tens' ? db.tens : db.hundreds;
+      const aDigit =
+        place === 'units' ? da.units : place === 'tens' ? da.tens : da.hundreds;
+      const bDigit =
+        place === 'units' ? db.units : place === 'tens' ? db.tens : db.hundreds;
       const sum = aDigit + bDigit + carry;
       carry = sum >= 10 ? 1 : 0;
-      columns.push({ place, aDigit, bDigit, resultDigit: sum % 10, regroups: carry === 1 });
+      columns.push({
+        place,
+        aDigit,
+        bDigit,
+        resultDigit: sum % 10,
+        regroups: carry === 1,
+      });
     }
   } else {
     let borrow = 0;
     for (const place of places) {
-      const aDigit = place === 'units' ? da.units : place === 'tens' ? da.tens : da.hundreds;
-      const bDigit = place === 'units' ? db.units : place === 'tens' ? db.tens : db.hundreds;
+      const aDigit =
+        place === 'units' ? da.units : place === 'tens' ? da.tens : da.hundreds;
+      const bDigit =
+        place === 'units' ? db.units : place === 'tens' ? db.tens : db.hundreds;
       let diff = aDigit - borrow - bDigit;
       const nextBorrow = diff < 0 ? 1 : 0;
       if (diff < 0) diff += 10;
       borrow = nextBorrow;
-      columns.push({ place, aDigit, bDigit, resultDigit: diff, regroups: borrow === 1 });
+      columns.push({
+        place,
+        aDigit,
+        bDigit,
+        resultDigit: diff,
+        regroups: borrow === 1,
+      });
     }
   }
 

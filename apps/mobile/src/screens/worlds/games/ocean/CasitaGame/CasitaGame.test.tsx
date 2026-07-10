@@ -53,7 +53,12 @@ describe('CasitaGame', () => {
     const onGameFinish = jest.fn();
     const { getAllByTestId, getByTestId } = render(
       <CasitaGame
-        params={{ maxOperand: 39, operations: ['add'], resultMax: 99, regroupChance: 0 }}
+        params={{
+          maxOperand: 39,
+          operations: ['add'],
+          resultMax: 99,
+          regroupChance: 0,
+        }}
         onRoundComplete={onRoundComplete}
         onGameFinish={onGameFinish}
         roundCount={1}
@@ -99,7 +104,7 @@ describe('CasitaGame', () => {
     expect(queryByTestId('palitos-decena-badge')).toBeTruthy();
   });
 
-  it('regression: round 2 shows options matching round 2\'s own problem, not round 1\'s stale ones', async () => {
+  it("regression: round 2 shows options matching round 2's own problem, not round 1's stale ones", async () => {
     // Reported bug: after a round transition, Casita's displayed digits
     // updated but its (useRef-memoized) answer options stayed stuck on the
     // previous round's problem, because the remount key changed a beat
@@ -107,7 +112,12 @@ describe('CasitaGame', () => {
     // expected units digit is trivially (a + b) % 10 for any round.
     const { getAllByTestId, getByTestId, getByText } = render(
       <CasitaGame
-        params={{ maxOperand: 39, operations: ['add'], resultMax: 99, regroupChance: 0 }}
+        params={{
+          maxOperand: 39,
+          operations: ['add'],
+          resultMax: 99,
+          regroupChance: 0,
+        }}
         onRoundComplete={jest.fn(async () => undefined)}
         onGameFinish={jest.fn()}
         roundCount={3}

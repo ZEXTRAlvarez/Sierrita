@@ -23,6 +23,7 @@ El usuario adjuntó un boceto de referencia: una "casita" (techo triangular + cu
 ## Alcance
 
 **Incluye:**
+
 - Nuevo juego/modo con la estructura visual de "casita" (columnas decenas/unidades) para sumar y restar números de dos cifras.
 - Indicador visual del acarreo ("me llevo 1") al sumar y del préstamo ("le pido 1 al vecino") al restar, en la columna de decenas.
 - Zona inferior con palitos sueltos, arrastrables, que el niño puede usar libremente para contar/agrupar de a 10.
@@ -30,6 +31,7 @@ El usuario adjuntó un boceto de referencia: una "casita" (techo triangular + cu
 - Feedback de acierto/error y progresión de dificultad.
 
 **No incluye (fuera de alcance de esta HU):**
+
 - Números de tres cifras / centenas (podría ser una HU futura reutilizando este mismo componente).
 - Multiplicación/división con casita.
 - Modo multijugador o comparación entre niños.
@@ -55,39 +57,51 @@ El usuario adjuntó un boceto de referencia: una "casita" (techo triangular + cu
 ## Tareas
 
 ### 1. Definir mecánica y mockup interactivo de la casita
+
 **Descripción:** A partir del boceto de referencia, definir el layout final: proporciones de la casita, cómo se muestran las dos columnas (decenas/unidades), dónde aparece el indicador de acarreo/préstamo, y cómo se distingue visualmente el modo suma del modo resta. Entregar un mockup (Figma o similar) o una descripción detallada de estados (inicial, con acarreo, con préstamo, correcto, incorrecto).
 
 ### 2. Lógica de generación de problemas con reagrupación
+
 **Descripción:** Crear `logic/generateCarryProblem.ts` (o extender `generateProblem.ts`) que genere pares de números de dos cifras para suma y resta, con parámetro de probabilidad de forzar acarreo (suma) o préstamo (resta), respetando que la resta nunca dé resultado negativo. Incluir tests unitarios que verifiquen: rango de operandos, corrección del resultado, y que la proporción de problemas "con reagrupación" respete el parámetro solicitado.
 
 ### 3. Componente `Casita` (estructura visual + columnas decenas/unidades)
+
 **Descripción:** Construir el componente visual de la casita con sus dos columnas. Debe recibir el problema (operandos, operación) y renderizar los dígitos correctamente alineados por posición (decenas/unidades), dejando espacio para el indicador de acarreo/préstamo definido en la tarea 1.
 
 ### 4. Indicador y animación de acarreo/préstamo
+
 **Descripción:** Implementar la animación/indicador que aparece cuando una columna requiere llevarse o pedir prestado un 1: mostrar el "1" viajando visualmente de la columna de unidades a la de decenas (acarreo) o el tachado/reducción de la decena prestada (préstamo). Debe activarse automáticamente según el problema generado en la tarea 2.
 
 ### 5. Componente `PalitosTray` (palitos arrastrables)
+
 **Descripción:** Crear la bandeja inferior de palitos individuales que el niño puede arrastrar hacia un área de trabajo para agrupar y contar. Debe soportar arrastrar de a uno, soltar en el área de conteo, y reconocer visualmente cuando se agrupan 10 (ej. atados o resaltados) como refuerzo del concepto de decena.
 
 ### 6. Integración de gestos de arrastre (drag & drop)
+
 **Descripción:** Conectar `PalitosTray` con la interacción táctil real (gesture handler / reanimated, según lo que ya use el proyecto), asegurando áreas táctiles grandes y feedback (escala/sombra) al tomar un palito, siguiendo el criterio de aceptación de accesibilidad táctil.
 
 ### 7. Pantalla/orquestador `CasitaGame`
+
 **Descripción:** Crear `CasitaGame.tsx` que orqueste ronda actual, modo suma/resta, estado de la casita, estado de los palitos, validación de respuesta y feedback de acierto/error, siguiendo el patrón de estado ya usado en `SumsGame.tsx` / `HundredsGame.tsx`.
 
 ### 8. Sistema de dificultad progresiva
+
 **Descripción:** Implementar el ajuste de dificultad (más frecuencia de acarreo/préstamo y operandos más grandes a medida que el niño acierta rondas seguidas), reutilizando o adaptando el criterio de progresión ya existente en otros juegos del mundo Ocean si lo hay.
 
 ### 9. Registrar el juego en el mundo Ocean
+
 **Descripción:** Agregar `CasitaGame` al índice/selector de juegos del mundo Ocean (routing, ícono, nombre visible para el niño), siguiendo cómo están registrados `SumsGame`, `CountingGame`, `CompareGame` y `HundredsGame`.
 
 ### 10. Tests de componentes y de interacción
+
 **Descripción:** Cubrir con tests: renderizado correcto de la casita según el problema, aparición del indicador de acarreo/préstamo en los casos correspondientes, y comportamiento de `PalitosTray` (agregar/agrupar/soltar palitos), siguiendo el estilo de tests ya usado (`*.test.tsx` junto a cada componente).
 
 ### 11. QA manual en dispositivo/emulador
+
 **Descripción:** Validar manualmente en un dispositivo o emulador táctil real que el arrastre de palitos se siente natural para un niño (sin lag, sin soltar accidental), que la casita es legible en pantallas chicas, y recorrer todos los criterios de aceptación de la HU antes de dar por cerrada la tarea.
 
 ## Consideraciones futuras (no en esta HU)
+
 - Extender la casita a números de tres cifras (centenas).
 - Sonidos/vocecitas guiando el "me llevo 1" / "le pido prestado 1 al vecino".
 - Modo asistido donde el juego arrastra automáticamente los palitos como demostración la primera vez.

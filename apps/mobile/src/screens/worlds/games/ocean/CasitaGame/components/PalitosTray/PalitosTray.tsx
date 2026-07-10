@@ -42,7 +42,10 @@ function Palito({ id, dropZoneY, dropped, onToggle }: PalitoProps) {
     });
 
   const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ translateX: translateX.value }, { translateY: translateY.value }],
+    transform: [
+      { translateX: translateX.value },
+      { translateY: translateY.value },
+    ],
   }));
 
   return (

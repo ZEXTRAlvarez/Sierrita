@@ -2,7 +2,10 @@ import React from 'react';
 import { render, fireEvent, act, within } from '@testing-library/react-native';
 import type { ReactTestInstance } from 'react-test-renderer';
 import { Casita } from './Casita';
-import type { CasitaColumn, CasitaProblem } from '../../logic/generateCarryProblem';
+import type {
+  CasitaColumn,
+  CasitaProblem,
+} from '../../logic/generateCarryProblem';
 
 /** Finds the option button whose visible text matches (or, negated, doesn't match) a digit. */
 function findByDigit(
@@ -17,7 +20,9 @@ function findByDigit(
   return found;
 }
 
-function twoColumnProblem(overrides: Partial<CasitaProblem> = {}): CasitaProblem {
+function twoColumnProblem(
+  overrides: Partial<CasitaProblem> = {},
+): CasitaProblem {
   const columns: CasitaColumn[] = [
     { place: 'units', aDigit: 5, bDigit: 3, resultDigit: 8, regroups: false },
     { place: 'tens', aDigit: 2, bDigit: 1, resultDigit: 3, regroups: false },
@@ -25,11 +30,19 @@ function twoColumnProblem(overrides: Partial<CasitaProblem> = {}): CasitaProblem
   return { a: 25, b: 13, op: 'add', columns, result: 38, ...overrides };
 }
 
-function threeColumnProblem(overrides: Partial<CasitaProblem> = {}): CasitaProblem {
+function threeColumnProblem(
+  overrides: Partial<CasitaProblem> = {},
+): CasitaProblem {
   const columns: CasitaColumn[] = [
     { place: 'units', aDigit: 5, bDigit: 3, resultDigit: 8, regroups: false },
     { place: 'tens', aDigit: 2, bDigit: 1, resultDigit: 3, regroups: false },
-    { place: 'hundreds', aDigit: 1, bDigit: 2, resultDigit: 3, regroups: false },
+    {
+      place: 'hundreds',
+      aDigit: 1,
+      bDigit: 2,
+      resultDigit: 3,
+      regroups: false,
+    },
   ];
   return { a: 125, b: 213, op: 'add', columns, result: 338, ...overrides };
 }
@@ -79,8 +92,20 @@ describe('Casita (two columns)', () => {
   it('shows the regroup badge and delays the tens column when the units column regroups', () => {
     const problem = twoColumnProblem({
       columns: [
-        { place: 'units', aDigit: 5, bDigit: 3, resultDigit: 8, regroups: true },
-        { place: 'tens', aDigit: 2, bDigit: 1, resultDigit: 3, regroups: false },
+        {
+          place: 'units',
+          aDigit: 5,
+          bDigit: 3,
+          resultDigit: 8,
+          regroups: true,
+        },
+        {
+          place: 'tens',
+          aDigit: 2,
+          bDigit: 1,
+          resultDigit: 3,
+          regroups: false,
+        },
       ],
     });
     const { getAllByTestId, getByTestId, queryAllByTestId } = render(
@@ -103,8 +128,20 @@ describe('Casita (two columns)', () => {
       a: 42,
       b: 18,
       columns: [
-        { place: 'units', aDigit: 2, bDigit: 8, resultDigit: 4, regroups: true },
-        { place: 'tens', aDigit: 4, bDigit: 1, resultDigit: 2, regroups: false },
+        {
+          place: 'units',
+          aDigit: 2,
+          bDigit: 8,
+          resultDigit: 4,
+          regroups: true,
+        },
+        {
+          place: 'tens',
+          aDigit: 4,
+          bDigit: 1,
+          resultDigit: 2,
+          regroups: false,
+        },
       ],
       result: 24,
     });
@@ -138,7 +175,9 @@ describe('Casita (two columns)', () => {
       <Casita problem={problem} onAnswer={onAnswer} result="idle" />,
     );
 
-    fireEvent.press(findByDigit(getAllByTestId('casita-units-option'), 8, false));
+    fireEvent.press(
+      findByDigit(getAllByTestId('casita-units-option'), 8, false),
+    );
     fireEvent.press(getAllByTestId('casita-tens-option')[0]);
 
     expect(onAnswer).toHaveBeenCalledTimes(1);
@@ -184,9 +223,21 @@ describe('Casita (three columns, with hundreds)', () => {
   it('shows a regroup badge on the tens column when it carries into hundreds', () => {
     const problem = threeColumnProblem({
       columns: [
-        { place: 'units', aDigit: 5, bDigit: 3, resultDigit: 8, regroups: false },
+        {
+          place: 'units',
+          aDigit: 5,
+          bDigit: 3,
+          resultDigit: 8,
+          regroups: false,
+        },
         { place: 'tens', aDigit: 7, bDigit: 6, resultDigit: 3, regroups: true },
-        { place: 'hundreds', aDigit: 1, bDigit: 2, resultDigit: 4, regroups: false },
+        {
+          place: 'hundreds',
+          aDigit: 1,
+          bDigit: 2,
+          resultDigit: 4,
+          regroups: false,
+        },
       ],
     });
     const { getAllByTestId, getByTestId, queryAllByTestId } = render(
@@ -205,16 +256,36 @@ describe('Casita (three columns, with hundreds)', () => {
     // The hundreds column received the carry from tens: show "+1" next to
     // its top digit, no strikethrough (addition never reduces a digit).
     expect(getByTestId('casita-hundreds-carry-correction')).toBeTruthy();
-    expect(queryAllByTestId('casita-hundreds-borrow-correction')).toHaveLength(0);
+    expect(queryAllByTestId('casita-hundreds-borrow-correction')).toHaveLength(
+      0,
+    );
   });
 
   it('shows a struck digit and the reduced value on the column that lends for a borrow', () => {
     const problem = threeColumnProblem({
       op: 'sub',
       columns: [
-        { place: 'units', aDigit: 2, bDigit: 8, resultDigit: 4, regroups: true },
-        { place: 'tens', aDigit: 4, bDigit: 1, resultDigit: 2, regroups: false },
-        { place: 'hundreds', aDigit: 8, bDigit: 4, resultDigit: 3, regroups: false },
+        {
+          place: 'units',
+          aDigit: 2,
+          bDigit: 8,
+          resultDigit: 4,
+          regroups: true,
+        },
+        {
+          place: 'tens',
+          aDigit: 4,
+          bDigit: 1,
+          resultDigit: 2,
+          regroups: false,
+        },
+        {
+          place: 'hundreds',
+          aDigit: 8,
+          bDigit: 4,
+          resultDigit: 3,
+          regroups: false,
+        },
       ],
     });
     const { getAllByTestId, getByTestId, queryByTestId } = render(
@@ -234,7 +305,9 @@ describe('Casita (three columns, with hundreds)', () => {
       expect.arrayContaining([expect.objectContaining({ color: '#C62828' })]),
     );
     expect(getByTestId('casita-tens-strike-line')).toBeTruthy();
-    expect(getByTestId('casita-tens-borrow-correction').props.children).toBe('↗3');
+    expect(getByTestId('casita-tens-borrow-correction').props.children).toBe(
+      '↗3',
+    );
   });
 
   it('regression: offers the correct hundreds digit for 304 + 150 (no carry anywhere)', () => {
@@ -245,9 +318,27 @@ describe('Casita (three columns, with hundreds)', () => {
       b: 150,
       op: 'add',
       columns: [
-        { place: 'units', aDigit: 4, bDigit: 0, resultDigit: 4, regroups: false },
-        { place: 'tens', aDigit: 0, bDigit: 5, resultDigit: 5, regroups: false },
-        { place: 'hundreds', aDigit: 3, bDigit: 1, resultDigit: 4, regroups: false },
+        {
+          place: 'units',
+          aDigit: 4,
+          bDigit: 0,
+          resultDigit: 4,
+          regroups: false,
+        },
+        {
+          place: 'tens',
+          aDigit: 0,
+          bDigit: 5,
+          resultDigit: 5,
+          regroups: false,
+        },
+        {
+          place: 'hundreds',
+          aDigit: 3,
+          bDigit: 1,
+          resultDigit: 4,
+          regroups: false,
+        },
       ],
       result: 454,
     });

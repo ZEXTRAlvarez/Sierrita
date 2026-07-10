@@ -32,7 +32,10 @@ describe('getAudioModule', () => {
       getAudioModule,
       __setAudioModuleForTesting,
     } = require('./audioModule');
-    const fake = { createAudioPlayer: jest.fn(), setAudioModeAsync: jest.fn() } as never;
+    const fake = {
+      createAudioPlayer: jest.fn(),
+      setAudioModeAsync: jest.fn(),
+    } as never;
 
     __setAudioModuleForTesting(fake);
 

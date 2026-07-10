@@ -36,7 +36,8 @@ const STEPS: Step[] = [
   },
   {
     title: 'Primero, las unidades 👉',
-    caption: '5 + 7 = 12. Pero en un cuadradito solo entra un dígito: anotamos el 2.',
+    caption:
+      '5 + 7 = 12. Pero en un cuadradito solo entra un dígito: anotamos el 2.',
     speechText:
       'Primero resolvemos las unidades. 5 más 7 es 12. Como no entra, anotamos el 2.',
     unitsFilled: true,

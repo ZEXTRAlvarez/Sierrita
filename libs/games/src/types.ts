@@ -31,7 +31,7 @@ export interface GameSummary {
   world: World;
   totalRounds: number;
   correctRounds: number;
-  scorePercent: number;       // 0–1
+  scorePercent: number; // 0–1
   stars: 1 | 2 | 3;
   xpEarned: number;
   durationSecs: number;
@@ -45,18 +45,18 @@ export interface GameConfig {
   titleEs: string;
   emoji: string;
   minAge: 4 | 5 | 6;
-  roundCount: number;         // cuántas rondas por sesión
+  roundCount: number; // cuántas rondas por sesión
   params: (difficulty: Difficulty) => Record<string, unknown>;
 }
 
 // Catálogo de IDs de juego por mundo
 export const GAME_IDS = {
   jungle: ['tracing', 'words', 'sentences', 'cursive'] as const,
-  ocean:  ['counting', 'sums', 'hundreds', 'compare', 'casita'] as const,
-  space:  ['patterns', 'memory', 'classify', 'maze'] as const,
+  ocean: ['counting', 'sums', 'hundreds', 'compare', 'casita'] as const,
+  space: ['patterns', 'memory', 'classify', 'maze'] as const,
 } as const;
 
 export type JungleGameId = (typeof GAME_IDS.jungle)[number];
-export type OceanGameId  = (typeof GAME_IDS.ocean)[number];
-export type SpaceGameId  = (typeof GAME_IDS.space)[number];
+export type OceanGameId = (typeof GAME_IDS.ocean)[number];
+export type SpaceGameId = (typeof GAME_IDS.space)[number];
 export type GameId = JungleGameId | OceanGameId | SpaceGameId;

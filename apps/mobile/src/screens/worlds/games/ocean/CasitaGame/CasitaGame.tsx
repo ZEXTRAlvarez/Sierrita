@@ -15,7 +15,9 @@ import { styles } from './CasitaGame.styles';
 
 function announce(p: CasitaProblem) {
   const opWord = p.op === 'add' ? 'más' : 'menos';
-  speak(`${p.a} ${opWord} ${p.b}. Resolvé la casita empezando por las unidades.`);
+  speak(
+    `${p.a} ${opWord} ${p.b}. Resolvé la casita empezando por las unidades.`,
+  );
 }
 
 /** The actual round-by-round gameplay, mounted only once the child dismisses the intro. */
