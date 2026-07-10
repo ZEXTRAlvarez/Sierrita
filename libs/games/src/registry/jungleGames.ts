@@ -30,6 +30,32 @@ export const JUNGLE_GAMES: GameConfig[] = [
     }),
   },
   {
+    id: 'wordsh',
+    world: 'jungle',
+    titleEs: 'La H Escondida',
+    emoji: '🤫',
+    minAge: 5,
+    roundCount: 5,
+    params: (d: Difficulty) => ({
+      wordLength: d === 1 ? 4 : d === 2 ? 4 : 5,
+      category: 'mixed',
+      focus: 'h',
+    }),
+  },
+  {
+    id: 'wordsc',
+    world: 'jungle',
+    titleEs: 'La C Traviesa',
+    emoji: '🐍',
+    minAge: 5,
+    roundCount: 5,
+    params: (d: Difficulty) => ({
+      wordLength: d === 1 ? 4 : d === 2 ? 4 : 5,
+      category: 'mixed',
+      focus: 'soft-c',
+    }),
+  },
+  {
     id: 'sentences',
     world: 'jungle',
     titleEs: 'Armar Oraciones',

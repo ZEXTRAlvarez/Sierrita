@@ -30,6 +30,8 @@ export const WORLDS: WorldDef[] = [
     games: [
       { id: 'tracing', name: 'Trazos y Letras', emoji: '✏️', minAge: 4 },
       { id: 'words', name: 'Palabras Mágicas', emoji: '🔤', minAge: 5 },
+      { id: 'wordsh', name: 'La H Escondida', emoji: '🤫', minAge: 5 },
+      { id: 'wordsc', name: 'La C Traviesa', emoji: '🐍', minAge: 5 },
       { id: 'sentences', name: 'Armar Oraciones', emoji: '📝', minAge: 6 },
       { id: 'cursive', name: 'Letra Cursiva', emoji: '🖊️', minAge: 6 },
     ],

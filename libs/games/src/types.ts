@@ -51,7 +51,14 @@ export interface GameConfig {
 
 // Catálogo de IDs de juego por mundo
 export const GAME_IDS = {
-  jungle: ['tracing', 'words', 'sentences', 'cursive'] as const,
+  jungle: [
+    'tracing',
+    'words',
+    'wordsh',
+    'wordsc',
+    'sentences',
+    'cursive',
+  ] as const,
   ocean: ['counting', 'sums', 'hundreds', 'compare', 'casita'] as const,
   space: ['patterns', 'memory', 'classify', 'maze'] as const,
 } as const;
