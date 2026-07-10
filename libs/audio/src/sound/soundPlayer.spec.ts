@@ -11,29 +11,29 @@ describe('playSound', () => {
   });
 
   it('loads and plays the sound, wiring an unload-on-finish callback', async () => {
-    const unloadAsync = jest.fn();
-    const playAsync = jest.fn();
+    const play = jest.fn();
+    const remove = jest.fn();
     let statusCallback: ((status: unknown) => void) | undefined;
-    const setOnPlaybackStatusUpdate = jest.fn((cb) => {
+    const addListener = jest.fn((_event, cb) => {
       statusCallback = cb;
     });
-    const createAsync = jest.fn().mockResolvedValue({
-      sound: { playAsync, setOnPlaybackStatusUpdate, unloadAsync },
-    });
-    __setAudioModuleForTesting({ Sound: { createAsync } } as never);
+    const createAudioPlayer = jest.fn().mockReturnValue({ play, addListener, remove });
+    __setAudioModuleForTesting({ createAudioPlayer } as never);
 
     await playSound(42);
 
-    expect(createAsync).toHaveBeenCalledWith(42);
-    expect(playAsync).toHaveBeenCalled();
+    expect(createAudioPlayer).toHaveBeenCalledWith(42);
+    expect(play).toHaveBeenCalled();
 
     statusCallback?.({ isLoaded: true, didJustFinish: true });
-    expect(unloadAsync).toHaveBeenCalled();
+    expect(remove).toHaveBeenCalled();
   });
 
   it('swallows errors from a failed load instead of throwing', async () => {
-    const createAsync = jest.fn().mockRejectedValue(new Error('boom'));
-    __setAudioModuleForTesting({ Sound: { createAsync } } as never);
+    const createAudioPlayer = jest.fn().mockImplementation(() => {
+      throw new Error('boom');
+    });
+    __setAudioModuleForTesting({ createAudioPlayer } as never);
     const warnSpy = jest
       .spyOn(console, 'warn')
       .mockImplementation(() => undefined);
@@ -60,8 +60,8 @@ describe('initAudio', () => {
     await initAudio();
 
     expect(setAudioModeAsync).toHaveBeenCalledWith({
-      playsInSilentModeIOS: true,
-      staysActiveInBackground: false,
+      playsInSilentMode: true,
+      shouldPlayInBackground: false,
     });
   });
 

@@ -5,9 +5,14 @@ describe('WORLDS', () => {
     expect(WORLDS.map((w) => w.id)).toEqual(['jungle', 'ocean', 'space']);
   });
 
-  it('gives every world exactly 4 games', () => {
+  it('gives every world its expected game count', () => {
+    const expected: Record<string, number> = {
+      jungle: 4,
+      ocean: 5,
+      space: 4,
+    };
     for (const world of WORLDS) {
-      expect(world.games).toHaveLength(4);
+      expect(world.games).toHaveLength(expected[world.id]);
     }
   });
 });

@@ -42,6 +42,35 @@ describe('useGameRound', () => {
     act(() => jest.advanceTimersByTime(900));
 
     expect(startRound).toHaveBeenCalledTimes(2);
+    // Regression: the next round must be playable again, not stuck showing
+    // the previous round's "correct" feedback with every option disabled.
+    expect(result.current.result).toBe('idle');
+  });
+
+  it('accepts a new answer in the second round after the reset', async () => {
+    const startRound = jest.fn();
+    const onRoundComplete = jest.fn(async () => undefined);
+    const { result } = renderHook(() =>
+      useGameRound({
+        roundCount: 3,
+        onRoundComplete,
+        onGameFinish: jest.fn(),
+        startRound,
+      }),
+    );
+
+    await act(async () => {
+      await result.current.submitAnswer(true);
+    });
+    act(() => jest.advanceTimersByTime(900));
+
+    await act(async () => {
+      await result.current.submitAnswer(false);
+    });
+
+    expect(result.current.result).toBe('wrong');
+    expect(result.current.roundsDone).toBe(2);
+    expect(onRoundComplete).toHaveBeenCalledTimes(2);
   });
 
   it('calls onGameFinish instead of starting another round once roundCount is reached', async () => {

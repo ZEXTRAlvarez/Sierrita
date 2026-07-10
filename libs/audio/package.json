@@ -14,7 +14,7 @@
     "./package.json": "./package.json"
   },
   "dependencies": {
-    "expo-av": "^16.0.8",
+    "expo-audio": "~56.0.0",
     "expo-haptics": "~56.0.3",
     "expo-speech": "~56.0.3"
   }

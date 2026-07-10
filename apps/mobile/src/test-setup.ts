@@ -1,5 +1,9 @@
 import 'react-native-gesture-handler/jestSetup';
 
+// PalitosTray (CasitaGame) drags sticks with react-native-reanimated; this
+// installs its Jest-safe requestAnimationFrame/timing mocks.
+require('react-native-reanimated').setUpTests();
+
 // Standard RN testing mock: Animated.spring/timing with useNativeDriver:true
 // needs the native animated module, which @react-native/jest-preset doesn't
 // stub on its own (unlike jest-expo).

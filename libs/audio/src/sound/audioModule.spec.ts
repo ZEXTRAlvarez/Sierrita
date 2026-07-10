@@ -3,8 +3,8 @@ describe('getAudioModule', () => {
     jest.resetModules();
   });
 
-  it('returns null when the native expo-av module is unavailable', () => {
-    jest.doMock('expo-av', () => {
+  it('returns null when the native expo-audio module is unavailable', () => {
+    jest.doMock('expo-audio', () => {
       throw new Error('native module not available');
     });
 
@@ -14,7 +14,9 @@ describe('getAudioModule', () => {
   });
 
   it('caches the resolved module across repeated calls', () => {
-    jest.doMock('expo-av', () => ({ Audio: { marker: 'real-audio-module' } }));
+    const createAudioPlayer = jest.fn();
+    const setAudioModeAsync = jest.fn();
+    jest.doMock('expo-audio', () => ({ createAudioPlayer, setAudioModeAsync }));
 
     const { getAudioModule } = require('./audioModule');
 
@@ -22,7 +24,7 @@ describe('getAudioModule', () => {
     const second = getAudioModule();
 
     expect(first).toBe(second);
-    expect(first).toEqual({ marker: 'real-audio-module' });
+    expect(first).toEqual({ createAudioPlayer, setAudioModeAsync });
   });
 
   it('allows tests to inject a fake module via __setAudioModuleForTesting', () => {
@@ -30,7 +32,7 @@ describe('getAudioModule', () => {
       getAudioModule,
       __setAudioModuleForTesting,
     } = require('./audioModule');
-    const fake = { Sound: { createAsync: jest.fn() } } as never;
+    const fake = { createAudioPlayer: jest.fn(), setAudioModeAsync: jest.fn() } as never;
 
     __setAudioModuleForTesting(fake);
 

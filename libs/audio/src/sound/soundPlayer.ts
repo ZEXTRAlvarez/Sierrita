@@ -2,14 +2,14 @@ import { getAudioModule } from './audioModule';
 
 /** Carga y reproduce un sonido desde assets */
 export async function playSound(assetPath: number): Promise<void> {
-  const Audio = getAudioModule();
-  if (!Audio) return;
+  const audio = getAudioModule();
+  if (!audio) return;
   try {
-    const { sound } = await Audio.Sound.createAsync(assetPath);
-    await sound.playAsync();
-    sound.setOnPlaybackStatusUpdate((status) => {
+    const player = audio.createAudioPlayer(assetPath);
+    player.play();
+    player.addListener('playbackStatusUpdate', (status) => {
       if (status.isLoaded && status.didJustFinish) {
-        sound.unloadAsync();
+        player.remove();
       }
     });
   } catch (e) {
@@ -19,12 +19,12 @@ export async function playSound(assetPath: number): Promise<void> {
 
 /** Configura el modo de audio para la app */
 export async function initAudio(): Promise<void> {
-  const Audio = getAudioModule();
-  if (!Audio) return;
+  const audio = getAudioModule();
+  if (!audio) return;
   try {
-    await Audio.setAudioModeAsync({
-      playsInSilentModeIOS: true,
-      staysActiveInBackground: false,
+    await audio.setAudioModeAsync({
+      playsInSilentMode: true,
+      shouldPlayInBackground: false,
     });
   } catch {
     // config de audio no disponible en este entorno

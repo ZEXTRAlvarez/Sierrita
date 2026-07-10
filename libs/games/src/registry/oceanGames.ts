@@ -52,4 +52,22 @@ export const OCEAN_GAMES: GameConfig[] = [
       mode: d === 1 ? 'visual' : d === 2 ? 'number' : 'expression',
     }),
   },
+  {
+    id: 'casita',
+    world: 'ocean',
+    titleEs: 'La Casita',
+    emoji: '🏠',
+    minAge: 6,
+    roundCount: 5,
+    params: (d: Difficulty) => ({
+      // Decenas y unidades solamente en el nivel 1 (recién arrancando);
+      // centenas se suman a partir del nivel 2.
+      useHundreds: d >= 2,
+      maxOperand: d === 1 ? 39 : d === 2 ? 399 : 899,
+      operations: d === 1 ? ['add'] : ['add', 'sub'],
+      resultMax: d === 1 ? 99 : 999,
+      // Higher difficulty forces the carry/borrow case more often.
+      regroupChance: d === 1 ? 0.4 : d === 2 ? 0.65 : 0.9,
+    }),
+  },
 ];
