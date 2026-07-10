@@ -1,0 +1,1 @@
+export { PalitosTray } from './PalitosTray';

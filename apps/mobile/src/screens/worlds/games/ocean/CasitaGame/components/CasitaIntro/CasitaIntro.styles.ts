@@ -1,0 +1,92 @@
+import { StyleSheet } from 'react-native';
+
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: 24,
+    paddingHorizontal: 20,
+    backgroundColor: '#FFF3E0',
+  },
+  stepDots: {
+    flexDirection: 'row',
+    gap: 8,
+    marginBottom: 12,
+  },
+  stepDot: {
+    width: 9,
+    height: 9,
+    borderRadius: 5,
+    backgroundColor: '#FFCC80',
+  },
+  stepDotActive: { backgroundColor: '#EF6C00' },
+  speechBubble: {
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    borderWidth: 2,
+    borderColor: '#FFCC80',
+    paddingHorizontal: 18,
+    paddingVertical: 14,
+    marginBottom: 18,
+    maxWidth: 340,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '900',
+    color: '#E65100',
+    textAlign: 'center',
+    marginBottom: 4,
+  },
+  caption: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#5D4037',
+    textAlign: 'center',
+    lineHeight: 21,
+  },
+  demoArea: {
+    marginBottom: 18,
+  },
+  demoHint: {
+    marginTop: 6,
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#F57C00',
+    textAlign: 'center',
+  },
+  filledBadge: {
+    marginTop: 4,
+    fontSize: 13,
+    fontWeight: '900',
+    color: '#fff',
+    backgroundColor: '#D84315',
+    borderRadius: 12,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    textAlign: 'center',
+    overflow: 'hidden',
+  },
+  palitosPreview: {
+    flexDirection: 'row',
+    gap: 6,
+    marginBottom: 18,
+  },
+  palitoPreview: {
+    width: 8,
+    height: 30,
+    borderRadius: 4,
+    backgroundColor: '#A1887F',
+  },
+  nextBtn: {
+    backgroundColor: '#EF6C00',
+    paddingHorizontal: 32,
+    paddingVertical: 14,
+    borderRadius: 28,
+    elevation: 3,
+  },
+  nextBtnText: {
+    color: '#fff',
+    fontSize: 17,
+    fontWeight: '900',
+  },
+});

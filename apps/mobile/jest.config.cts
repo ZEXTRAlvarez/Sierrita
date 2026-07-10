@@ -7,6 +7,10 @@ module.exports = {
   // this Node version, even for pure-logic tests with no rendering).
   preset: '@react-native/jest-preset',
   moduleFileExtensions: ['ts', 'js', 'html', 'tsx', 'jsx'],
+  // react-native-worklets (reanimated's native runtime) ships its own jest
+  // resolver so `.native.ts` files — which touch the real native module and
+  // throw under Jest — resolve to their plain, jest-safe counterparts instead.
+  resolver: require.resolve('react-native-worklets/jest/resolver.js'),
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   moduleNameMapper: {
     '[.]svg$': '@nx/expo/plugins/jest/svg-mock',
@@ -22,7 +26,7 @@ module.exports = {
       require.resolve('jest-expo/src/preset/assetFileTransformer.js'),
   },
   transformIgnorePatterns: [
-    'node_modules/(?!((jest-)?react-native|@react-native(-community)?|@?tamagui|expo(nent)?[^/]*|@expo(nent)?[^/]*/.*|@react-navigation)/)',
+    'node_modules/(?!((jest-)?react-native|@react-native(-community)?|@?tamagui|expo(nent)?[^/]*|@expo(nent)?[^/]*/.*|@react-navigation|react-native-reanimated|react-native-worklets)/)',
   ],
   coverageDirectory: '../../coverage/apps/mobile',
 };

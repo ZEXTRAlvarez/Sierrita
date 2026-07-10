@@ -1,16 +1,22 @@
-import type * as ExpoAv from 'expo-av';
+import type * as ExpoAudio from 'expo-audio';
 
-type ExpoAudioModule = typeof ExpoAv.Audio;
+type AudioModuleApi = Pick<
+  typeof ExpoAudio,
+  'createAudioPlayer' | 'setAudioModeAsync'
+>;
 
-// expo-av requires a native module — guard against it being unavailable in
+// expo-audio requires a native module — guard against it being unavailable in
 // Expo Go / dev environments, and allow tests to inject a fake.
-let cachedModule: ExpoAudioModule | null | undefined;
+let cachedModule: AudioModuleApi | null | undefined;
 
-export function getAudioModule(): ExpoAudioModule | null {
+export function getAudioModule(): AudioModuleApi | null {
   if (cachedModule === undefined) {
     try {
-      const mod: typeof ExpoAv = require('expo-av');
-      cachedModule = mod.Audio;
+      const mod: typeof ExpoAudio = require('expo-audio');
+      cachedModule = {
+        createAudioPlayer: mod.createAudioPlayer,
+        setAudioModeAsync: mod.setAudioModeAsync,
+      };
     } catch {
       cachedModule = null;
     }
@@ -20,7 +26,7 @@ export function getAudioModule(): ExpoAudioModule | null {
 
 /** Test-only seam to inject a fake audio module (or force the unavailable case with null). */
 export function __setAudioModuleForTesting(
-  mod: ExpoAudioModule | null | undefined,
+  mod: AudioModuleApi | null | undefined,
 ): void {
   cachedModule = mod;
 }

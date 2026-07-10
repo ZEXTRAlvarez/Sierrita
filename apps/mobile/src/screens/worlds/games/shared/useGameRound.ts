@@ -44,7 +44,10 @@ export function useGameRound({
       if (next >= roundCount) {
         setTimeout(onGameFinish, advanceDelayMs);
       } else {
-        setTimeout(startRound, advanceDelayMs);
+        setTimeout(() => {
+          setResult('idle');
+          startRound();
+        }, advanceDelayMs);
       }
     },
     [
