@@ -58,4 +58,27 @@ export const SPACE_GAMES: GameConfig[] = [
       walls: d === 1 ? 'sparse' : d === 2 ? 'medium' : 'dense',
     }),
   },
+  {
+    id: 'oddOneOut',
+    world: 'space',
+    titleEs: 'El Intruso',
+    emoji: '🔍',
+    minAge: 6,
+    roundCount: 5,
+    params: (d: Difficulty) => ({
+      itemCount: d === 1 ? 4 : 5,
+      mode: d === 3 ? 'attribute' : 'category',
+    }),
+  },
+  {
+    id: 'balance',
+    world: 'space',
+    titleEs: 'Balanza Lógica',
+    emoji: '⚖️',
+    minAge: 6,
+    roundCount: 5,
+    params: (d: Difficulty) => ({
+      mode: d === 1 ? 'count' : d === 2 ? 'weight' : 'sum',
+    }),
+  },
 ];

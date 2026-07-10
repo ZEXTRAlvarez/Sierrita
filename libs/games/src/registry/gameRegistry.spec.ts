@@ -1,8 +1,8 @@
 import { ALL_GAMES, getGameConfig, getWorldGames } from './gameRegistry';
 
 describe('ALL_GAMES', () => {
-  it('registers exactly 15 games across the 3 worlds', () => {
-    expect(ALL_GAMES).toHaveLength(15);
+  it('registers exactly 17 games across the 3 worlds', () => {
+    expect(ALL_GAMES).toHaveLength(17);
   });
 
   it('has unique game ids', () => {
@@ -28,6 +28,8 @@ describe('getGameConfig', () => {
     'memory',
     'classify',
     'maze',
+    'oddOneOut',
+    'balance',
   ])('resolves the %s game config', (gameId) => {
     expect(getGameConfig(gameId).id).toBe(gameId);
   });
@@ -48,8 +50,8 @@ describe('getWorldGames', () => {
     expect(getWorldGames('ocean')).toHaveLength(5);
   });
 
-  it('returns the 4 space games', () => {
-    expect(getWorldGames('space')).toHaveLength(4);
+  it('returns the 6 space games', () => {
+    expect(getWorldGames('space')).toHaveLength(6);
   });
 
   it('returns an empty array for an unknown world', () => {

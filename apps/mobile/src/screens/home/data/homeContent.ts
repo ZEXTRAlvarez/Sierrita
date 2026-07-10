@@ -53,7 +53,7 @@ export const WORLD_CARDS: WorldCard[] = [
     bg: '#9C27B0',
     dark: '#4A148C',
     accent: '#CE93D8',
-    games: 4,
+    games: 6,
   },
 ];
 

@@ -60,7 +60,14 @@ export const GAME_IDS = {
     'cursive',
   ] as const,
   ocean: ['counting', 'sums', 'hundreds', 'compare', 'casita'] as const,
-  space: ['patterns', 'memory', 'classify', 'maze'] as const,
+  space: [
+    'patterns',
+    'memory',
+    'classify',
+    'maze',
+    'oddOneOut',
+    'balance',
+  ] as const,
 } as const;
 
 export type JungleGameId = (typeof GAME_IDS.jungle)[number];
