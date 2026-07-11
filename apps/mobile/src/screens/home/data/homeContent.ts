@@ -43,7 +43,7 @@ export const WORLD_CARDS: WorldCard[] = [
     bg: '#2196F3',
     dark: '#1565C0',
     accent: '#90CAF9',
-    games: 5,
+    games: 6,
   },
   {
     id: 'space',
