@@ -59,7 +59,14 @@ export const GAME_IDS = {
     'sentences',
     'cursive',
   ] as const,
-  ocean: ['counting', 'sums', 'hundreds', 'compare', 'casita'] as const,
+  ocean: [
+    'counting',
+    'sums',
+    'hundreds',
+    'compare',
+    'casita',
+    'sudoku',
+  ] as const,
   space: [
     'patterns',
     'memory',

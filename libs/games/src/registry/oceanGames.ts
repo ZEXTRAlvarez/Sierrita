@@ -70,4 +70,19 @@ export const OCEAN_GAMES: GameConfig[] = [
       regroupChance: d === 1 ? 0.4 : d === 2 ? 0.65 : 0.9,
     }),
   },
+  {
+    id: 'sudoku',
+    world: 'ocean',
+    titleEs: 'Sudoku',
+    emoji: '🔢',
+    minAge: 6,
+    roundCount: 5,
+    params: (d: Difficulty) => ({
+      // La dificultad escala el tamaño de la grilla, no la cantidad de
+      // casillas a completar (siempre roundCount blancos).
+      gridSize: d === 1 ? 4 : d === 2 ? 6 : 9,
+      boxRows: d === 1 ? 2 : d === 2 ? 2 : 3,
+      boxCols: d === 1 ? 2 : d === 2 ? 3 : 3,
+    }),
+  },
 ];
