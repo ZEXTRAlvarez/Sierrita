@@ -30,3 +30,14 @@ export const colorTokens = {
   ...brandColors,
   ...semanticColors,
 } as const;
+
+/** Higher-contrast variant of semanticColors for the accessibility "alto contraste" setting. */
+export const highContrastColors = {
+  success: '#1B5E20',
+  error: '#B71C1C',
+  backgroundApp: '#FFFFFF',
+  backgroundCard: '#FFFFFF',
+  textPrimary: '#000000',
+  textMuted: '#333333',
+  border: '#000000',
+} as const;

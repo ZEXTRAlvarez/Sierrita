@@ -1,5 +1,6 @@
 import { Button, Text } from 'tamagui';
 import { colorTokens } from '../../tokens/colors';
+import { useAccessibility } from '../../theme/AccessibilityContext';
 
 export interface ChipProps {
   label: string;
@@ -9,11 +10,12 @@ export interface ChipProps {
 
 /** Replaces the `timeChip` selected/unselected pattern (session-time picker, etc). */
 export function Chip({ label, selected = false, onPress }: ChipProps) {
+  const { scaledFontSize, colors } = useAccessibility();
   return (
     <Button
       onPress={onPress}
       backgroundColor={selected ? colorTokens.brand700 : colorTokens.brand50}
-      borderColor={selected ? colorTokens.brand700 : colorTokens.border}
+      borderColor={selected ? colorTokens.brand700 : colors.border}
       borderWidth={2}
       borderRadius={999}
       paddingHorizontal={14}
@@ -22,7 +24,7 @@ export function Chip({ label, selected = false, onPress }: ChipProps) {
       accessibilityState={{ selected }}
     >
       <Text
-        fontSize={14}
+        fontSize={scaledFontSize(14)}
         fontWeight="700"
         color={selected ? '#fff' : colorTokens.brand700}
       >

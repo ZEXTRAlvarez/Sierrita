@@ -38,3 +38,15 @@ export async function getRecentSessions(
   );
   return rows.map(rowToGameSession);
 }
+
+export async function countSessionsSince(
+  profileId: string,
+  sinceUnixSeconds: number,
+): Promise<number> {
+  const db = await getDatabase();
+  const row = await db.getFirstAsync<{ count: number }>(
+    `SELECT COUNT(*) as count FROM game_sessions WHERE profile_id = ? AND played_at >= ?`,
+    [profileId, sinceUnixSeconds],
+  );
+  return row?.count ?? 0;
+}

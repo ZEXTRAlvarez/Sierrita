@@ -3,7 +3,8 @@ import { useNavigation, useIsFocused } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useAtomValue } from 'jotai';
 import type { RootStackParamList } from '../../navigation';
-import { activeProfileAtom } from '../../store/atoms';
+import { activeProfileAtom, worldsEnabledAtom } from '../../store/atoms';
+import type { World } from '../../store/atoms';
 import { WORLDS } from './data/worldsContent';
 import { useWorldsEntrance } from './hooks/useWorldsEntrance';
 import { WorldsHeader } from './components/WorldsHeader';
@@ -16,9 +17,13 @@ type Nav = NativeStackNavigationProp<RootStackParamList>;
 export default function WorldsScreen() {
   const navigation = useNavigation<Nav>();
   const profile = useAtomValue(activeProfileAtom);
+  const worldsEnabled = useAtomValue(worldsEnabledAtom);
   const isFocused = useIsFocused();
   const profileAge = profile?.age ?? 4;
-  const entranceAnims = useWorldsEntrance(WORLDS.length, isFocused);
+  const worlds = WORLDS.filter((world) =>
+    worldsEnabled.includes(world.id as World),
+  );
+  const entranceAnims = useWorldsEntrance(worlds.length, isFocused);
 
   return (
     <View style={styles.container}>
@@ -28,7 +33,7 @@ export default function WorldsScreen() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {WORLDS.map((world, i) => (
+        {worlds.map((world, i) => (
           <WorldSection
             key={world.id}
             world={world}

@@ -25,7 +25,6 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   petOptionSelected: { borderColor: '#FF7043', backgroundColor: '#FFF3E0' },
-  petEmoji: { fontSize: 40 },
   petLabel: { fontSize: 12, fontWeight: '700', color: '#555', marginTop: 4 },
   btn: {
     backgroundColor: '#4CAF50',

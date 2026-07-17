@@ -20,4 +20,11 @@ describe('createDefaultParentConfig', () => {
   it('carries through the given profileId', () => {
     expect(createDefaultParentConfig('abc-123').profileId).toBe('abc-123');
   });
+
+  it('has not seen the walkthrough yet, and starts with normal font/contrast', () => {
+    const config = createDefaultParentConfig('p1');
+    expect(config.hasSeenWalkthrough).toBe(false);
+    expect(config.fontScale).toBe('normal');
+    expect(config.highContrast).toBe(false);
+  });
 });

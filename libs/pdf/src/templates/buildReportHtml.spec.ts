@@ -16,6 +16,9 @@ const data: ReportData = {
     maxSessionMinutes: 30,
     worldsEnabled: ['jungle'],
     updatedAt: 0,
+    hasSeenWalkthrough: true,
+    fontScale: 'normal',
+    highContrast: false,
   },
   date: '01/01/2026',
 };

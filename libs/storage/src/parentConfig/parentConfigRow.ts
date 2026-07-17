@@ -9,5 +9,8 @@ export function rowToConfig(row: Record<string, unknown>): ParentConfig {
       ',',
     ) as ParentConfig['worldsEnabled'],
     updatedAt: row.updated_at as number,
+    hasSeenWalkthrough: row.has_seen_walkthrough === 1,
+    fontScale: row.font_scale as ParentConfig['fontScale'],
+    highContrast: row.high_contrast === 1,
   };
 }

@@ -1,17 +1,29 @@
 import React, { useEffect } from 'react';
 import { ActivityIndicator, View, StyleSheet } from 'react-native';
 import { TamaguiProvider } from '@tamagui/core';
-import { Provider as JotaiProvider, useSetAtom, useAtom } from 'jotai';
+import {
+  Provider as JotaiProvider,
+  useSetAtom,
+  useAtom,
+  useAtomValue,
+} from 'jotai';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as SplashScreen from 'expo-splash-screen';
+import { AccessibilityProvider } from '@sierrita/ui';
 import tamaguiConfig from '../theme';
 import { AppNavigator } from '../navigation';
-import { getDatabase, getAllProfiles } from '@sierrita/storage';
+import {
+  getDatabase,
+  getAllProfiles,
+  getParentConfig,
+} from '@sierrita/storage';
 import {
   profilesAtom,
   activeProfileIdAtom,
   appReadyAtom,
+  accessibilityPrefsAtom,
+  worldsEnabledAtom,
 } from '../store/atoms';
 
 SplashScreen.preventAutoHideAsync();
@@ -44,6 +56,35 @@ function AppInit({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
+/** Keeps accessibilityPrefsAtom/worldsEnabledAtom in sync with the active profile's ParentConfig. */
+function ConfigSync({ children }: { children: React.ReactNode }) {
+  const activeProfileId = useAtomValue(activeProfileIdAtom);
+  const [prefs, setPrefs] = useAtom(accessibilityPrefsAtom);
+  const setWorldsEnabled = useSetAtom(worldsEnabledAtom);
+
+  useEffect(() => {
+    if (!activeProfileId) return;
+    getParentConfig(activeProfileId).then((config) => {
+      if (config) {
+        setPrefs({
+          fontScale: config.fontScale,
+          highContrast: config.highContrast,
+        });
+        setWorldsEnabled(config.worldsEnabled);
+      }
+    });
+  }, [activeProfileId, setPrefs, setWorldsEnabled]);
+
+  return (
+    <AccessibilityProvider
+      fontScale={prefs.fontScale}
+      highContrast={prefs.highContrast}
+    >
+      {children}
+    </AccessibilityProvider>
+  );
+}
+
 function LoadingScreen() {
   return (
     <View style={styles.loading}>
@@ -59,9 +100,11 @@ export const App = () => {
         <TamaguiProvider config={tamaguiConfig} defaultTheme="light">
           <SafeAreaProvider>
             <AppInit>
-              <React.Suspense fallback={<LoadingScreen />}>
-                <AppNavigator />
-              </React.Suspense>
+              <ConfigSync>
+                <React.Suspense fallback={<LoadingScreen />}>
+                  <AppNavigator />
+                </React.Suspense>
+              </ConfigSync>
             </AppInit>
           </SafeAreaProvider>
         </TamaguiProvider>

@@ -9,6 +9,9 @@ const config = (overrides: Partial<ParentConfig> = {}): ParentConfig => ({
   maxSessionMinutes: 30,
   worldsEnabled: ['jungle', 'ocean', 'space'],
   updatedAt: 1700000000,
+  hasSeenWalkthrough: false,
+  fontScale: 'normal',
+  highContrast: false,
   ...overrides,
 });
 
@@ -41,5 +44,23 @@ describe('upsertParentConfig / getParentConfig', () => {
 
   it('returns null when no config exists for the profile', async () => {
     await expect(getParentConfig('missing')).resolves.toBeNull();
+  });
+
+  it('round-trips hasSeenWalkthrough, fontScale and highContrast', async () => {
+    await upsertParentConfig(
+      config({
+        hasSeenWalkthrough: true,
+        fontScale: 'large',
+        highContrast: true,
+      }),
+    );
+
+    await expect(getParentConfig('p1')).resolves.toEqual(
+      config({
+        hasSeenWalkthrough: true,
+        fontScale: 'large',
+        highContrast: true,
+      }),
+    );
   });
 });

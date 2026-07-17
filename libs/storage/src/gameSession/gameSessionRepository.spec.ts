@@ -1,6 +1,10 @@
 import { setupTestDatabase } from '../schema/__testing__/setupTestDatabase';
-import { __setTestDatabase } from '../schema/getDatabase';
-import { saveGameSession, getRecentSessions } from './gameSessionRepository';
+import { __setTestDatabase, getDatabase } from '../schema/getDatabase';
+import {
+  saveGameSession,
+  getRecentSessions,
+  countSessionsSince,
+} from './gameSessionRepository';
 import type { GameSummary } from '@sierrita/games';
 
 const summary = (overrides: Partial<GameSummary> = {}): GameSummary => ({
@@ -60,5 +64,35 @@ describe('saveGameSession / getRecentSessions', () => {
     const sessions = await getRecentSessions('p1');
 
     expect(sessions.every((s) => s.profileId === 'p1')).toBe(true);
+  });
+});
+
+describe('countSessionsSince', () => {
+  async function insertAt(id: string, profileId: string, playedAt: number) {
+    const db = await getDatabase();
+    await db.runAsync(
+      `INSERT INTO game_sessions (id, profile_id, world, game_id, played_at)
+       VALUES (?, ?, 'ocean', 'counting', ?)`,
+      [id, profileId, playedAt],
+    );
+  }
+
+  it('counts only sessions played at or after the given timestamp', async () => {
+    await insertAt('gs1', 'p1', 1000);
+    await insertAt('gs2', 'p1', 2000);
+    await insertAt('gs3', 'p1', 3000);
+
+    await expect(countSessionsSince('p1', 2000)).resolves.toBe(2);
+  });
+
+  it('only counts sessions for the requested profile', async () => {
+    await insertAt('gs1', 'p1', 1000);
+    await insertAt('gs2', 'p2', 1000);
+
+    await expect(countSessionsSince('p1', 0)).resolves.toBe(1);
+  });
+
+  it('returns 0 when there are no matching sessions', async () => {
+    await expect(countSessionsSince('p1', 0)).resolves.toBe(0);
   });
 });

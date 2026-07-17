@@ -16,6 +16,8 @@ describe('ParentsActions', () => {
         onExportPdf={onExportPdf}
         onChangePin={jest.fn()}
         onSwitchProfile={jest.fn()}
+        onRateApp={jest.fn()}
+        onSendFeedback={jest.fn()}
       />,
     );
 
@@ -33,21 +35,29 @@ describe('ParentsActions', () => {
     const onExportPdf = jest.fn();
     const onChangePin = jest.fn();
     const onSwitchProfile = jest.fn();
+    const onRateApp = jest.fn();
+    const onSendFeedback = jest.fn();
     const { getByText } = renderWithProviders(
       <ParentsActions
         exporting={false}
         onExportPdf={onExportPdf}
         onChangePin={onChangePin}
         onSwitchProfile={onSwitchProfile}
+        onRateApp={onRateApp}
+        onSendFeedback={onSendFeedback}
       />,
     );
 
     fireEvent.press(getByText('📄 Descargar informe PDF'));
     fireEvent.press(getByText('🔐 Cambiar PIN'));
     fireEvent.press(getByText('🔄 Cambiar de perfil'));
+    fireEvent.press(getByText('⭐ Valorar la app'));
+    fireEvent.press(getByText('✉️ Enviar comentarios'));
 
     expect(onExportPdf).toHaveBeenCalledTimes(1);
     expect(onChangePin).toHaveBeenCalledTimes(1);
     expect(onSwitchProfile).toHaveBeenCalledTimes(1);
+    expect(onRateApp).toHaveBeenCalledTimes(1);
+    expect(onSendFeedback).toHaveBeenCalledTimes(1);
   });
 });

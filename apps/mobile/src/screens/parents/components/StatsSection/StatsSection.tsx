@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { StatTile, colorTokens } from '@sierrita/ui';
+import { StatTile, colorTokens, useAccessibility } from '@sierrita/ui';
 import { WORLD_LABEL } from '@sierrita/parents';
 import { getGameConfig } from '@sierrita/games';
 import type { GameStat, ProfileStats } from '@sierrita/storage';
@@ -16,23 +16,58 @@ function gameTitle(gameId: string): string {
   }
 }
 
+export interface WeeklyProgress {
+  target: number;
+  completed: number;
+}
+
 export interface StatsSectionProps {
   globalStats: ProfileStats;
   gameStats: GameStat[];
+  weeklyProgress?: WeeklyProgress | null;
 }
 
-export function StatsSection({ globalStats, gameStats }: StatsSectionProps) {
+export function StatsSection({
+  globalStats,
+  gameStats,
+  weeklyProgress,
+}: StatsSectionProps) {
   const [expanded, setExpanded] = useState(false);
+  const { scaledFontSize } = useAccessibility();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>📊 Estadísticas</Text>
+      <Text style={[styles.title, { fontSize: scaledFontSize(18) }]}>
+        📊 Estadísticas
+      </Text>
 
       <View style={styles.statRow}>
         <StatTile value={globalStats.totalSessions} label="partidas" />
         <StatTile value={globalStats.totalMinutes} label="minutos" />
         <StatTile value={`${globalStats.avgScore}%`} label="prom." />
       </View>
+
+      {weeklyProgress && (
+        <View style={styles.goalBlock}>
+          <Text style={[styles.goalLabel, { fontSize: scaledFontSize(14) }]}>
+            🎯 Meta semanal: {weeklyProgress.completed} de{' '}
+            {weeklyProgress.target} sesiones
+          </Text>
+          <View style={styles.goalBarTrack}>
+            <View
+              style={[
+                styles.goalBarFill,
+                {
+                  width: `${Math.min(
+                    100,
+                    (weeklyProgress.completed / weeklyProgress.target) * 100,
+                  )}%`,
+                },
+              ]}
+            />
+          </View>
+        </View>
+      )}
 
       <TouchableOpacity
         style={styles.expandBtn}
@@ -49,11 +84,21 @@ export function StatsSection({ globalStats, gameStats }: StatsSectionProps) {
           if (games.length === 0) return null;
           return (
             <View key={world} style={styles.worldBlock}>
-              <Text style={styles.worldLabel}>{WORLD_LABEL[world]}</Text>
+              <Text
+                style={[styles.worldLabel, { fontSize: scaledFontSize(15) }]}
+              >
+                {WORLD_LABEL[world]}
+              </Text>
               {games.map((gs) => (
                 <View key={gs.gameId} style={styles.gameRow}>
-                  <Text style={styles.gameName}>{gameTitle(gs.gameId)}</Text>
-                  <Text style={styles.gameStat}>
+                  <Text
+                    style={[styles.gameName, { fontSize: scaledFontSize(14) }]}
+                  >
+                    {gameTitle(gs.gameId)}
+                  </Text>
+                  <Text
+                    style={[styles.gameStat, { fontSize: scaledFontSize(13) }]}
+                  >
                     {gs.sessions}× · {gs.avgScore}% · Niv.{gs.lastLevel}
                   </Text>
                 </View>
@@ -79,6 +124,24 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   statRow: { flexDirection: 'row', gap: 10, marginBottom: 10 },
+  goalBlock: { marginBottom: 14 },
+  goalLabel: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#333',
+    marginBottom: 6,
+  },
+  goalBarTrack: {
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: '#F0F4FF',
+    overflow: 'hidden',
+  },
+  goalBarFill: {
+    height: '100%',
+    borderRadius: 5,
+    backgroundColor: colorTokens.success,
+  },
   expandBtn: { alignSelf: 'center', marginTop: 4 },
   expandText: { color: colorTokens.brand500, fontWeight: '700', fontSize: 14 },
   worldBlock: { marginTop: 14 },
