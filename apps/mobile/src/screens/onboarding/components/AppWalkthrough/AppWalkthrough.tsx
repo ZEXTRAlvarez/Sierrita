@@ -18,13 +18,15 @@ const STEPS: Step[] = [
   {
     emoji: '🏠',
     title: 'Este es tu Inicio',
-    caption: 'Acá vas a ver a tu mascota y podés entrar a jugar cuando quieras.',
+    caption:
+      'Acá vas a ver a tu mascota y podés entrar a jugar cuando quieras.',
     speechText: 'Este es tu inicio. Acá vas a ver a tu mascota.',
   },
   {
     emoji: '🗺️',
     title: 'Explorá los Mundos',
-    caption: 'Selva, océano y espacio tienen un montón de juegos para aprender.',
+    caption:
+      'Selva, océano y espacio tienen un montón de juegos para aprender.',
     speechText: 'En mundos vas a encontrar un montón de juegos para aprender.',
   },
   {

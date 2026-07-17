@@ -36,7 +36,11 @@ export function ParentsActions({
         color="success"
         onPress={onSwitchProfile}
       />
-      <PrimaryButton label="⭐ Valorar la app" color="brand" onPress={onRateApp} />
+      <PrimaryButton
+        label="⭐ Valorar la app"
+        color="brand"
+        onPress={onRateApp}
+      />
       <PrimaryButton
         label="✉️ Enviar comentarios"
         color="purple"

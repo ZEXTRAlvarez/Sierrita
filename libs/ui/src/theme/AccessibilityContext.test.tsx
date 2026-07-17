@@ -1,6 +1,9 @@
 import { Text } from 'react-native';
 import { render } from '@testing-library/react-native';
-import { AccessibilityProvider, useAccessibility } from './AccessibilityContext';
+import {
+  AccessibilityProvider,
+  useAccessibility,
+} from './AccessibilityContext';
 
 function Probe() {
   const { fontScale, highContrast, colors, scaledFontSize } =

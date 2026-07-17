@@ -30,8 +30,8 @@ jest.mock('./hooks/useParentDashboard', () => ({
 }));
 
 jest.mock('@sierrita/parents', () => ({
-  verifyPin: jest.fn(async (pin: string, storedHash: string) =>
-    pin === storedHash,
+  verifyPin: jest.fn(
+    async (pin: string, storedHash: string) => pin === storedHash,
   ),
 }));
 
@@ -151,7 +151,9 @@ describe('ParentsScreen', () => {
     jest.spyOn(Linking, 'canOpenURL').mockResolvedValue(false);
     const openURL = jest.spyOn(Linking, 'openURL');
     openURL.mockClear();
-    const alertSpy = jest.spyOn(Alert, 'alert').mockImplementation(() => undefined);
+    const alertSpy = jest
+      .spyOn(Alert, 'alert')
+      .mockImplementation(() => undefined);
 
     const { getByText, getByTestId, getByPlaceholderText } =
       renderWithProviders(<ParentsScreen />);

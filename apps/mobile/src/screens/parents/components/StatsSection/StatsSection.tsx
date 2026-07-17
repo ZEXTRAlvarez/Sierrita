@@ -84,15 +84,21 @@ export function StatsSection({
           if (games.length === 0) return null;
           return (
             <View key={world} style={styles.worldBlock}>
-              <Text style={[styles.worldLabel, { fontSize: scaledFontSize(15) }]}>
+              <Text
+                style={[styles.worldLabel, { fontSize: scaledFontSize(15) }]}
+              >
                 {WORLD_LABEL[world]}
               </Text>
               {games.map((gs) => (
                 <View key={gs.gameId} style={styles.gameRow}>
-                  <Text style={[styles.gameName, { fontSize: scaledFontSize(14) }]}>
+                  <Text
+                    style={[styles.gameName, { fontSize: scaledFontSize(14) }]}
+                  >
                     {gameTitle(gs.gameId)}
                   </Text>
-                  <Text style={[styles.gameStat, { fontSize: scaledFontSize(13) }]}>
+                  <Text
+                    style={[styles.gameStat, { fontSize: scaledFontSize(13) }]}
+                  >
                     {gs.sessions}× · {gs.avgScore}% · Niv.{gs.lastLevel}
                   </Text>
                 </View>

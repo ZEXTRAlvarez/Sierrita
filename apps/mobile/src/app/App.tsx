@@ -1,14 +1,23 @@
 import React, { useEffect } from 'react';
 import { ActivityIndicator, View, StyleSheet } from 'react-native';
 import { TamaguiProvider } from '@tamagui/core';
-import { Provider as JotaiProvider, useSetAtom, useAtom, useAtomValue } from 'jotai';
+import {
+  Provider as JotaiProvider,
+  useSetAtom,
+  useAtom,
+  useAtomValue,
+} from 'jotai';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as SplashScreen from 'expo-splash-screen';
 import { AccessibilityProvider } from '@sierrita/ui';
 import tamaguiConfig from '../theme';
 import { AppNavigator } from '../navigation';
-import { getDatabase, getAllProfiles, getParentConfig } from '@sierrita/storage';
+import {
+  getDatabase,
+  getAllProfiles,
+  getParentConfig,
+} from '@sierrita/storage';
 import {
   profilesAtom,
   activeProfileIdAtom,

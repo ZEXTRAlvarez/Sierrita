@@ -1,4 +1,9 @@
-import { colorTokens, worldAccentColors, semanticColors, highContrastColors } from './colors';
+import {
+  colorTokens,
+  worldAccentColors,
+  semanticColors,
+  highContrastColors,
+} from './colors';
 
 describe('colorTokens', () => {
   it('has the correct world accent hex values (guards against silent typos)', () => {

@@ -1,9 +1,6 @@
 import { setupTestDatabase } from '../schema/__testing__/setupTestDatabase';
 import { __setTestDatabase } from '../schema/getDatabase';
-import {
-  getLearningGoal,
-  upsertLearningGoal,
-} from './learningGoalRepository';
+import { getLearningGoal, upsertLearningGoal } from './learningGoalRepository';
 import type { LearningGoal } from '@sierrita/parents';
 
 const goal = (overrides: Partial<LearningGoal> = {}): LearningGoal => ({

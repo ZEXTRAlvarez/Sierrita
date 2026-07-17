@@ -20,7 +20,11 @@ export function StatTile({ value, label }: StatTileProps) {
       padding={spacingTokens.sm}
       alignItems="center"
     >
-      <Text fontSize={scaledFontSize(28)} fontWeight="900" color={colorTokens.brand700}>
+      <Text
+        fontSize={scaledFontSize(28)}
+        fontWeight="900"
+        color={colorTokens.brand700}
+      >
         {value}
       </Text>
       <Text

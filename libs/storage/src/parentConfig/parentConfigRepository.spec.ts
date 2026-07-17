@@ -48,11 +48,19 @@ describe('upsertParentConfig / getParentConfig', () => {
 
   it('round-trips hasSeenWalkthrough, fontScale and highContrast', async () => {
     await upsertParentConfig(
-      config({ hasSeenWalkthrough: true, fontScale: 'large', highContrast: true }),
+      config({
+        hasSeenWalkthrough: true,
+        fontScale: 'large',
+        highContrast: true,
+      }),
     );
 
     await expect(getParentConfig('p1')).resolves.toEqual(
-      config({ hasSeenWalkthrough: true, fontScale: 'large', highContrast: true }),
+      config({
+        hasSeenWalkthrough: true,
+        fontScale: 'large',
+        highContrast: true,
+      }),
     );
   });
 });

@@ -153,7 +153,10 @@ export function useParentDashboard() {
   }, [profile, parentConfig, globalStats, gameStats]);
 
   const weeklyProgress = learningGoal
-    ? { target: learningGoal.targetSessionsPerWeek, completed: weeklySessionCount }
+    ? {
+        target: learningGoal.targetSessionsPerWeek,
+        completed: weeklySessionCount,
+      }
     : null;
 
   return {

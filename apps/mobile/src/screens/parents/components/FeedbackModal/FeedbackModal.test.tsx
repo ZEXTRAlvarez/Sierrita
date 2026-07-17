@@ -21,7 +21,10 @@ describe('FeedbackModal', () => {
       <FeedbackModal onSend={onSend} onCancel={jest.fn()} />,
     );
 
-    fireEvent.changeText(getByTestId('feedback-input'), '  Me encanta la app!  ');
+    fireEvent.changeText(
+      getByTestId('feedback-input'),
+      '  Me encanta la app!  ',
+    );
     fireEvent.press(getByText('Enviar'));
 
     expect(onSend).toHaveBeenCalledWith('Me encanta la app!');
