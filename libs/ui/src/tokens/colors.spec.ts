@@ -1,4 +1,4 @@
-import { colorTokens, worldAccentColors } from './colors';
+import { colorTokens, worldAccentColors, semanticColors, highContrastColors } from './colors';
 
 describe('colorTokens', () => {
   it('has the correct world accent hex values (guards against silent typos)', () => {
@@ -11,5 +11,18 @@ describe('colorTokens', () => {
     expect(colorTokens.worldJungle).toBeDefined();
     expect(colorTokens.brand700).toBeDefined();
     expect(colorTokens.error).toBeDefined();
+  });
+});
+
+describe('highContrastColors', () => {
+  it('has the same keys as semanticColors', () => {
+    expect(Object.keys(highContrastColors).sort()).toEqual(
+      Object.keys(semanticColors).sort(),
+    );
+  });
+
+  it('uses pure black text on a pure white background', () => {
+    expect(highContrastColors.textPrimary).toBe('#000000');
+    expect(highContrastColors.backgroundCard).toBe('#FFFFFF');
   });
 });

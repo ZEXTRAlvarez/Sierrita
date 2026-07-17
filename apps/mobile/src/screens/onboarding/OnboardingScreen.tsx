@@ -5,6 +5,7 @@ import { NameStep } from './components/NameStep';
 import { AgeStep } from './components/AgeStep';
 import { PetStep } from './components/PetStep';
 import { StepDots } from './components/StepDots';
+import { AppWalkthrough } from './components/AppWalkthrough';
 import { styles } from './OnboardingScreen.styles';
 
 export default function OnboardingScreen() {
@@ -20,7 +21,12 @@ export default function OnboardingScreen() {
     cardScale,
     goNext,
     handleCreate,
+    finishWalkthrough,
   } = useOnboardingFlow();
+
+  if (step === 'walkthrough') {
+    return <AppWalkthrough onFinish={finishWalkthrough} />;
+  }
 
   return (
     <View style={styles.container}>

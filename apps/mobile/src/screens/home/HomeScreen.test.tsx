@@ -31,12 +31,14 @@ jest.mock('../../store/atoms', () => ({
   activeProfileAtom: 'activeProfile',
   petStateAtom: 'petState',
   petMoodAtom: 'petMood',
+  worldsEnabledAtom: 'worldsEnabled',
 }));
 jest.mock('jotai', () => ({
   useAtomValue: (atom: string) => {
     if (atom === 'activeProfile') return mockProfile;
     if (atom === 'petState') return mockPet;
     if (atom === 'petMood') return mockMood;
+    if (atom === 'worldsEnabled') return ['jungle', 'ocean', 'space'];
     return null;
   },
 }));

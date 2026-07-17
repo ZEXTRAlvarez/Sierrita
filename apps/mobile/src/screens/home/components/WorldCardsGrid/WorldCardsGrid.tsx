@@ -1,5 +1,8 @@
 import { Animated, Text, TouchableOpacity, View } from 'react-native';
+import { useAtomValue } from 'jotai';
 import { IconAnimation } from '../../../../components/IconAnimation';
+import { worldsEnabledAtom } from '../../../../store/atoms';
+import type { World } from '../../../../store/atoms';
 import { WORLD_CARDS } from '../../data/homeContent';
 import { styles, IS_TABLET } from './WorldCardsGrid.styles';
 
@@ -12,9 +15,14 @@ export function WorldCardsGrid({
   cardEntrance,
   onPressWorld,
 }: WorldCardsGridProps) {
+  const worldsEnabled = useAtomValue(worldsEnabledAtom);
+  const cards = WORLD_CARDS.filter((w) =>
+    worldsEnabled.includes(w.id as World),
+  );
+
   return (
     <View style={[styles.grid, IS_TABLET && styles.gridTablet]}>
-      {WORLD_CARDS.map((w, idx) => (
+      {cards.map((w, idx) => (
         <Animated.View
           key={w.id}
           style={{

@@ -5,10 +5,11 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../../../navigation';
 import type { PetType } from '../../../store/atoms';
 import { useProfiles } from '../../../hooks/useProfiles';
+import { getParentConfig, upsertParentConfig } from '@sierrita/storage';
 
 type Nav = NativeStackNavigationProp<RootStackParamList, 'Onboarding'>;
 
-export type OnboardingStep = 'name' | 'age' | 'pet';
+export type OnboardingStep = 'name' | 'age' | 'pet' | 'walkthrough';
 
 /** Wizard state (name/age/pet + step) plus the card "pop" transition and profile creation. */
 export function useOnboardingFlow() {
@@ -20,8 +21,12 @@ export function useOnboardingFlow() {
   const [age, setAge] = useState<4 | 5 | 6 | null>(null);
   const [pet, setPet] = useState<PetType | null>(null);
   const [saving, setSaving] = useState(false);
+  const [newProfileId, setNewProfileId] = useState<string | null>(null);
 
   const cardScale = useRef(new Animated.Value(1)).current;
+  // Synchronous guard: `saving` state only reflects in the next render, so a
+  // fast double-tap can slip a second handleCreate() through before then.
+  const savingRef = useRef(false);
 
   function goNext(nextStep: OnboardingStep) {
     Animated.sequence([
@@ -40,19 +45,36 @@ export function useOnboardingFlow() {
   }
 
   async function handleCreate() {
-    if (!name.trim() || !age || !pet || saving) return;
+    if (!name.trim() || !age || !pet || savingRef.current) return;
+    savingRef.current = true;
     setSaving(true);
     try {
       const profile = await addProfile(name.trim(), age, pet);
       selectProfile(profile.id);
-      // Ver comentario en useProfileSelection.handleSelect: 'Main' no existe
-      // todavía en el Stack en este mismo tick.
-      setTimeout(() => navigation.replace('Main'), 0);
+      setNewProfileId(profile.id);
+      setStep('walkthrough');
     } catch (e) {
       console.error('Error creating profile', e);
     } finally {
+      savingRef.current = false;
       setSaving(false);
     }
+  }
+
+  async function finishWalkthrough() {
+    if (newProfileId) {
+      const config = await getParentConfig(newProfileId);
+      if (config) {
+        await upsertParentConfig({
+          ...config,
+          hasSeenWalkthrough: true,
+          updatedAt: Date.now(),
+        });
+      }
+    }
+    // Ver comentario en useProfileSelection.handleSelect: 'Main' no existe
+    // todavía en el Stack en este mismo tick.
+    setTimeout(() => navigation.replace('Main'), 0);
   }
 
   return {
@@ -67,5 +89,6 @@ export function useOnboardingFlow() {
     cardScale,
     goNext,
     handleCreate,
+    finishWalkthrough,
   };
 }

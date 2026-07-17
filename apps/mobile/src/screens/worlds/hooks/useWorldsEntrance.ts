@@ -3,17 +3,19 @@ import { Animated } from 'react-native';
 
 /** One Animated.Value per world, staggered into view while the screen is focused. */
 export function useWorldsEntrance(worldCount: number, isFocused: boolean) {
-  const entranceAnims = useRef(
-    Array.from({ length: worldCount }, () => new Animated.Value(0)),
-  ).current;
+  const entranceAnims = useRef<Animated.Value[]>([]).current;
+  while (entranceAnims.length < worldCount) {
+    entranceAnims.push(new Animated.Value(0));
+  }
 
   useEffect(() => {
     if (!isFocused) return;
 
-    entranceAnims.forEach((anim) => anim.setValue(0));
+    const activeAnims = entranceAnims.slice(0, worldCount);
+    activeAnims.forEach((anim) => anim.setValue(0));
     Animated.stagger(
       140,
-      entranceAnims.map((anim) =>
+      activeAnims.map((anim) =>
         Animated.spring(anim, {
           toValue: 1,
           damping: 14,
@@ -23,7 +25,7 @@ export function useWorldsEntrance(worldCount: number, isFocused: boolean) {
       ),
     ).start();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFocused]);
+  }, [isFocused, worldCount]);
 
   return entranceAnims;
 }

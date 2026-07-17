@@ -83,4 +83,37 @@ describe('StatsSection', () => {
     expect(getByText('Contar Pececitos')).toBeTruthy();
     expect(getByText('4× · 75% · Niv.2')).toBeTruthy();
   });
+
+  it('shows the weekly goal progress when a goal is set', () => {
+    const { getByText } = renderWithProviders(
+      <StatsSection
+        globalStats={{
+          totalSessions: 6,
+          totalMinutes: 17,
+          avgScore: 70,
+          bestScore: 100,
+        }}
+        gameStats={[]}
+        weeklyProgress={{ target: 5, completed: 3 }}
+      />,
+    );
+
+    expect(getByText('🎯 Meta semanal: 3 de 5 sesiones')).toBeTruthy();
+  });
+
+  it('hides the weekly goal block when no goal is set', () => {
+    const { queryByText } = renderWithProviders(
+      <StatsSection
+        globalStats={{
+          totalSessions: 6,
+          totalMinutes: 17,
+          avgScore: 70,
+          bestScore: 100,
+        }}
+        gameStats={[]}
+      />,
+    );
+
+    expect(queryByText(/Meta semanal/)).toBeNull();
+  });
 });

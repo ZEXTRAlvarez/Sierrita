@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   Platform,
 } from 'react-native';
-import { colorTokens } from '@sierrita/ui';
+import { colorTokens, useAccessibility } from '@sierrita/ui';
 
 export interface ParentsHeaderProps {
   profileName?: string;
@@ -20,20 +20,31 @@ export function ParentsHeader({
   onClose,
   onLock,
 }: ParentsHeaderProps) {
+  const { scaledFontSize } = useAccessibility();
   return (
     <>
       <View style={styles.header}>
         <TouchableOpacity onPress={onClose} hitSlop={12}>
-          <Text style={styles.headerClose}>✕</Text>
+          <Text style={[styles.headerClose, { fontSize: scaledFontSize(22) }]}>
+            ✕
+          </Text>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Zona de Padres</Text>
+        <Text style={[styles.headerTitle, { fontSize: scaledFontSize(18) }]}>
+          Zona de Padres
+        </Text>
         <TouchableOpacity onPress={onLock} hitSlop={12}>
-          <Text style={styles.headerLock}>🔒</Text>
+          <Text style={[styles.headerLock, { fontSize: scaledFontSize(22) }]}>
+            🔒
+          </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.profileBanner}>
-        <Text style={styles.profileName}>{profileName}</Text>
-        <Text style={styles.profileAge}>{profileAge} años</Text>
+        <Text style={[styles.profileName, { fontSize: scaledFontSize(22) }]}>
+          {profileName}
+        </Text>
+        <Text style={[styles.profileAge, { fontSize: scaledFontSize(15) }]}>
+          {profileAge} años
+        </Text>
       </View>
     </>
   );

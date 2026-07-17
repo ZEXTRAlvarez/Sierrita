@@ -2,6 +2,7 @@ import { Button, Text } from 'tamagui';
 import { colorTokens } from '../../tokens/colors';
 import { radiusTokens } from '../../tokens/radius';
 import { spacingTokens } from '../../tokens/spacing';
+import { useAccessibility } from '../../theme/AccessibilityContext';
 
 export type PrimaryButtonColor = 'brand' | 'success' | 'danger' | 'purple';
 
@@ -26,6 +27,7 @@ export function PrimaryButton({
   color = 'brand',
   disabled = false,
 }: PrimaryButtonProps) {
+  const { scaledFontSize } = useAccessibility();
   return (
     <Button
       // Tamagui's `disabled` prop alone doesn't gate the onPress callback in
@@ -35,12 +37,13 @@ export function PrimaryButton({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any -- raw hex passthrough, not a Tamagui token
       backgroundColor={COLOR_MAP[color] as any}
       borderRadius={radiusTokens.xl}
+      height="auto"
       paddingVertical={spacingTokens.md}
       opacity={disabled ? 0.5 : 1}
       accessibilityRole="button"
       accessibilityState={{ disabled }}
     >
-      <Text color="#fff" fontSize={17} fontWeight="800">
+      <Text color="#fff" fontSize={scaledFontSize(17)} fontWeight="800">
         {label}
       </Text>
     </Button>

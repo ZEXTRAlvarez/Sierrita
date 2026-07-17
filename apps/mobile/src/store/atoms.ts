@@ -1,9 +1,9 @@
 import { atom } from 'jotai';
 import type { Profile, PetType } from '@sierrita/profiles';
 import type { PetState, PetMood } from '@sierrita/pet';
-import type { World } from '@sierrita/parents';
+import type { World, FontScale } from '@sierrita/parents';
 
-export type { Profile, PetType, PetState, PetMood, World };
+export type { Profile, PetType, PetState, PetMood, World, FontScale };
 
 // ─── Profiles ─────────────────────────────────────────────────────────────────
 export const profilesAtom = atom<Profile[]>([]);
@@ -50,6 +50,23 @@ export const appSettingsAtom = atom({
   musicEnabled: true,
   voiceEnabled: true,
 });
+
+// ─── Accessibility ────────────────────────────────────────────────────────────
+// Mirrors the active profile's ParentConfig.fontScale/highContrast so the
+// AccessibilityProvider (app root) can react immediately when Settings changes
+// them, without every screen re-fetching ParentConfig from SQLite itself.
+export const accessibilityPrefsAtom = atom<{
+  fontScale: FontScale;
+  highContrast: boolean;
+}>({
+  fontScale: 'normal',
+  highContrast: false,
+});
+
+// Mirrors the active profile's ParentConfig.worldsEnabled so the world-picker
+// screens can hide worlds a parent disabled, without each screen re-fetching
+// ParentConfig from SQLite itself.
+export const worldsEnabledAtom = atom<World[]>(['jungle', 'ocean', 'space']);
 
 // ─── UI ───────────────────────────────────────────────────────────────────────
 export const isParentModeAtom = atom<boolean>(false);

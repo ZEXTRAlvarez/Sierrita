@@ -1,5 +1,6 @@
 import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 import { IconAnimation } from '../../../../components/IconAnimation';
+import { PetAnimation } from '../../../../components/PetAnimation';
 import type { PetType } from '../../../../store/atoms';
 import { PET_OPTIONS } from '../../data/onboardingOptions';
 import { styles } from './PetStep.styles';
@@ -27,7 +28,7 @@ export function PetStep({ pet, saving, onSelectPet, onCreate }: PetStepProps) {
             onPress={() => onSelectPet(p.type)}
             activeOpacity={0.8}
           >
-            <Text style={styles.petEmoji}>{p.emoji}</Text>
+            <PetAnimation petType={p.type} mood="happy" size={56} />
             <Text style={styles.petLabel}>{p.label}</Text>
           </TouchableOpacity>
         ))}

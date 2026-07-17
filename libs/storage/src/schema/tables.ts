@@ -63,10 +63,19 @@ export const CREATE_TABLES_SQL = `
   );
 
   CREATE TABLE IF NOT EXISTS parent_config (
-    profile_id          TEXT PRIMARY KEY REFERENCES profiles(id) ON DELETE CASCADE,
-    pin_hash            TEXT NOT NULL DEFAULT '',
-    max_session_minutes INTEGER NOT NULL DEFAULT 30,
-    worlds_enabled      TEXT NOT NULL DEFAULT 'jungle,ocean,space',
-    updated_at          INTEGER NOT NULL DEFAULT (unixepoch())
+    profile_id           TEXT PRIMARY KEY REFERENCES profiles(id) ON DELETE CASCADE,
+    pin_hash             TEXT NOT NULL DEFAULT '',
+    max_session_minutes  INTEGER NOT NULL DEFAULT 30,
+    worlds_enabled       TEXT NOT NULL DEFAULT 'jungle,ocean,space',
+    updated_at           INTEGER NOT NULL DEFAULT (unixepoch()),
+    has_seen_walkthrough INTEGER NOT NULL DEFAULT 0 CHECK(has_seen_walkthrough IN (0,1)),
+    font_scale           TEXT NOT NULL DEFAULT 'normal' CHECK(font_scale IN ('normal','large')),
+    high_contrast        INTEGER NOT NULL DEFAULT 0 CHECK(high_contrast IN (0,1))
+  );
+
+  CREATE TABLE IF NOT EXISTS learning_goals (
+    profile_id              TEXT PRIMARY KEY REFERENCES profiles(id) ON DELETE CASCADE,
+    target_sessions_per_week INTEGER NOT NULL,
+    updated_at              INTEGER NOT NULL DEFAULT (unixepoch())
   );
 `;

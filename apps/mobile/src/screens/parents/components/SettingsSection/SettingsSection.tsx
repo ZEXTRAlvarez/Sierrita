@@ -1,6 +1,10 @@
 import { View, Text, StyleSheet, Switch } from 'react-native';
-import { Chip, colorTokens } from '@sierrita/ui';
-import { WORLD_LABEL, SESSION_TIME_OPTIONS } from '@sierrita/parents';
+import { Chip, colorTokens, useAccessibility } from '@sierrita/ui';
+import {
+  WORLD_LABEL,
+  SESSION_TIME_OPTIONS,
+  SESSION_GOAL_OPTIONS,
+} from '@sierrita/parents';
 import type { ParentConfig, World } from '@sierrita/parents';
 
 const WORLDS: World[] = ['jungle', 'ocean', 'space'];
@@ -8,14 +12,26 @@ const WORLDS: World[] = ['jungle', 'ocean', 'space'];
 export interface SettingsSectionProps {
   config: ParentConfig;
   onChange: (c: ParentConfig) => void;
+  goalTarget: number | null;
+  onChangeGoal: (target: number) => void;
 }
 
-export function SettingsSection({ config, onChange }: SettingsSectionProps) {
+export function SettingsSection({
+  config,
+  onChange,
+  goalTarget,
+  onChangeGoal,
+}: SettingsSectionProps) {
+  const { scaledFontSize } = useAccessibility();
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>⚙️ Configuración</Text>
+      <Text style={[styles.title, { fontSize: scaledFontSize(18) }]}>
+        ⚙️ Configuración
+      </Text>
 
-      <Text style={styles.settingLabel}>Tiempo de sesión</Text>
+      <Text style={[styles.settingLabel, { fontSize: scaledFontSize(15) }]}>
+        Tiempo de sesión
+      </Text>
       <View style={styles.timeRow}>
         {SESSION_TIME_OPTIONS.map((mins) => (
           <Chip
@@ -33,12 +49,20 @@ export function SettingsSection({ config, onChange }: SettingsSectionProps) {
         ))}
       </View>
 
-      <Text style={[styles.settingLabel, styles.worldsLabel]}>
+      <Text
+        style={[
+          styles.settingLabel,
+          styles.worldsLabel,
+          { fontSize: scaledFontSize(15) },
+        ]}
+      >
         Mundos habilitados
       </Text>
       {WORLDS.map((world) => (
         <View key={world} style={styles.switchRow}>
-          <Text style={styles.switchLabel}>{WORLD_LABEL[world]}</Text>
+          <Text style={[styles.switchLabel, { fontSize: scaledFontSize(16) }]}>
+            {WORLD_LABEL[world]}
+          </Text>
           <Switch
             value={config.worldsEnabled.includes(world)}
             onValueChange={(val) => {
@@ -57,6 +81,65 @@ export function SettingsSection({ config, onChange }: SettingsSectionProps) {
           />
         </View>
       ))}
+
+      <Text
+        style={[
+          styles.settingLabel,
+          styles.worldsLabel,
+          { fontSize: scaledFontSize(15) },
+        ]}
+      >
+        Meta semanal (sesiones de juego)
+      </Text>
+      <View style={styles.timeRow}>
+        {SESSION_GOAL_OPTIONS.map((count) => (
+          <Chip
+            key={count}
+            label={`${count}`}
+            selected={goalTarget === count}
+            onPress={() => onChangeGoal(count)}
+          />
+        ))}
+      </View>
+
+      <Text
+        style={[
+          styles.settingLabel,
+          styles.worldsLabel,
+          { fontSize: scaledFontSize(15) },
+        ]}
+      >
+        Accesibilidad
+      </Text>
+      <View style={styles.timeRow}>
+        <Chip
+          label="Normal"
+          selected={config.fontScale === 'normal'}
+          onPress={() =>
+            onChange({ ...config, fontScale: 'normal', updatedAt: Date.now() })
+          }
+        />
+        <Chip
+          label="Grande"
+          selected={config.fontScale === 'large'}
+          onPress={() =>
+            onChange({ ...config, fontScale: 'large', updatedAt: Date.now() })
+          }
+        />
+      </View>
+      <View style={styles.switchRow}>
+        <Text style={[styles.switchLabel, { fontSize: scaledFontSize(16) }]}>
+          Alto contraste
+        </Text>
+        <Switch
+          value={config.highContrast}
+          onValueChange={(val) =>
+            onChange({ ...config, highContrast: val, updatedAt: Date.now() })
+          }
+          trackColor={{ false: '#DDD', true: colorTokens.worldJungle }}
+          thumbColor="#fff"
+        />
+      </View>
     </View>
   );
 }

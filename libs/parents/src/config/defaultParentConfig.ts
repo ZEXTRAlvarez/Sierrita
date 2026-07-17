@@ -8,5 +8,8 @@ export function createDefaultParentConfig(profileId: string): ParentConfig {
     maxSessionMinutes: 30,
     worldsEnabled: ['jungle', 'ocean', 'space'],
     updatedAt: Date.now(),
+    hasSeenWalkthrough: false,
+    fontScale: 'normal',
+    highContrast: false,
   };
 }

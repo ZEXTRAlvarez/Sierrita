@@ -6,6 +6,8 @@ export interface ParentsActionsProps {
   onExportPdf: () => void;
   onChangePin: () => void;
   onSwitchProfile: () => void;
+  onRateApp: () => void;
+  onSendFeedback: () => void;
 }
 
 export function ParentsActions({
@@ -13,6 +15,8 @@ export function ParentsActions({
   onExportPdf,
   onChangePin,
   onSwitchProfile,
+  onRateApp,
+  onSendFeedback,
 }: ParentsActionsProps) {
   return (
     <View style={styles.container}>
@@ -31,6 +35,12 @@ export function ParentsActions({
         label="🔄 Cambiar de perfil"
         color="success"
         onPress={onSwitchProfile}
+      />
+      <PrimaryButton label="⭐ Valorar la app" color="brand" onPress={onRateApp} />
+      <PrimaryButton
+        label="✉️ Enviar comentarios"
+        color="purple"
+        onPress={onSendFeedback}
       />
     </View>
   );

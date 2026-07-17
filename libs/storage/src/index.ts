@@ -11,3 +11,5 @@ export * from './gameSession/gameSessionRow';
 export * from './gameSession/gameSessionRepository';
 export * from './gameSession/gameStatsRow';
 export * from './gameSession/gameStatsRepository';
+export * from './learningGoal/learningGoalRow';
+export * from './learningGoal/learningGoalRepository';

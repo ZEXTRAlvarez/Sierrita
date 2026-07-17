@@ -1,6 +1,7 @@
 import { XStack, Text, Button } from 'tamagui';
 import { colorTokens } from '../../tokens/colors';
 import { spacingTokens } from '../../tokens/spacing';
+import { useAccessibility } from '../../theme/AccessibilityContext';
 
 export interface ScreenHeaderProps {
   title: string;
@@ -14,6 +15,7 @@ export function ScreenHeader({
   onClose,
   accentColor = colorTokens.brand700,
 }: ScreenHeaderProps) {
+  const { scaledFontSize } = useAccessibility();
   return (
     <XStack
       // eslint-disable-next-line @typescript-eslint/no-explicit-any -- raw hex passthrough, not a Tamagui token
@@ -23,7 +25,7 @@ export function ScreenHeader({
       alignItems="center"
       justifyContent="space-between"
     >
-      <Text color="#fff" fontWeight="800" fontSize={18}>
+      <Text color="#fff" fontWeight="800" fontSize={scaledFontSize(18)}>
         {title}
       </Text>
       {onClose && (
@@ -33,7 +35,7 @@ export function ScreenHeader({
           accessibilityRole="button"
           accessibilityLabel="Cerrar"
         >
-          <Text color="#fff" fontSize={22} fontWeight="700">
+          <Text color="#fff" fontSize={scaledFontSize(22)} fontWeight="700">
             ✕
           </Text>
         </Button>
