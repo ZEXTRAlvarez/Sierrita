@@ -15,8 +15,8 @@ describe('WorldCardsGrid', () => {
     expect(getByText('Escritura')).toBeTruthy();
     expect(getByText('Matemáticas')).toBeTruthy();
     expect(getByText('Lógica')).toBeTruthy();
-    expect(getAllByText('6 juegos')).toHaveLength(2); // Selva Mágica y Espacio Estelar
-    expect(getByText('5 juegos')).toBeTruthy();
+    // Selva Mágica, Océano Profundo y Espacio Estelar tienen 6 juegos cada uno.
+    expect(getAllByText('6 juegos')).toHaveLength(3);
   });
 
   it('calls onPressWorld when a card is tapped', () => {
