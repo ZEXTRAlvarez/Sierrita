@@ -10,6 +10,7 @@ export interface ParentConfig {
   hasSeenWalkthrough: boolean;
   fontScale: FontScale;
   highContrast: boolean;
+  voiceEnabled: boolean;
 }
 
 export interface LearningGoal {

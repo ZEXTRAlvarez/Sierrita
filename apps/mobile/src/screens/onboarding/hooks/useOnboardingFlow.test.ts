@@ -78,6 +78,7 @@ describe('useOnboardingFlow', () => {
       hasSeenWalkthrough: false,
       fontScale: 'normal',
       highContrast: false,
+      voiceEnabled: true,
     });
     const { result } = renderHook(() => useOnboardingFlow());
 

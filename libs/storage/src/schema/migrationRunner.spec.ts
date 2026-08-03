@@ -24,6 +24,13 @@ async function hasParentConfigPrefsColumns(
   );
 }
 
+async function hasVoiceEnabledColumn(db: SqliteAdapter): Promise<boolean> {
+  const columns = await db.getAllAsync<{ name: string }>(
+    'PRAGMA table_info(parent_config)',
+  );
+  return columns.some((c) => c.name === 'voice_enabled');
+}
+
 describe('runMigrations', () => {
   it('initializes schema_version and applies all migrations on a fresh database', async () => {
     const db = await createInMemoryAdapter();
@@ -34,9 +41,10 @@ describe('runMigrations', () => {
     const versionRow = await db.getFirstAsync<{ version: number }>(
       'SELECT version FROM schema_version',
     );
-    expect(versionRow?.version).toBe(2);
+    expect(versionRow?.version).toBe(3);
     expect(await hasPetNameColumn(db)).toBe(true);
     expect(await hasParentConfigPrefsColumns(db)).toBe(true);
+    expect(await hasVoiceEnabledColumn(db)).toBe(true);
   });
 
   it('adds pet_name to a database created before that column existed', async () => {
@@ -80,6 +88,30 @@ describe('runMigrations', () => {
     expect(await hasParentConfigPrefsColumns(db)).toBe(true);
   });
 
+  it('leaves the narration on when adding voice_enabled to an existing install', async () => {
+    const db = await createInMemoryAdapter();
+    await db.execAsync(`
+      CREATE TABLE schema_version (version INTEGER NOT NULL);
+      CREATE TABLE pet_state (
+        profile_id TEXT PRIMARY KEY,
+        pet_name   TEXT
+      );
+      CREATE TABLE parent_config (
+        profile_id TEXT PRIMARY KEY
+      );
+      INSERT INTO parent_config (profile_id) VALUES ('p1');
+    `);
+    expect(await hasVoiceEnabledColumn(db)).toBe(false);
+
+    await runMigrations(db);
+
+    const row = await db.getFirstAsync<{ voice_enabled: number }>(
+      'SELECT voice_enabled FROM parent_config WHERE profile_id = ?',
+      ['p1'],
+    );
+    expect(row?.voice_enabled).toBe(1);
+  });
+
   it('is idempotent — running twice does not error or re-apply migrations', async () => {
     const db = await createInMemoryAdapter();
     await db.execAsync(CREATE_TABLES_SQL);
@@ -90,7 +122,7 @@ describe('runMigrations', () => {
     const versionRow = await db.getFirstAsync<{ version: number }>(
       'SELECT version FROM schema_version',
     );
-    expect(versionRow?.version).toBe(2);
+    expect(versionRow?.version).toBe(3);
     const allRows = await db.getAllAsync('SELECT * FROM schema_version');
     expect(allRows).toHaveLength(1); // no duplicate version rows inserted
   });

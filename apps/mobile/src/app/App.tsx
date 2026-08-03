@@ -11,6 +11,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as SplashScreen from 'expo-splash-screen';
 import { AccessibilityProvider } from '@sierrita/ui';
+import { setVoiceEnabled } from '@sierrita/audio';
 import tamaguiConfig from '../theme';
 import { AppNavigator } from '../navigation';
 import {
@@ -56,7 +57,10 @@ function AppInit({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
-/** Keeps accessibilityPrefsAtom/worldsEnabledAtom in sync with the active profile's ParentConfig. */
+/**
+ * Keeps accessibilityPrefsAtom/worldsEnabledAtom and the voice-narration gate of
+ * @sierrita/audio in sync with the active profile's ParentConfig.
+ */
 function ConfigSync({ children }: { children: React.ReactNode }) {
   const activeProfileId = useAtomValue(activeProfileIdAtom);
   const [prefs, setPrefs] = useAtom(accessibilityPrefsAtom);
@@ -71,6 +75,7 @@ function ConfigSync({ children }: { children: React.ReactNode }) {
           highContrast: config.highContrast,
         });
         setWorldsEnabled(config.worldsEnabled);
+        setVoiceEnabled(config.voiceEnabled);
       }
     });
   }, [activeProfileId, setPrefs, setWorldsEnabled]);

@@ -70,7 +70,8 @@ export const CREATE_TABLES_SQL = `
     updated_at           INTEGER NOT NULL DEFAULT (unixepoch()),
     has_seen_walkthrough INTEGER NOT NULL DEFAULT 0 CHECK(has_seen_walkthrough IN (0,1)),
     font_scale           TEXT NOT NULL DEFAULT 'normal' CHECK(font_scale IN ('normal','large')),
-    high_contrast        INTEGER NOT NULL DEFAULT 0 CHECK(high_contrast IN (0,1))
+    high_contrast        INTEGER NOT NULL DEFAULT 0 CHECK(high_contrast IN (0,1)),
+    voice_enabled        INTEGER NOT NULL DEFAULT 1 CHECK(voice_enabled IN (0,1))
   );
 
   CREATE TABLE IF NOT EXISTS learning_goals (

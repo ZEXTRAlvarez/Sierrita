@@ -47,6 +47,7 @@ describe('OnboardingScreen', () => {
       hasSeenWalkthrough: false,
       fontScale: 'normal',
       highContrast: false,
+      voiceEnabled: true,
     });
   });
 

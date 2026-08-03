@@ -12,5 +12,6 @@ export function rowToConfig(row: Record<string, unknown>): ParentConfig {
     hasSeenWalkthrough: row.has_seen_walkthrough === 1,
     fontScale: row.font_scale as ParentConfig['fontScale'],
     highContrast: row.high_contrast === 1,
+    voiceEnabled: row.voice_enabled === 1,
   };
 }

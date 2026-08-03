@@ -16,6 +16,7 @@ import {
   countSessionsSince,
 } from '@sierrita/storage';
 import { hashPin } from '@sierrita/parents';
+import { setVoiceEnabled } from '@sierrita/audio';
 import { buildReportHtml, exportReportPdf } from '@sierrita/pdf';
 import type { ParentConfig, LearningGoal } from '@sierrita/parents';
 import type { GameStat, ProfileStats } from '@sierrita/storage';
@@ -91,6 +92,7 @@ export function useParentDashboard() {
         highContrast: updated.highContrast,
       });
       setWorldsEnabled(updated.worldsEnabled);
+      setVoiceEnabled(updated.voiceEnabled);
       await upsertParentConfig(updated);
     },
     [setAccessibilityPrefs, setWorldsEnabled],

@@ -48,6 +48,8 @@ jest.mock('@sierrita/audio', () => ({
   speak: jest.fn(async () => undefined),
   stopSpeech: jest.fn(),
   isSpeaking: jest.fn(async () => false),
+  setVoiceEnabled: jest.fn(),
+  isVoiceEnabled: jest.fn(() => true),
 }));
 
 // expo-image (used by IconAnimation) requires expo-modules-core's native

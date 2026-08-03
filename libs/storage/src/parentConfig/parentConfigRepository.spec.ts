@@ -12,6 +12,7 @@ const config = (overrides: Partial<ParentConfig> = {}): ParentConfig => ({
   hasSeenWalkthrough: false,
   fontScale: 'normal',
   highContrast: false,
+  voiceEnabled: true,
   ...overrides,
 });
 
@@ -61,6 +62,14 @@ describe('upsertParentConfig / getParentConfig', () => {
         fontScale: 'large',
         highContrast: true,
       }),
+    );
+  });
+
+  it('round-trips voiceEnabled turned off', async () => {
+    await upsertParentConfig(config({ voiceEnabled: false }));
+
+    await expect(getParentConfig('p1')).resolves.toEqual(
+      config({ voiceEnabled: false }),
     );
   });
 });

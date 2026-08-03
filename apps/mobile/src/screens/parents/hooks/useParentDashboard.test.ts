@@ -1,6 +1,8 @@
 import { renderHook, act, waitFor } from '@testing-library/react-native';
 import { upsertParentConfig, upsertLearningGoal } from '@sierrita/storage';
 import { exportReportPdf } from '@sierrita/pdf';
+import { setVoiceEnabled } from '@sierrita/audio';
+import type { ParentConfig } from '@sierrita/parents';
 import { useParentDashboard } from './useParentDashboard';
 
 jest.mock('jotai', () => ({
@@ -16,7 +18,7 @@ jest.mock('../../../store/atoms', () => ({
   worldsEnabledAtom: 'worldsEnabled',
 }));
 
-const mockConfig = {
+const mockConfig: ParentConfig = {
   profileId: 'p1',
   pinHash: '',
   maxSessionMinutes: 30,
@@ -25,6 +27,7 @@ const mockConfig = {
   hasSeenWalkthrough: true,
   fontScale: 'normal',
   highContrast: false,
+  voiceEnabled: true,
 };
 const mockGlobalStats = {
   totalSessions: 3,
@@ -92,6 +95,20 @@ describe('useParentDashboard', () => {
 
     expect(upsertLearningGoal).toHaveBeenCalledWith(
       expect.objectContaining({ profileId: 'p1', targetSessionsPerWeek: 10 }),
+    );
+  });
+
+  it('updateConfig() applies the voice-narration preference to @sierrita/audio', async () => {
+    const { result } = renderHook(() => useParentDashboard());
+    await waitFor(() => expect(result.current.loading).toBe(false));
+
+    await act(async () => {
+      await result.current.updateConfig({ ...mockConfig, voiceEnabled: false });
+    });
+
+    expect(setVoiceEnabled).toHaveBeenCalledWith(false);
+    expect(upsertParentConfig).toHaveBeenCalledWith(
+      expect.objectContaining({ voiceEnabled: false }),
     );
   });
 
