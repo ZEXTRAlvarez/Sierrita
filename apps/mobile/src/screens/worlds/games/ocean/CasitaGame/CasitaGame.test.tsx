@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, act } from '@testing-library/react-native';
+import { render, fireEvent, act, within } from '@testing-library/react-native';
 import type { ReactTestInstance } from 'react-test-renderer';
 import CasitaGame from './CasitaGame';
 
@@ -94,8 +94,13 @@ describe('CasitaGame', () => {
 
     skipIntro(getByTestId);
 
-    const sticks = getAllByTestId('palito');
-    sticks.slice(0, 10).forEach((s) => fireEvent.press(s));
+    // Placed sticks move into the count area (remounting there), so the loose
+    // ones have to be re-queried before each tap.
+    for (let i = 0; i < 10; i++) {
+      fireEvent.press(
+        within(getByTestId('palitos-tray')).getAllByTestId('palito')[0],
+      );
+    }
 
     expect(queryByTestId('palitos-decena-badge')).toBeTruthy();
 
