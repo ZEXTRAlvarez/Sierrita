@@ -13,6 +13,7 @@ const baseConfig: ParentConfig = {
   hasSeenWalkthrough: true,
   fontScale: 'normal',
   highContrast: false,
+  voiceEnabled: true,
 };
 
 describe('SettingsSection', () => {
@@ -129,7 +130,7 @@ describe('SettingsSection', () => {
 
   it('calls onChange with the toggled highContrast value', () => {
     const onChange = jest.fn();
-    const { getAllByRole } = renderWithProviders(
+    const { getByTestId } = renderWithProviders(
       <SettingsSection
         config={baseConfig}
         onChange={onChange}
@@ -138,11 +139,47 @@ describe('SettingsSection', () => {
       />,
     );
 
-    const switches = getAllByRole('switch');
-    fireEvent(switches[switches.length - 1], 'valueChange', true);
+    fireEvent(
+      getByTestId('settings-high-contrast-switch'),
+      'valueChange',
+      true,
+    );
 
     expect(onChange).toHaveBeenCalledWith(
       expect.objectContaining({ highContrast: true }),
+    );
+  });
+
+  it('shows the voice-narration switch on when the profile has it enabled', () => {
+    const { getByTestId } = renderWithProviders(
+      <SettingsSection
+        config={baseConfig}
+        onChange={jest.fn()}
+        goalTarget={null}
+        onChangeGoal={jest.fn()}
+      />,
+    );
+
+    expect(
+      getByTestId('settings-voice-switch').props.accessibilityState,
+    ).toMatchObject({ checked: true });
+  });
+
+  it('calls onChange with voiceEnabled false when the narration is turned off', () => {
+    const onChange = jest.fn();
+    const { getByTestId } = renderWithProviders(
+      <SettingsSection
+        config={baseConfig}
+        onChange={onChange}
+        goalTarget={null}
+        onChangeGoal={jest.fn()}
+      />,
+    );
+
+    fireEvent(getByTestId('settings-voice-switch'), 'valueChange', false);
+
+    expect(onChange).toHaveBeenCalledWith(
+      expect.objectContaining({ voiceEnabled: false }),
     );
   });
 });

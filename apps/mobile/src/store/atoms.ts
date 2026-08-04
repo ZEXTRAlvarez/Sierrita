@@ -45,10 +45,11 @@ export const sessionStartAtom = atom<number | null>(null);
 export const sessionScoreAtom = atom<number>(0);
 
 // ─── App settings ─────────────────────────────────────────────────────────────
+// La narración por voz no vive acá: es una preferencia por perfil, persistida en
+// ParentConfig y aplicada sobre el gate de @sierrita/audio.
 export const appSettingsAtom = atom({
   soundEnabled: true,
   musicEnabled: true,
-  voiceEnabled: true,
 });
 
 // ─── Accessibility ────────────────────────────────────────────────────────────

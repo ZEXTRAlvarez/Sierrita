@@ -11,6 +11,7 @@ describe('rowToConfig', () => {
       has_seen_walkthrough: 1,
       font_scale: 'large',
       high_contrast: 0,
+      voice_enabled: 1,
     };
 
     expect(rowToConfig(row)).toEqual({
@@ -22,6 +23,7 @@ describe('rowToConfig', () => {
       hasSeenWalkthrough: true,
       fontScale: 'large',
       highContrast: false,
+      voiceEnabled: true,
     });
   });
 
@@ -35,12 +37,13 @@ describe('rowToConfig', () => {
       has_seen_walkthrough: 0,
       font_scale: 'normal',
       high_contrast: 1,
+      voice_enabled: 1,
     };
 
     expect(rowToConfig(row).worldsEnabled).toEqual(['jungle']);
   });
 
-  it('maps has_seen_walkthrough and high_contrast integer flags to booleans', () => {
+  it('maps has_seen_walkthrough, high_contrast and voice_enabled integer flags to booleans', () => {
     const row = {
       profile_id: 'p1',
       pin_hash: '',
@@ -50,10 +53,12 @@ describe('rowToConfig', () => {
       has_seen_walkthrough: 0,
       font_scale: 'normal',
       high_contrast: 1,
+      voice_enabled: 0,
     };
 
     const config = rowToConfig(row);
     expect(config.hasSeenWalkthrough).toBe(false);
     expect(config.highContrast).toBe(true);
+    expect(config.voiceEnabled).toBe(false);
   });
 });

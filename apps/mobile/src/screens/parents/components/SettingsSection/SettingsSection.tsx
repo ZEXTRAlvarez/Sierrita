@@ -132,9 +132,29 @@ export function SettingsSection({
           Alto contraste
         </Text>
         <Switch
+          testID="settings-high-contrast-switch"
           value={config.highContrast}
           onValueChange={(val) =>
             onChange({ ...config, highContrast: val, updatedAt: Date.now() })
+          }
+          trackColor={{ false: '#DDD', true: colorTokens.worldJungle }}
+          thumbColor="#fff"
+        />
+      </View>
+      <View style={styles.switchRow}>
+        <View style={styles.switchTextColumn}>
+          <Text style={[styles.switchLabel, { fontSize: scaledFontSize(16) }]}>
+            Narración por voz
+          </Text>
+          <Text style={[styles.switchHint, { fontSize: scaledFontSize(13) }]}>
+            Consignas y felicitaciones habladas durante los juegos
+          </Text>
+        </View>
+        <Switch
+          testID="settings-voice-switch"
+          value={config.voiceEnabled}
+          onValueChange={(val) =>
+            onChange({ ...config, voiceEnabled: val, updatedAt: Date.now() })
           }
           trackColor={{ false: '#DDD', true: colorTokens.worldJungle }}
           thumbColor="#fff"
@@ -174,4 +194,6 @@ const styles = StyleSheet.create({
     borderBottomColor: '#F0F4FF',
   },
   switchLabel: { fontSize: 16, fontWeight: '700', color: '#333' },
+  switchTextColumn: { flex: 1, paddingRight: 12 },
+  switchHint: { fontSize: 13, color: '#777', marginTop: 2 },
 });

@@ -1,11 +1,21 @@
 import * as Speech from 'expo-speech';
-import { speak, stopSpeech, isSpeaking, VOICE_OPTIONS } from './speech';
+import {
+  speak,
+  stopSpeech,
+  isSpeaking,
+  setVoiceEnabled,
+  isVoiceEnabled,
+  VOICE_OPTIONS,
+} from './speech';
 
 jest.mock('expo-speech', () => ({
   speak: jest.fn(),
   stop: jest.fn(),
   isSpeakingAsync: jest.fn().mockResolvedValue(false),
 }));
+
+// El gate es estado de módulo compartido entre tests.
+afterEach(() => setVoiceEnabled(true));
 
 describe('speak', () => {
   beforeEach(() => jest.clearAllMocks());
@@ -35,6 +45,47 @@ describe('speak', () => {
     speak('hola');
 
     expect(Speech.speak).toHaveBeenCalledWith('hola', VOICE_OPTIONS);
+  });
+
+  it('says nothing while voice narration is disabled', () => {
+    setVoiceEnabled(false);
+
+    speak('hola');
+
+    expect(Speech.speak).not.toHaveBeenCalled();
+  });
+
+  it('speaks again once voice narration is re-enabled', () => {
+    setVoiceEnabled(false);
+    setVoiceEnabled(true);
+
+    speak('hola');
+
+    expect(Speech.speak).toHaveBeenCalledWith('hola', VOICE_OPTIONS);
+  });
+});
+
+describe('setVoiceEnabled', () => {
+  beforeEach(() => jest.clearAllMocks());
+
+  it('cuts off the utterance in flight when narration is turned off', () => {
+    setVoiceEnabled(false);
+
+    expect(Speech.stop).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not stop anything when narration is turned on', () => {
+    setVoiceEnabled(true);
+
+    expect(Speech.stop).not.toHaveBeenCalled();
+  });
+
+  it('is reflected by isVoiceEnabled', () => {
+    setVoiceEnabled(false);
+    expect(isVoiceEnabled()).toBe(false);
+
+    setVoiceEnabled(true);
+    expect(isVoiceEnabled()).toBe(true);
   });
 });
 

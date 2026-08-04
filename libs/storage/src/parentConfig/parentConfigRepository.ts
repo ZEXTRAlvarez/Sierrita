@@ -18,8 +18,8 @@ export async function upsertParentConfig(config: ParentConfig): Promise<void> {
   await db.runAsync(
     `INSERT INTO parent_config
        (profile_id, pin_hash, max_session_minutes, worlds_enabled, updated_at,
-        has_seen_walkthrough, font_scale, high_contrast)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        has_seen_walkthrough, font_scale, high_contrast, voice_enabled)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
      ON CONFLICT(profile_id) DO UPDATE SET
        pin_hash              = excluded.pin_hash,
        max_session_minutes   = excluded.max_session_minutes,
@@ -27,7 +27,8 @@ export async function upsertParentConfig(config: ParentConfig): Promise<void> {
        updated_at            = excluded.updated_at,
        has_seen_walkthrough  = excluded.has_seen_walkthrough,
        font_scale            = excluded.font_scale,
-       high_contrast         = excluded.high_contrast`,
+       high_contrast         = excluded.high_contrast,
+       voice_enabled         = excluded.voice_enabled`,
     [
       config.profileId,
       config.pinHash,
@@ -37,6 +38,7 @@ export async function upsertParentConfig(config: ParentConfig): Promise<void> {
       config.hasSeenWalkthrough ? 1 : 0,
       config.fontScale,
       config.highContrast ? 1 : 0,
+      config.voiceEnabled ? 1 : 0,
     ],
   );
 }

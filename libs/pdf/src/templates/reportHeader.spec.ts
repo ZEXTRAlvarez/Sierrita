@@ -14,6 +14,7 @@ const baseData = (): ReportData => ({
     hasSeenWalkthrough: true,
     fontScale: 'normal',
     highContrast: false,
+    voiceEnabled: true,
   },
   date: '01/01/2026',
 });

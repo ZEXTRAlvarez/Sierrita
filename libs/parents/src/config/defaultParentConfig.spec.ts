@@ -27,4 +27,8 @@ describe('createDefaultParentConfig', () => {
     expect(config.fontScale).toBe('normal');
     expect(config.highContrast).toBe(false);
   });
+
+  it('starts with the voice narration on', () => {
+    expect(createDefaultParentConfig('p1').voiceEnabled).toBe(true);
+  });
 });

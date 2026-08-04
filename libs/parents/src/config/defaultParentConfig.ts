@@ -11,5 +11,6 @@ export function createDefaultParentConfig(profileId: string): ParentConfig {
     hasSeenWalkthrough: false,
     fontScale: 'normal',
     highContrast: false,
+    voiceEnabled: true,
   };
 }
