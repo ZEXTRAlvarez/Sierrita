@@ -1,0 +1,19 @@
+# EAS Build archive exclusions.
+#
+# Nested .gitignore files (e.g. apps/mobile/android/.gitignore) are not
+# reliably honored by the EAS project archive step, so local build caches
+# can leak into the uploaded archive. This caused a real failure: a stale
+# apps/mobile/android/build/generated/autolinking/autolinking.json baked an
+# absolute Windows path (from a local `expo run:android`) that broke the
+# Gradle build on EAS's Linux workers.
+#
+# Keep these root-anchored so they're excluded no matter which machine
+# generated them locally.
+apps/mobile/android/build/
+apps/mobile/android/.gradle/
+apps/mobile/android/app/build/
+apps/mobile/android/.cxx/
+apps/mobile/android/app/.cxx/
+apps/mobile/ios/build/
+apps/mobile/ios/Pods/
+apps/mobile/.expo/
