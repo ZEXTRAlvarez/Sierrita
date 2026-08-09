@@ -1,4 +1,5 @@
 import { rand } from '../../../shared/rand';
+import { shuffle } from './shuffle';
 
 /** 4 unique single-digit (0-9) choices, always including the correct one. */
 export function generateDigitOptions(correct: number): number[] {
@@ -6,5 +7,5 @@ export function generateDigitOptions(correct: number): number[] {
   while (opts.size < 4) {
     opts.add(rand(0, 9));
   }
-  return [...opts].sort(() => Math.random() - 0.5);
+  return shuffle([...opts]);
 }

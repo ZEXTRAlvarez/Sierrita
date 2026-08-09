@@ -1,24 +1,16 @@
-import { useRef } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { generateNumOptions } from '../../logic/generateNumOptions';
-import type { Problem } from '../../logic/generateProblem';
+import type { ComposeRound } from '../../logic/buildRound';
 import { styles } from './ComposeMode.styles';
 
 export interface ComposeModeProps {
-  problem: Problem;
-  maxNumber: number;
+  round: ComposeRound;
   onAnswer: (correct: boolean) => void;
   result: 'idle' | 'correct' | 'wrong';
 }
 
 /** Shows H + D + U and lets the child pick the number they compose. */
-export function ComposeMode({
-  problem,
-  maxNumber,
-  onAnswer,
-  result,
-}: ComposeModeProps) {
-  const options = useRef(generateNumOptions(problem.number, maxNumber)).current;
+export function ComposeMode({ round, onAnswer, result }: ComposeModeProps) {
+  const { problem, options } = round;
 
   return (
     <View style={styles.modeContainer}>
