@@ -39,7 +39,12 @@ export function checkStrokePoint(
   const p: Point = { x: point.x / scale, y: point.y / scale };
 
   if (distanceToPath(p, guidePathSubpaths) > tolerance) {
-    return { newHitMap: hitMap, advanced: false, failed: true, reason: 'off-path' };
+    return {
+      newHitMap: hitMap,
+      advanced: false,
+      failed: true,
+      reason: 'off-path',
+    };
   }
 
   const expectedIndex = hitMap.findIndex((hit) => !hit);
@@ -57,7 +62,12 @@ export function checkStrokePoint(
   for (let i = expectedIndex + 1; i < checkpoints.length; i++) {
     const cp = checkpoints[i];
     if (Math.hypot(p.x - cp.x, p.y - cp.y) <= cp.r) {
-      return { newHitMap: hitMap, advanced: false, failed: true, reason: 'out-of-order' };
+      return {
+        newHitMap: hitMap,
+        advanced: false,
+        failed: true,
+        reason: 'out-of-order',
+      };
     }
   }
 

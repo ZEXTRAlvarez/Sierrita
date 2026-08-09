@@ -6,7 +6,8 @@ import { LetterPreview } from './LetterPreview';
 
 function mustGetLetterDef(letter: string): LetterDef {
   const def = getLetterDef(letter);
-  if (!def) throw new Error(`No letter def for "${letter}" — test data is out of date`);
+  if (!def)
+    throw new Error(`No letter def for "${letter}" — test data is out of date`);
   return def;
 }
 
@@ -15,8 +16,12 @@ describe('LetterPreview', () => {
     const letterDef = mustGetLetterDef('A');
     const { getByTestId } = render(<LetterPreview letterDef={letterDef} />);
 
-    expect(getByTestId('letter-preview-print').props.d).toBe(letterDef.guidePath);
-    expect(getByTestId('letter-preview-cursive').props.d).toBe(letterDef.cursivePath);
+    expect(getByTestId('letter-preview-print').props.d).toBe(
+      letterDef.guidePath,
+    );
+    expect(getByTestId('letter-preview-cursive').props.d).toBe(
+      letterDef.cursivePath,
+    );
   });
 
   it('labels each preview card', () => {
@@ -31,6 +36,8 @@ describe('LetterPreview', () => {
     const letterDef = { ...mustGetLetterDef('A'), cursivePath: undefined };
     const { getByTestId } = render(<LetterPreview letterDef={letterDef} />);
 
-    expect(getByTestId('letter-preview-cursive').props.d).toBe(letterDef.guidePath);
+    expect(getByTestId('letter-preview-cursive').props.d).toBe(
+      letterDef.guidePath,
+    );
   });
 });

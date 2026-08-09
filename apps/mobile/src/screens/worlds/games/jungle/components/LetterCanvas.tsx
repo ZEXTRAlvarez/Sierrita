@@ -29,12 +29,16 @@ export default function LetterCanvas({
   onTrackLost,
 }: Props) {
   const isCursive = useCursive && !!letterDef.cursivePath;
-  const rawGuidePath = isCursive ? (letterDef.cursivePath as string) : letterDef.guidePath;
+  const rawGuidePath = isCursive
+    ? (letterDef.cursivePath as string)
+    : letterDef.guidePath;
   const checkpoints: Checkpoint[] =
     (isCursive && letterDef.cursiveCheckpoints) || letterDef.checkpoints;
 
   const [drawnSegments, setDrawnSegments] = useState<Point[][]>([]);
-  const [hitMap, setHitMap] = useState<boolean[]>(() => checkpoints.map(() => false));
+  const [hitMap, setHitMap] = useState<boolean[]>(() =>
+    checkpoints.map(() => false),
+  );
   const [status, setStatus] = useState<Status>('active');
   const statusRef = useRef<Status>('active');
   const hitMapRef = useRef<boolean[]>(hitMap);
@@ -45,7 +49,10 @@ export default function LetterCanvas({
   // Guide path in its own 0-100 space, sampled once for off-path distance
   // checks — kept separate from the scaled Skia path below so it only
   // recomputes when the letter/variant actually changes.
-  const guideSubpaths = useMemo(() => sampleSvgPath(rawGuidePath), [rawGuidePath]);
+  const guideSubpaths = useMemo(
+    () => sampleSvgPath(rawGuidePath),
+    [rawGuidePath],
+  );
 
   const scaledGuideSvg = useMemo(
     () => scaleSvgPath(rawGuidePath, scale),
@@ -63,7 +70,13 @@ export default function LetterCanvas({
     (point: Point) => {
       if (statusRef.current !== 'active') return;
 
-      const result = checkStrokePoint(point, checkpoints, hitMapRef.current, size, guideSubpaths);
+      const result = checkStrokePoint(
+        point,
+        checkpoints,
+        hitMapRef.current,
+        size,
+        guideSubpaths,
+      );
 
       if (result.failed) {
         statusRef.current = 'lost';

@@ -46,7 +46,9 @@ export function sampleSvgPath(d: string, segmentsPerCurve = 24): Point[][] {
       const control = { x: args[0], y: args[1] };
       const end = { x: args[2], y: args[3] };
       for (let s = 1; s <= segmentsPerCurve; s++) {
-        current.push(quadraticPoint(cursor, control, end, s / segmentsPerCurve));
+        current.push(
+          quadraticPoint(cursor, control, end, s / segmentsPerCurve),
+        );
       }
       cursor = end;
     } else if (cmd === 'C') {
@@ -71,11 +73,25 @@ function quadraticPoint(p0: Point, p1: Point, p2: Point, t: number): Point {
   };
 }
 
-function cubicPoint(p0: Point, p1: Point, p2: Point, p3: Point, t: number): Point {
+function cubicPoint(
+  p0: Point,
+  p1: Point,
+  p2: Point,
+  p3: Point,
+  t: number,
+): Point {
   const mt = 1 - t;
   return {
-    x: mt ** 3 * p0.x + 3 * mt * mt * t * p1.x + 3 * mt * t * t * p2.x + t ** 3 * p3.x,
-    y: mt ** 3 * p0.y + 3 * mt * mt * t * p1.y + 3 * mt * t * t * p2.y + t ** 3 * p3.y,
+    x:
+      mt ** 3 * p0.x +
+      3 * mt * mt * t * p1.x +
+      3 * mt * t * t * p2.x +
+      t ** 3 * p3.x,
+    y:
+      mt ** 3 * p0.y +
+      3 * mt * mt * t * p1.y +
+      3 * mt * t * t * p2.y +
+      t ** 3 * p3.y,
   };
 }
 
@@ -84,7 +100,10 @@ export function distanceToPath(point: Point, subpaths: Point[][]): number {
   let min = Infinity;
   for (const points of subpaths) {
     if (points.length === 1) {
-      min = Math.min(min, Math.hypot(point.x - points[0].x, point.y - points[0].y));
+      min = Math.min(
+        min,
+        Math.hypot(point.x - points[0].x, point.y - points[0].y),
+      );
       continue;
     }
     for (let i = 0; i < points.length - 1; i++) {
@@ -100,7 +119,10 @@ function distanceToSegment(p: Point, a: Point, b: Point): number {
   const lengthSq = dx * dx + dy * dy;
   if (lengthSq === 0) return Math.hypot(p.x - a.x, p.y - a.y);
 
-  const t = Math.max(0, Math.min(1, ((p.x - a.x) * dx + (p.y - a.y) * dy) / lengthSq));
+  const t = Math.max(
+    0,
+    Math.min(1, ((p.x - a.x) * dx + (p.y - a.y) * dy) / lengthSq),
+  );
   const projX = a.x + t * dx;
   const projY = a.y + t * dy;
   return Math.hypot(p.x - projX, p.y - projY);

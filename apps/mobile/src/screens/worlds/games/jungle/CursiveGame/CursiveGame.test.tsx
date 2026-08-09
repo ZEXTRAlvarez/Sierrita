@@ -49,7 +49,11 @@ jest.mock('./components/LetterPreview', () => {
     }: {
       letterDef: { letter: string };
     }) {
-      return ReactActual.createElement(Text, null, `preview-${letterDef.letter}`);
+      return ReactActual.createElement(
+        Text,
+        null,
+        `preview-${letterDef.letter}`,
+      );
     },
   };
 });

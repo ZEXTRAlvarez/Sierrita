@@ -32,7 +32,11 @@ describe('checkStrokePoint', () => {
       straightGuide,
     );
 
-    expect(result).toEqual({ newHitMap: [true, false], advanced: false, failed: false });
+    expect(result).toEqual({
+      newHitMap: [true, false],
+      advanced: false,
+      failed: false,
+    });
   });
 
   it('fails with "off-path" once the point strays past the tolerance', () => {
@@ -87,7 +91,11 @@ describe('checkStrokePoint', () => {
       straightGuide,
     );
 
-    expect(result).toEqual({ newHitMap: [true, true], advanced: false, failed: false });
+    expect(result).toEqual({
+      newHitMap: [true, true],
+      advanced: false,
+      failed: false,
+    });
   });
 
   it('scales both the path tolerance and the checkpoint radius with canvasSize', () => {
@@ -95,8 +103,20 @@ describe('checkStrokePoint', () => {
     // but at canvasSize=50 (scale 0.5) those same 15px are 30 units — out of range.
     const point = { x: 25, y: 15 };
 
-    const bigCanvas = checkStrokePoint(point, checkpoints, [true, false], 100, straightGuide);
-    const smallCanvas = checkStrokePoint(point, checkpoints, [true, false], 50, straightGuide);
+    const bigCanvas = checkStrokePoint(
+      point,
+      checkpoints,
+      [true, false],
+      100,
+      straightGuide,
+    );
+    const smallCanvas = checkStrokePoint(
+      point,
+      checkpoints,
+      [true, false],
+      50,
+      straightGuide,
+    );
 
     expect(bigCanvas.failed).toBe(false);
     expect(smallCanvas.failed).toBe(true);
