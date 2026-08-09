@@ -1,98 +1,105 @@
-import { evaluatePath, checkNewPoint } from './evaluator';
+import { checkStrokePoint, DEFAULT_PATH_TOLERANCE } from './evaluator';
+import { sampleSvgPath } from './svgPath';
 import type { Checkpoint } from './letterTypes';
 
+// A simple straight guide from (0,0) to (100,0), with two checkpoints along it.
+const straightGuide = sampleSvgPath('M0,0 L100,0');
 const checkpoints: Checkpoint[] = [
   { x: 0, y: 0, r: 10 },
-  { x: 100, y: 100, r: 10 },
+  { x: 100, y: 0, r: 10 },
 ];
 
-describe('evaluatePath', () => {
-  it('scores 0 with an empty hit map when fewer than 5 points were drawn', () => {
-    const result = evaluatePath([{ x: 0, y: 0 }], checkpoints, 100);
-
-    expect(result.score).toBe(0);
-    expect(result.hitMap).toEqual([false, false]);
-  });
-
-  it('marks a checkpoint hit when a drawn point falls within its radius', () => {
-    const points = [
-      { x: 0, y: 0 },
-      { x: 1, y: 1 },
-      { x: 2, y: 2 },
-      { x: 3, y: 3 },
-      { x: 4, y: 4 },
-    ];
-
-    const result = evaluatePath(points, checkpoints, 100);
-
-    expect(result.hitMap[0]).toBe(true);
-    expect(result.hitMap[1]).toBe(false);
-    expect(result.score).toBe(0.5);
-  });
-
-  it('does not mark a checkpoint hit when every point is outside its radius', () => {
-    const points = [
-      { x: 50, y: 50 },
-      { x: 51, y: 51 },
-      { x: 52, y: 52 },
-      { x: 53, y: 53 },
-      { x: 54, y: 54 },
-    ];
-
-    const result = evaluatePath(points, checkpoints, 100);
-
-    expect(result.hitMap).toEqual([false, false]);
-    expect(result.score).toBe(0);
-  });
-
-  it('scales checkpoint radius with canvasSize', () => {
-    // canvasSize 200 -> scale 2, so a checkpoint radius of 10 becomes 20px;
-    // a point 15px away only counts as a hit at the larger canvas size.
-    const point = { x: 15, y: 0 };
-    const points = Array(5).fill(point);
-
-    const smallCanvas = evaluatePath(points, checkpoints, 100);
-    const bigCanvas = evaluatePath(points, checkpoints, 200);
-
-    expect(smallCanvas.hitMap[0]).toBe(false);
-    expect(bigCanvas.hitMap[0]).toBe(true);
-  });
-});
-
-describe('checkNewPoint', () => {
-  it('flags updated=true and fills in the hit when a new point lands in range', () => {
-    const result = checkNewPoint(
-      { x: 0, y: 0 },
+describe('checkStrokePoint', () => {
+  it('advances the hit map when the expected checkpoint is reached', () => {
+    const result = checkStrokePoint(
+      { x: 5, y: 0 },
       checkpoints,
       [false, false],
       100,
+      straightGuide,
     );
 
-    expect(result.updated).toBe(true);
+    expect(result).toMatchObject({ advanced: true, failed: false });
     expect(result.newHitMap).toEqual([true, false]);
   });
 
-  it('does not re-trigger an already-hit checkpoint', () => {
-    const result = checkNewPoint(
-      { x: 0, y: 0 },
+  it('does nothing when the point is on-path but not near any checkpoint yet', () => {
+    const result = checkStrokePoint(
+      { x: 50, y: 0 },
       checkpoints,
       [true, false],
       100,
+      straightGuide,
     );
 
-    expect(result.updated).toBe(false);
+    expect(result).toEqual({ newHitMap: [true, false], advanced: false, failed: false });
+  });
+
+  it('fails with "off-path" once the point strays past the tolerance', () => {
+    const farY = DEFAULT_PATH_TOLERANCE + 5;
+    const result = checkStrokePoint(
+      { x: 50, y: farY },
+      checkpoints,
+      [true, false],
+      100,
+      straightGuide,
+    );
+
+    expect(result.failed).toBe(true);
+    expect(result.reason).toBe('off-path');
+    // Untouched — the caller should freeze on failure, not keep the hit map.
     expect(result.newHitMap).toEqual([true, false]);
   });
 
-  it('leaves updated=false when the point is out of range of every checkpoint', () => {
-    const result = checkNewPoint(
-      { x: 50, y: 50 },
+  it('tolerates small wobble within the tolerance band', () => {
+    const closeY = DEFAULT_PATH_TOLERANCE - 2;
+    const result = checkStrokePoint(
+      { x: 50, y: closeY },
       checkpoints,
-      [false, false],
+      [true, false],
       100,
+      straightGuide,
     );
 
-    expect(result.updated).toBe(false);
+    expect(result.failed).toBe(false);
+  });
+
+  it('fails with "out-of-order" when a later checkpoint is reached before the expected one', () => {
+    const result = checkStrokePoint(
+      { x: 100, y: 0 },
+      checkpoints,
+      [false, false], // checkpoint 0 not hit yet, but this point is at checkpoint 1
+      100,
+      straightGuide,
+    );
+
+    expect(result.failed).toBe(true);
+    expect(result.reason).toBe('out-of-order');
     expect(result.newHitMap).toEqual([false, false]);
+  });
+
+  it('is a no-op once every checkpoint has already been hit', () => {
+    const result = checkStrokePoint(
+      { x: 50, y: 0 },
+      checkpoints,
+      [true, true],
+      100,
+      straightGuide,
+    );
+
+    expect(result).toEqual({ newHitMap: [true, true], advanced: false, failed: false });
+  });
+
+  it('scales both the path tolerance and the checkpoint radius with canvasSize', () => {
+    // 15 units off-path at a 0-100 scale is within DEFAULT_PATH_TOLERANCE (16),
+    // but at canvasSize=50 (scale 0.5) those same 15px are 30 units — out of range.
+    const point = { x: 25, y: 15 };
+
+    const bigCanvas = checkStrokePoint(point, checkpoints, [true, false], 100, straightGuide);
+    const smallCanvas = checkStrokePoint(point, checkpoints, [true, false], 50, straightGuide);
+
+    expect(bigCanvas.failed).toBe(false);
+    expect(smallCanvas.failed).toBe(true);
+    expect(smallCanvas.reason).toBe('off-path');
   });
 });

@@ -4,7 +4,8 @@ export const CONSONANT_LETTERS: LetterDef[] = [
   {
     letter: 'L',
     guidePath: 'M30,5 L30,95 L80,95',
-    cursivePath: 'M30,5 L30,95 Q55,95 80,95',
+    cursivePath:
+      'M48,68 C40,54 40,22 48,10 C56,0 64,10 58,18 C54,23 48,18 50,10 L50,68 Q52,74 60,68',
     checkpoints: [
       { x: 30, y: 5, r: 12 },
       { x: 30, y: 95, r: 12 },
@@ -12,11 +13,21 @@ export const CONSONANT_LETTERS: LetterDef[] = [
     ],
     strokes: 1,
     startHint: { x: 30, y: 5 },
+    cursiveCheckpoints: [
+      { x: 48, y: 68, r: 11 },
+      { x: 48, y: 10, r: 10 },
+      { x: 50, y: 10, r: 10 },
+      { x: 50, y: 68, r: 11 },
+      { x: 60, y: 68, r: 10 },
+    ],
+    cursiveStrokes: 1,
+    cursiveStartHint: { x: 48, y: 68 },
   },
   {
     letter: 'M',
     guidePath: 'M8,95 L8,5 L50,50 L92,5 L92,95',
-    cursivePath: 'M8,95 L8,5 Q29,28 50,50 Q71,28 92,5 L92,95',
+    cursivePath:
+      'M18,68 Q18,60 24,54 L24,46 Q24,36 30,36 Q36,36 36,46 L36,68 L36,46 Q36,36 42,36 Q48,36 48,46 L48,68 Q50,74 58,68',
     checkpoints: [
       { x: 8, y: 95, r: 12 },
       { x: 8, y: 5, r: 12 },
@@ -26,11 +37,21 @@ export const CONSONANT_LETTERS: LetterDef[] = [
     ],
     strokes: 1,
     startHint: { x: 8, y: 95 },
+    cursiveCheckpoints: [
+      { x: 18, y: 68, r: 10 },
+      { x: 24, y: 46, r: 10 },
+      { x: 36, y: 68, r: 10 },
+      { x: 48, y: 68, r: 10 },
+      { x: 58, y: 68, r: 10 },
+    ],
+    cursiveStrokes: 1,
+    cursiveStartHint: { x: 18, y: 68 },
   },
   {
     letter: 'N',
     guidePath: 'M10,95 L10,5 L90,95 L90,5',
-    cursivePath: 'M10,95 L10,5 Q50,50 90,95 L90,5',
+    cursivePath:
+      'M20,68 Q20,60 26,54 L26,46 Q26,36 32,36 Q38,36 38,46 L38,68 Q40,74 48,68',
     checkpoints: [
       { x: 10, y: 95, r: 12 },
       { x: 10, y: 5, r: 12 },
@@ -39,11 +60,20 @@ export const CONSONANT_LETTERS: LetterDef[] = [
     ],
     strokes: 1,
     startHint: { x: 10, y: 5 },
+    cursiveCheckpoints: [
+      { x: 20, y: 68, r: 10 },
+      { x: 26, y: 46, r: 10 },
+      { x: 38, y: 68, r: 10 },
+      { x: 48, y: 68, r: 10 },
+    ],
+    cursiveStrokes: 1,
+    cursiveStartHint: { x: 20, y: 68 },
   },
   {
     letter: 'P',
     guidePath: 'M15,95 L15,5 M15,5 C70,5 80,20 80,35 C80,50 70,60 15,60',
-    cursivePath: 'M15,95 L15,5 M15,5 C70,5 80,20 80,35 C80,50 70,60 15,60',
+    cursivePath:
+      'M42,32 L42,88 C42,96 50,96 50,88 C50,82 44,80 42,84 L42,44 C42,36 50,34 56,40 C62,46 60,56 52,58 C48,59 44,57 43,52',
     checkpoints: [
       { x: 15, y: 95, r: 12 },
       { x: 15, y: 5, r: 12 },
@@ -53,12 +83,22 @@ export const CONSONANT_LETTERS: LetterDef[] = [
     ],
     strokes: 2,
     startHint: { x: 15, y: 5 },
+    cursiveCheckpoints: [
+      { x: 42, y: 32, r: 10 },
+      { x: 42, y: 88, r: 11 },
+      { x: 42, y: 84, r: 10 },
+      { x: 42, y: 44, r: 10 },
+      { x: 56, y: 40, r: 11 },
+      { x: 43, y: 52, r: 10 },
+    ],
+    cursiveStrokes: 1,
+    cursiveStartHint: { x: 42, y: 32 },
   },
   {
     letter: 'S',
     guidePath: 'M85,15 C85,5 15,5 15,45 C15,65 85,55 85,75 C85,98 15,98 15,85',
     cursivePath:
-      'M85,15 C85,5 15,5 15,45 C15,65 85,55 85,75 C85,98 15,98 15,85',
+      'M56,40 C50,32 34,34 34,42 C34,50 50,46 50,56 C50,66 34,68 30,60',
     checkpoints: [
       { x: 85, y: 15, r: 12 },
       { x: 15, y: 30, r: 12 },
@@ -68,11 +108,19 @@ export const CONSONANT_LETTERS: LetterDef[] = [
     ],
     strokes: 1,
     startHint: { x: 85, y: 15 },
+    cursiveCheckpoints: [
+      { x: 56, y: 40, r: 11 },
+      { x: 34, y: 42, r: 11 },
+      { x: 50, y: 56, r: 11 },
+      { x: 30, y: 60, r: 11 },
+    ],
+    cursiveStrokes: 1,
+    cursiveStartHint: { x: 56, y: 40 },
   },
   {
     letter: 'T',
     guidePath: 'M10,10 L90,10 M50,10 L50,95',
-    cursivePath: 'M10,10 L90,10 M50,10 L50,95',
+    cursivePath: 'M38,68 C32,58 32,26 40,18 L40,68 Q42,74 50,68 M28,38 L54,38',
     checkpoints: [
       { x: 10, y: 10, r: 12 },
       { x: 90, y: 10, r: 12 },
@@ -81,11 +129,21 @@ export const CONSONANT_LETTERS: LetterDef[] = [
     ],
     strokes: 2,
     startHint: { x: 10, y: 10 },
+    cursiveCheckpoints: [
+      { x: 38, y: 68, r: 10 },
+      { x: 40, y: 18, r: 10 },
+      { x: 40, y: 68, r: 10 },
+      { x: 50, y: 68, r: 10 },
+      { x: 28, y: 38, r: 10 },
+      { x: 54, y: 38, r: 10 },
+    ],
+    cursiveStrokes: 2,
+    cursiveStartHint: { x: 38, y: 68 },
   },
   {
     letter: 'C',
     guidePath: 'M88,20 C88,5 12,5 12,50 C12,95 88,95 88,80',
-    cursivePath: 'M88,20 C88,5 12,5 12,50 C12,95 88,95 88,80',
+    cursivePath: 'M56,36 C42,30 28,38 28,50 C28,62 42,70 56,64',
     checkpoints: [
       { x: 88, y: 20, r: 12 },
       { x: 12, y: 50, r: 12 },
@@ -93,5 +151,12 @@ export const CONSONANT_LETTERS: LetterDef[] = [
     ],
     strokes: 1,
     startHint: { x: 88, y: 20 },
+    cursiveCheckpoints: [
+      { x: 56, y: 36, r: 12 },
+      { x: 28, y: 50, r: 12 },
+      { x: 56, y: 64, r: 12 },
+    ],
+    cursiveStrokes: 1,
+    cursiveStartHint: { x: 56, y: 36 },
   },
 ];

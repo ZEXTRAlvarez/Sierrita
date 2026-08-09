@@ -1,7 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 import { View, Text, Animated, Dimensions } from 'react-native';
-import { getLetterDef, getLetterSet, evaluatePath } from '@sierrita/games';
-import type { Point } from '@sierrita/games';
+import { getLetterDef, getLetterSet } from '@sierrita/games';
 import { speak } from '@sierrita/audio';
 import type { GameProps } from '../../../GameScreen';
 import { useGameRound } from '../../shared/useGameRound';
@@ -9,7 +8,6 @@ import LetterCanvas from '../components/LetterCanvas';
 import { LetterPreview } from './components/LetterPreview';
 import { styles } from './CursiveGame.styles';
 
-const SCORE_THRESHOLD = 0.6; // cursiva es más libre, umbral un poco menor
 const { width: SCREEN_W } = Dimensions.get('window');
 const CANVAS_SIZE = Math.min(SCREEN_W - 48, 340);
 
@@ -26,8 +24,6 @@ export default function CursiveGame({
   const letters = useRef<string[]>([]);
   const nextIdx = useRef(0);
   const [currentLetter, setCurrentLetter] = useState('');
-  const [hitMap, setHitMap] = useState<boolean[]>([]);
-  const [allDrawn, setAllDrawn] = useState<Point[]>([]);
   const feedbackScale = useRef(new Animated.Value(1)).current;
 
   const startRound = useCallback(() => {
@@ -41,11 +37,7 @@ export default function CursiveGame({
       );
     }
     const letter = letters.current[nextIdx.current++] ?? letters.current[0];
-    const def = getLetterDef(letter);
-    if (!def) return;
     setCurrentLetter(letter);
-    setHitMap(def.checkpoints.map(() => false));
-    setAllDrawn([]);
     speak(`Escribí la letra ${letter} en cursiva`);
   }, [letterSet, roundCount]);
 
@@ -67,27 +59,17 @@ export default function CursiveGame({
     }).start();
   }
 
-  const handlePointDrawn = useCallback((point: Point, newHitMap: boolean[]) => {
-    setHitMap(newHitMap);
-    setAllDrawn((prev) => [...prev, point]);
-  }, []);
+  const handleComplete = useCallback(() => {
+    if (result !== 'idle') return;
+    flashScale();
+    submitAnswer(true);
+  }, [result, submitAnswer]);
 
-  const handleStrokeEnd = useCallback(
-    (strokePoints: Point[]) => {
-      if (!letterDef || result !== 'idle') return;
-      const allPoints = [...allDrawn, ...strokePoints];
-      const { score } = evaluatePath(
-        allPoints,
-        letterDef.checkpoints,
-        CANVAS_SIZE,
-      );
-      if (score >= SCORE_THRESHOLD) {
-        flashScale();
-        submitAnswer(true);
-      }
-    },
-    [letterDef, allDrawn, result, submitAnswer],
-  );
+  const handleTrackLost = useCallback(() => {
+    if (result !== 'idle') return;
+    flashScale();
+    submitAnswer(false, 0, 0);
+  }, [result, submitAnswer]);
 
   const handleGiveUp = useCallback(() => {
     if (result !== 'idle') return;
@@ -98,20 +80,20 @@ export default function CursiveGame({
   if (!letterDef) return null;
   return (
     <View style={styles.container}>
-      <LetterPreview letter={currentLetter} />
+      <LetterPreview letterDef={letterDef} />
       <Text style={styles.progress}>
         {roundsDone + 1} / {roundCount}
       </Text>
       <Animated.View style={{ transform: [{ scale: feedbackScale }] }}>
         <LetterCanvas
+          key={`${currentLetter}-${roundsDone}`}
           size={CANVAS_SIZE}
           letterDef={letterDef}
           showGuide={showGuide}
           guideOpacity={guideOpacity}
           useCursive
-          hitMap={hitMap}
-          onPointDrawn={handlePointDrawn}
-          onStrokeEnd={handleStrokeEnd}
+          onComplete={handleComplete}
+          onTrackLost={handleTrackLost}
         />
       </Animated.View>
       {result === 'correct' && (
