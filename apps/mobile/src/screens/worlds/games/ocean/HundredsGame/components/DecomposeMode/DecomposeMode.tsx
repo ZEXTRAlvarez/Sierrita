@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { generateDigitOptions } from '../../logic/generateDigitOptions';
-import type { Problem } from '../../logic/generateProblem';
+import type { DecomposeRound } from '../../logic/buildRound';
 import { styles } from './DecomposeMode.styles';
 
 export interface DecomposeModeProps {
-  problem: Problem;
+  round: DecomposeRound;
   onAnswer: (correct: boolean) => void;
   result: 'idle' | 'correct' | 'wrong';
 }
@@ -13,17 +12,20 @@ export interface DecomposeModeProps {
 type Chosen = { h: number | null; d: number | null; u: number | null };
 type Field = keyof Chosen;
 
-/** Shows a number and lets the child pick its hundreds, tens and units digits separately. */
-export function DecomposeMode({
-  problem,
-  onAnswer,
-  result,
-}: DecomposeModeProps) {
-  const [chosen, setChosen] = useState<Chosen>({ h: null, d: null, u: null });
+const NOTHING_CHOSEN: Chosen = { h: null, d: null, u: null };
 
-  const hOptions = useRef(generateDigitOptions(problem.hundreds)).current;
-  const dOptions = useRef(generateDigitOptions(problem.tens)).current;
-  const uOptions = useRef(generateDigitOptions(problem.units)).current;
+/** Shows a number and lets the child pick its hundreds, tens and units digits separately. */
+export function DecomposeMode({ round, onAnswer, result }: DecomposeModeProps) {
+  const { problem, options } = round;
+  const [chosen, setChosen] = useState<Chosen>(NOTHING_CHOSEN);
+
+  // A new round brings a new number, so the digits picked for the previous one
+  // have to go before they are compared against it.
+  const renderedRound = useRef(round);
+  if (renderedRound.current !== round) {
+    renderedRound.current = round;
+    setChosen(NOTHING_CHOSEN);
+  }
 
   useEffect(() => {
     if (chosen.h !== null && chosen.d !== null && chosen.u !== null) {
@@ -41,42 +43,69 @@ export function DecomposeMode({
     setChosen((prev) => ({ ...prev, [field]: value }));
   }
 
-  function DigitRow({
-    label,
-    options,
-    value,
-    field,
-  }: {
-    label: string;
-    options: number[];
-    value: number | null;
-    field: Field;
-  }) {
-    return (
-      <View style={styles.decomposeRow}>
-        <Text style={styles.decomposeLabel}>{label}</Text>
-        {options.map((opt) => (
-          <TouchableOpacity
-            key={opt}
-            testID={`decompose-digit-${field}`}
-            style={[styles.digitBtn, value === opt && styles.selectedBtn]}
-            onPress={() => select(field, opt)}
-            disabled={result !== 'idle'}
-          >
-            <Text style={styles.digitText}>{opt}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-    );
-  }
-
   return (
     <View style={styles.modeContainer}>
       <Text style={styles.bigNumber}>{problem.number}</Text>
       <Text style={styles.modeQuestion}>Descomponé el número</Text>
-      <DigitRow label="C" options={hOptions} value={chosen.h} field="h" />
-      <DigitRow label="D" options={dOptions} value={chosen.d} field="d" />
-      <DigitRow label="U" options={uOptions} value={chosen.u} field="u" />
+      <DigitRow
+        label="C"
+        options={options.hundreds}
+        value={chosen.h}
+        field="h"
+        disabled={result !== 'idle'}
+        onSelect={select}
+      />
+      <DigitRow
+        label="D"
+        options={options.tens}
+        value={chosen.d}
+        field="d"
+        disabled={result !== 'idle'}
+        onSelect={select}
+      />
+      <DigitRow
+        label="U"
+        options={options.units}
+        value={chosen.u}
+        field="u"
+        disabled={result !== 'idle'}
+        onSelect={select}
+      />
+    </View>
+  );
+}
+
+interface DigitRowProps {
+  label: string;
+  options: number[];
+  value: number | null;
+  field: Field;
+  disabled: boolean;
+  onSelect: (field: Field, value: number) => void;
+}
+
+function DigitRow({
+  label,
+  options,
+  value,
+  field,
+  disabled,
+  onSelect,
+}: DigitRowProps) {
+  return (
+    <View style={styles.decomposeRow}>
+      <Text style={styles.decomposeLabel}>{label}</Text>
+      {options.map((opt) => (
+        <TouchableOpacity
+          key={opt}
+          testID={`decompose-digit-${field}`}
+          style={[styles.digitBtn, value === opt && styles.selectedBtn]}
+          onPress={() => onSelect(field, opt)}
+          disabled={disabled}
+        >
+          <Text style={styles.digitText}>{opt}</Text>
+        </TouchableOpacity>
+      ))}
     </View>
   );
 }

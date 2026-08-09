@@ -3,22 +3,28 @@ import { Animated, Text } from 'react-native';
 import { speak } from '@sierrita/audio';
 import type { GameProps } from '../../../GameScreen';
 import { useGameRound } from '../../shared/useGameRound';
-import { generateProblem, type Problem } from './logic/generateProblem';
+import {
+  buildRound,
+  DIGIT_LABELS,
+  type Mode,
+  type Round,
+} from './logic/buildRound';
 import { IdentifyMode } from './components/IdentifyMode';
 import { DecomposeMode } from './components/DecomposeMode';
 import { ComposeMode } from './components/ComposeMode';
 import { styles } from './HundredsGame.styles';
 
-type Mode = 'identify' | 'decompose' | 'compose';
-
-function announce(p: Problem, mode: Mode) {
-  if (mode === 'identify')
-    speak(`¿Cuántas centenas, decenas y unidades tiene el ${p.number}?`);
-  else if (mode === 'decompose')
-    speak(`Descomponé el número ${p.number} en centenas, decenas y unidades`);
+function announce(round: Round) {
+  const { problem } = round;
+  if (round.mode === 'identify')
+    speak(`¿Cuántas ${DIGIT_LABELS[round.field]} tiene el ${problem.number}?`);
+  else if (round.mode === 'decompose')
+    speak(
+      `Descomponé el número ${problem.number} en centenas, decenas y unidades`,
+    );
   else
     speak(
-      `${p.hundreds} centenas más ${p.tens} decenas más ${p.units} unidades. ¿Qué número es?`,
+      `${problem.hundreds} centenas más ${problem.tens} decenas más ${problem.units} unidades. ¿Qué número es?`,
     );
 }
 
@@ -31,13 +37,13 @@ export default function HundredsGame({
   const maxNumber = (params.maxNumber as number) || 99;
   const mode = (params.mode as Mode) || 'identify';
 
-  const [problem, setProblem] = useState<Problem | null>(null);
+  const [round, setRound] = useState<Round | null>(null);
   const bounceAnim = useRef(new Animated.Value(1)).current;
 
   const startRound = useCallback(() => {
-    const p = generateProblem(maxNumber);
-    setProblem(p);
-    announce(p, mode);
+    const next = buildRound(mode, maxNumber);
+    setRound(next);
+    announce(next);
   }, [maxNumber, mode]);
 
   const { result, roundsDone, submitAnswer } = useGameRound({
@@ -58,40 +64,28 @@ export default function HundredsGame({
     submitAnswer(correct);
   }
 
-  if (!problem) return null;
+  if (!round) return null;
+
+  // While the correct/wrong feedback is on screen the round is already counted
+  // as done, but the child is still looking at it, so the counter must wait.
+  const roundOnScreen = result === 'idle' ? roundsDone + 1 : roundsDone;
 
   return (
     <Animated.View
       style={[styles.container, { transform: [{ scale: bounceAnim }] }]}
     >
       <Text style={styles.progress}>
-        {roundsDone + 1} / {roundCount}
+        {roundOnScreen} / {roundCount}
       </Text>
 
-      {mode === 'identify' && (
-        <IdentifyMode
-          key={roundsDone}
-          problem={problem}
-          onAnswer={handleAnswer}
-          result={result}
-        />
+      {round.mode === 'identify' && (
+        <IdentifyMode round={round} onAnswer={handleAnswer} result={result} />
       )}
-      {mode === 'decompose' && (
-        <DecomposeMode
-          key={roundsDone}
-          problem={problem}
-          onAnswer={handleAnswer}
-          result={result}
-        />
+      {round.mode === 'decompose' && (
+        <DecomposeMode round={round} onAnswer={handleAnswer} result={result} />
       )}
-      {mode === 'compose' && (
-        <ComposeMode
-          key={roundsDone}
-          problem={problem}
-          maxNumber={maxNumber}
-          onAnswer={handleAnswer}
-          result={result}
-        />
+      {round.mode === 'compose' && (
+        <ComposeMode round={round} onAnswer={handleAnswer} result={result} />
       )}
 
       {result === 'correct' && (
