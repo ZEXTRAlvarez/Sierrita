@@ -25,17 +25,13 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
     marginBottom: 2,
   },
+  // Stroke colors for the mini SVG glyph previews (not text styles anymore —
+  // LetterPreview draws the actual guide/cursive paths, not font glyphs).
   letterPrint: {
-    fontSize: 52,
-    fontWeight: '900',
     color: '#E65100',
-    lineHeight: 58,
   },
   letterCursive: {
-    fontSize: 52,
-    fontStyle: 'italic',
     color: '#F4511E',
-    lineHeight: 58,
   },
   arrow: { fontSize: 28, color: '#FFCC02', fontWeight: '900' },
 });

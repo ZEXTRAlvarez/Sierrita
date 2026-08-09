@@ -9,9 +9,12 @@ export interface Checkpoint {
 
 export interface LetterDef {
   letter: string;
-  guidePath: string; // SVG path en espacio 0-100
-  cursivePath?: string; // variante cursiva
-  checkpoints: Checkpoint[]; // waypoints que el trazo debe cubrir
-  strokes: number; // cantidad de trazos separados
-  startHint: { x: number; y: number }; // dónde iniciar el trazo
+  guidePath: string; // SVG path en espacio 0-100 (imprenta mayúscula)
+  cursivePath?: string; // variante cursiva (minúscula ligada) — forma propia, no es guidePath curvado
+  checkpoints: Checkpoint[]; // waypoints que el trazo de imprenta debe cubrir, en orden
+  strokes: number; // cantidad de trazos separados (imprenta)
+  startHint: { x: number; y: number }; // dónde iniciar el trazo de imprenta
+  cursiveCheckpoints?: Checkpoint[]; // waypoints del trazo cursivo, en orden — la forma cursiva es geométricamente distinta de la de imprenta, así que necesita su propia secuencia
+  cursiveStrokes?: number; // cantidad de trazos separados (cursiva); por defecto `strokes` si no se especifica
+  cursiveStartHint?: { x: number; y: number }; // dónde iniciar el trazo cursivo
 }

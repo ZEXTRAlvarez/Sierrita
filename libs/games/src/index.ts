@@ -5,6 +5,7 @@ export * from './content/gameInstructions.es';
 export * from './content/feedbackPhrases.es';
 export * from './utils/randomFrom';
 export * from './writing/letterPaths';
+export * from './writing/svgPath';
 export * from './writing/evaluator';
 export * from './writing/wordData';
 export * from './writing/sentenceData';
