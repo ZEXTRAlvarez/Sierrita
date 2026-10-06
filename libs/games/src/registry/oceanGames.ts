@@ -98,6 +98,23 @@ export const OCEAN_GAMES: GameConfig[] = [
     }),
   },
   {
+    id: 'clock',
+    world: 'ocean',
+    titleEs: 'El Reloj',
+    emoji: '🕐',
+    minAge: 7,
+    roundCount: 6,
+    params: (d: Difficulty) => ({
+      // Horas en punto → + y media → + cuartos y minutos exactos (de a 5).
+      minutePool:
+        d === 1
+          ? [0]
+          : d === 2
+            ? [0, 30]
+            : Array.from({ length: 12 }, (_, i) => i * 5),
+    }),
+  },
+  {
     id: 'sudoku',
     world: 'ocean',
     titleEs: 'Sudoku',
