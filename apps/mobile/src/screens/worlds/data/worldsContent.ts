@@ -57,6 +57,7 @@ export const WORLDS: WorldDef[] = [
         emoji: '🧮',
         minAge: 7,
       },
+      { id: 'fractions', name: 'Fracciones Simples', emoji: '🍕', minAge: 7 },
     ],
   },
   {

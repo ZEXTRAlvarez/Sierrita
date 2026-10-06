@@ -84,6 +84,20 @@ export const OCEAN_GAMES: GameConfig[] = [
     }),
   },
   {
+    id: 'fractions',
+    world: 'ocean',
+    titleEs: 'Fracciones Simples',
+    emoji: '🍕',
+    minAge: 7,
+    roundCount: 6,
+    params: (d: Difficulty) => ({
+      denominators: d === 1 ? [2, 4] : d === 2 ? [2, 3, 4] : [2, 3, 4, 8],
+      // Rondas de "¿cuál es más grande?" entre dos fracciones, solo a partir
+      // del nivel 3.
+      compareChance: d === 3 ? 0.3 : 0,
+    }),
+  },
+  {
     id: 'sudoku',
     world: 'ocean',
     titleEs: 'Sudoku',

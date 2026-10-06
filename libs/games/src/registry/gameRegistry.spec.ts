@@ -1,8 +1,8 @@
 import { ALL_GAMES, getGameConfig, getWorldGames } from './gameRegistry';
 
 describe('ALL_GAMES', () => {
-  it('registers exactly 19 games across the 3 worlds', () => {
-    expect(ALL_GAMES).toHaveLength(19);
+  it('registers exactly 20 games across the 3 worlds', () => {
+    expect(ALL_GAMES).toHaveLength(20);
   });
 
   it('has unique game ids', () => {
@@ -26,6 +26,7 @@ describe('getGameConfig', () => {
     'casita',
     'sudoku',
     'multiply',
+    'fractions',
     'patterns',
     'memory',
     'classify',
@@ -48,8 +49,8 @@ describe('getWorldGames', () => {
     expect(getWorldGames('jungle')).toHaveLength(6);
   });
 
-  it('returns the 7 ocean games', () => {
-    expect(getWorldGames('ocean')).toHaveLength(7);
+  it('returns the 8 ocean games', () => {
+    expect(getWorldGames('ocean')).toHaveLength(8);
   });
 
   it('returns the 6 space games', () => {
