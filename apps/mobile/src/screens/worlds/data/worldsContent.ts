@@ -46,6 +46,12 @@ export const WORLDS: WorldDef[] = [
         emoji: '🔁',
         minAge: 7,
       },
+      {
+        id: 'wordClasses',
+        name: 'Clases de Palabras',
+        emoji: '🏷️',
+        minAge: 8,
+      },
     ],
   },
   {

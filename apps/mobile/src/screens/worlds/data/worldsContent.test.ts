@@ -7,7 +7,7 @@ describe('WORLDS', () => {
 
   it('gives every world its expected game count', () => {
     const expected: Record<string, number> = {
-      jungle: 8,
+      jungle: 9,
       ocean: 10,
       space: 6,
     };
