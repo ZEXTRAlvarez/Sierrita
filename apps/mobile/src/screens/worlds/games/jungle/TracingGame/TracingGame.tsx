@@ -5,6 +5,7 @@ import { speak } from '@sierrita/audio';
 import type { GameProps } from '../../../GameScreen';
 import { useGameRound } from '../../shared/useGameRound';
 import LetterCanvas from '../components/LetterCanvas';
+import { TRACE_FEEDBACK_DELAY_MS } from '../components/traceFeedback';
 import { styles } from './TracingGame.styles';
 
 const { width: SCREEN_W } = Dimensions.get('window');
@@ -45,6 +46,7 @@ export default function TracingGame({
     onRoundComplete,
     onGameFinish,
     startRound,
+    advanceDelayMs: TRACE_FEEDBACK_DELAY_MS,
   });
 
   const letterDef = currentLetter ? getLetterDef(currentLetter) : undefined;
@@ -61,6 +63,7 @@ export default function TracingGame({
   const handleComplete = useCallback(() => {
     if (result !== 'idle') return;
     flashScale();
+    speak('¡Muy bien!');
     submitAnswer(true);
   }, [result, submitAnswer]);
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, fireEvent, act } from '@testing-library/react-native';
 import TracingGame from './TracingGame';
+import { TRACE_FEEDBACK_DELAY_MS } from '../components/traceFeedback';
 
 // LetterCanvas wraps @shopify/react-native-skia, which needs the native
 // runtime. It isn't touched by this refactor, so stub it with a pressable
@@ -61,7 +62,7 @@ describe('TracingGame', () => {
   it('reports a correct round and finishes when the letter is completed', async () => {
     const onRoundComplete = jest.fn(async () => undefined);
     const onGameFinish = jest.fn();
-    const { getByTestId } = render(
+    const { getByTestId, getByText } = render(
       <TracingGame
         params={{ letterSet: 'vowels' }}
         onRoundComplete={onRoundComplete}
@@ -76,8 +77,14 @@ describe('TracingGame', () => {
     });
 
     expect(onRoundComplete).toHaveBeenCalledWith(true, 0, 0);
+    expect(getByText('¡Muy bien! ⭐')).toBeTruthy();
 
-    act(() => jest.advanceTimersByTime(900));
+    // La letra no cambia de golpe: el feedback verde se queda visible.
+    act(() => jest.advanceTimersByTime(TRACE_FEEDBACK_DELAY_MS - 1));
+    expect(onGameFinish).not.toHaveBeenCalled();
+    expect(getByText('¡Muy bien! ⭐')).toBeTruthy();
+
+    act(() => jest.advanceTimersByTime(1));
 
     expect(onGameFinish).toHaveBeenCalledTimes(1);
   });
@@ -101,7 +108,7 @@ describe('TracingGame', () => {
 
     expect(onRoundComplete).toHaveBeenCalledWith(false, 0, 0);
 
-    act(() => jest.advanceTimersByTime(900));
+    act(() => jest.advanceTimersByTime(TRACE_FEEDBACK_DELAY_MS));
 
     expect(onGameFinish).toHaveBeenCalledTimes(1);
   });
@@ -125,7 +132,7 @@ describe('TracingGame', () => {
 
     expect(onRoundComplete).toHaveBeenCalledWith(false, 0, 1);
 
-    act(() => jest.advanceTimersByTime(900));
+    act(() => jest.advanceTimersByTime(TRACE_FEEDBACK_DELAY_MS));
 
     expect(onGameFinish).toHaveBeenCalledTimes(1);
   });
