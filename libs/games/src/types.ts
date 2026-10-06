@@ -81,6 +81,7 @@ export const GAME_IDS = {
     'maze',
     'oddOneOut',
     'balance',
+    'blockCode',
   ] as const,
 } as const;
 
