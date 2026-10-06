@@ -100,6 +100,12 @@ export const WORLDS: WorldDef[] = [
       { id: 'maze', name: 'Laberinto', emoji: '🌀', minAge: 5 },
       { id: 'oddOneOut', name: 'El Intruso', emoji: '🔍', minAge: 6 },
       { id: 'balance', name: 'Balanza Lógica', emoji: '⚖️', minAge: 6 },
+      {
+        id: 'blockCode',
+        name: 'Programación Visual',
+        emoji: '🤖',
+        minAge: 8,
+      },
     ],
   },
 ];

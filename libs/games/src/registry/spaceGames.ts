@@ -81,4 +81,21 @@ export const SPACE_GAMES: GameConfig[] = [
       mode: d === 1 ? 'count' : d === 2 ? 'weight' : 'sum',
     }),
   },
+  {
+    id: 'blockCode',
+    world: 'space',
+    titleEs: 'Programación Visual',
+    emoji: '🤖',
+    minAge: 8,
+    roundCount: 5,
+    params: (d: Difficulty) => ({
+      // Grilla más grande y se habilita "Avanzar x2" a medida que sube el
+      // nivel.
+      gridSize: d === 1 ? 3 : d === 2 ? 4 : 5,
+      blocks:
+        d === 1
+          ? ['forward', 'turnLeft', 'turnRight']
+          : ['forward', 'forward2', 'turnLeft', 'turnRight'],
+    }),
+  },
 ];

@@ -9,7 +9,7 @@ describe('WORLDS', () => {
     const expected: Record<string, number> = {
       jungle: 9,
       ocean: 10,
-      space: 6,
+      space: 7,
     };
     for (const world of WORLDS) {
       expect(world.games).toHaveLength(expected[world.id]);
