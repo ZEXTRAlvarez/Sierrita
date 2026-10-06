@@ -111,4 +111,17 @@ export const JUNGLE_GAMES: GameConfig[] = [
       tiers: d === 1 ? [1] : d === 2 ? [1, 2] : [1, 2, 3],
     }),
   },
+  {
+    id: 'wordClasses',
+    world: 'jungle',
+    titleEs: 'Clases de Palabras',
+    emoji: '🏷️',
+    minAge: 8,
+    roundCount: 6,
+    params: (d: Difficulty) => ({
+      // Palabras sueltas (nivel 1) → mezcla → identificar la clase de una
+      // palabra marcada dentro de una oración completa (nivel 3).
+      sentenceChance: d === 1 ? 0 : d === 2 ? 0.5 : 1,
+    }),
+  },
 ];

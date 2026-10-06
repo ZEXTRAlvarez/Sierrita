@@ -17,7 +17,7 @@ describe('WorldSection', () => {
       />,
     );
 
-    expect(getByText('4/8')).toBeTruthy();
+    expect(getByText('4/9')).toBeTruthy();
   });
 
   it('calls onPressGame with the tapped game id', () => {

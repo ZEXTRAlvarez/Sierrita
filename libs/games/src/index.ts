@@ -12,3 +12,4 @@ export * from './writing/sentenceData';
 export * from './wordProblems/wordProblemData';
 export * from './reading/storyData';
 export * from './vocabulary/synonymAntonymData';
+export * from './vocabulary/wordClassData';
