@@ -59,6 +59,12 @@ export const WORLDS: WorldDef[] = [
       },
       { id: 'fractions', name: 'Fracciones Simples', emoji: '🍕', minAge: 7 },
       { id: 'clock', name: 'El Reloj', emoji: '🕐', minAge: 7 },
+      {
+        id: 'wordProblems',
+        name: 'Problemas con Cuentos',
+        emoji: '📖',
+        minAge: 8,
+      },
     ],
   },
   {

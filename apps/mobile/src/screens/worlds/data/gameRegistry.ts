@@ -12,6 +12,7 @@ import SudokuGame from '../games/ocean/SudokuGame';
 import MultiplyGame from '../games/ocean/MultiplyGame';
 import FractionsGame from '../games/ocean/FractionsGame';
 import ClockGame from '../games/ocean/ClockGame';
+import WordProblemsGame from '../games/ocean/WordProblemsGame';
 import PatternsGame from '../games/space/PatternsGame';
 import MemoryGame from '../games/space/MemoryGame';
 import ClassifyGame from '../games/space/ClassifyGame';
@@ -36,6 +37,7 @@ export const GAME_COMPONENT: Record<string, ComponentType<GameProps>> = {
   multiply: MultiplyGame,
   fractions: FractionsGame,
   clock: ClockGame,
+  wordProblems: WordProblemsGame,
   patterns: PatternsGame,
   memory: MemoryGame,
   classify: ClassifyGame,

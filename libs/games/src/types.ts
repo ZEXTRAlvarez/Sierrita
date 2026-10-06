@@ -69,6 +69,7 @@ export const GAME_IDS = {
     'multiply',
     'fractions',
     'clock',
+    'wordProblems',
   ] as const,
   space: [
     'patterns',
