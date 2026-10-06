@@ -71,6 +71,19 @@ export const OCEAN_GAMES: GameConfig[] = [
     }),
   },
   {
+    id: 'multiply',
+    world: 'ocean',
+    titleEs: 'Multiplicar y Repartir',
+    emoji: '🧮',
+    minAge: 7,
+    roundCount: 6,
+    params: (d: Difficulty) => ({
+      // El "techo" de tablas practicadas crece con el nivel; el otro factor
+      // (o el cociente, en modo división) siempre va de 1 a 10.
+      maxTable: d === 1 ? 5 : d === 2 ? 8 : 10,
+    }),
+  },
+  {
     id: 'sudoku',
     world: 'ocean',
     titleEs: 'Sudoku',
