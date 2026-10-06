@@ -13,4 +13,4 @@ export const PET_OPTIONS: PetOption[] = [
   { type: 'rex', label: 'Rex' },
 ];
 
-export const AGE_OPTIONS = [4, 5, 6] as const;
+export const AGE_OPTIONS = [4, 5, 6, 7, 8, 9, 10] as const;

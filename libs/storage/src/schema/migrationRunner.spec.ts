@@ -31,6 +31,13 @@ async function hasVoiceEnabledColumn(db: SqliteAdapter): Promise<boolean> {
   return columns.some((c) => c.name === 'voice_enabled');
 }
 
+async function hasWidenedProfileAgeRange(db: SqliteAdapter): Promise<boolean> {
+  const row = await db.getFirstAsync<{ sql: string }>(
+    "SELECT sql FROM sqlite_master WHERE type = 'table' AND name = 'profiles'",
+  );
+  return row?.sql.includes('BETWEEN 4 AND 10') ?? false;
+}
+
 describe('runMigrations', () => {
   it('initializes schema_version and applies all migrations on a fresh database', async () => {
     const db = await createInMemoryAdapter();
@@ -41,10 +48,11 @@ describe('runMigrations', () => {
     const versionRow = await db.getFirstAsync<{ version: number }>(
       'SELECT version FROM schema_version',
     );
-    expect(versionRow?.version).toBe(3);
+    expect(versionRow?.version).toBe(4);
     expect(await hasPetNameColumn(db)).toBe(true);
     expect(await hasParentConfigPrefsColumns(db)).toBe(true);
     expect(await hasVoiceEnabledColumn(db)).toBe(true);
+    expect(await hasWidenedProfileAgeRange(db)).toBe(true);
   });
 
   it('adds pet_name to a database created before that column existed', async () => {
@@ -122,8 +130,52 @@ describe('runMigrations', () => {
     const versionRow = await db.getFirstAsync<{ version: number }>(
       'SELECT version FROM schema_version',
     );
-    expect(versionRow?.version).toBe(3);
+    expect(versionRow?.version).toBe(4);
     const allRows = await db.getAllAsync('SELECT * FROM schema_version');
     expect(allRows).toHaveLength(1); // no duplicate version rows inserted
+  });
+
+  it('widens profiles.age to allow 7-10 for a database created before that range existed, keeping existing rows', async () => {
+    const db = await createInMemoryAdapter();
+    await db.execAsync(`
+      CREATE TABLE schema_version (version INTEGER NOT NULL);
+      CREATE TABLE profiles (
+        id          TEXT PRIMARY KEY,
+        name        TEXT NOT NULL,
+        age         INTEGER NOT NULL CHECK(age BETWEEN 4 AND 6),
+        avatar      TEXT NOT NULL DEFAULT 'dragon',
+        created_at  INTEGER NOT NULL DEFAULT (unixepoch())
+      );
+      CREATE TABLE pet_state (
+        profile_id TEXT PRIMARY KEY,
+        pet_type   TEXT NOT NULL DEFAULT 'dragon',
+        pet_name   TEXT
+      );
+      CREATE TABLE parent_config (
+        profile_id TEXT PRIMARY KEY
+      );
+      INSERT INTO profiles (id, name, age) VALUES ('p1', 'Sofía', 5);
+    `);
+    expect(await hasWidenedProfileAgeRange(db)).toBe(false);
+
+    await runMigrations(db);
+
+    expect(await hasWidenedProfileAgeRange(db)).toBe(true);
+    const existing = await db.getFirstAsync<{ name: string; age: number }>(
+      'SELECT name, age FROM profiles WHERE id = ?',
+      ['p1'],
+    );
+    expect(existing).toEqual({ name: 'Sofía', age: 5 });
+
+    await db.runAsync('INSERT INTO profiles (id, name, age) VALUES (?, ?, ?)', [
+      'p2',
+      'Mateo',
+      8,
+    ]);
+    const added = await db.getFirstAsync<{ age: number }>(
+      'SELECT age FROM profiles WHERE id = ?',
+      ['p2'],
+    );
+    expect(added?.age).toBe(8);
   });
 });

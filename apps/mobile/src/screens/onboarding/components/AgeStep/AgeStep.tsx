@@ -2,9 +2,11 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { AGE_OPTIONS } from '../../data/onboardingOptions';
 import { styles } from './AgeStep.styles';
 
+type Age = 4 | 5 | 6 | 7 | 8 | 9 | 10;
+
 export interface AgeStepProps {
-  age: 4 | 5 | 6 | null;
-  onSelectAge: (age: 4 | 5 | 6) => void;
+  age: Age | null;
+  onSelectAge: (age: Age) => void;
   onNext: () => void;
 }
 

@@ -44,7 +44,7 @@ export interface GameConfig {
   world: World;
   titleEs: string;
   emoji: string;
-  minAge: 4 | 5 | 6;
+  minAge: 4 | 5 | 6 | 7 | 8 | 9 | 10;
   roundCount: number; // cuántas rondas por sesión
   params: (difficulty: Difficulty) => Record<string, unknown>;
 }

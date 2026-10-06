@@ -28,7 +28,11 @@ export function useProfiles() {
   }, [setProfiles]);
 
   const addProfile = useCallback(
-    async (name: string, age: 4 | 5 | 6, avatar: PetType): Promise<Profile> => {
+    async (
+      name: string,
+      age: 4 | 5 | 6 | 7 | 8 | 9 | 10,
+      avatar: PetType,
+    ): Promise<Profile> => {
       const id = `p_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
       const profile: Profile = {
         id,

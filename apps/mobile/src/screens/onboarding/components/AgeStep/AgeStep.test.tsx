@@ -14,6 +14,17 @@ describe('AgeStep', () => {
     expect(onSelectAge).toHaveBeenCalledWith(5);
   });
 
+  it('offers ages up to 10 for chicos de primaria', () => {
+    const onSelectAge = jest.fn();
+    const { getByText } = render(
+      <AgeStep age={null} onSelectAge={onSelectAge} onNext={jest.fn()} />,
+    );
+
+    fireEvent.press(getByText('10'));
+
+    expect(onSelectAge).toHaveBeenCalledWith(10);
+  });
+
   it('does not advance when no age is selected', () => {
     const onNext = jest.fn();
     const { getByText } = render(
