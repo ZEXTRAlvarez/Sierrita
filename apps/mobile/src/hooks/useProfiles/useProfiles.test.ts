@@ -73,6 +73,21 @@ describe('useProfiles', () => {
     });
   });
 
+  it('adds a new profile with an age in the 7-10 range', async () => {
+    const { result, rerender } = renderHook(() => useProfiles());
+
+    await act(async () => {
+      await result.current.addProfile('Mateo', 8, 'rex');
+    });
+    rerender(undefined);
+
+    expect(result.current.profiles[0]).toMatchObject({
+      name: 'Mateo',
+      age: 8,
+      avatar: 'rex',
+    });
+  });
+
   it('resets the active profile and pet state when the active profile is removed', async () => {
     mockProfiles = [
       { id: 'p1', name: 'Sofía', age: 5, avatar: 'dragon', createdAt: 0 },

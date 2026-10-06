@@ -35,6 +35,14 @@ describe('createProfile / getProfileById', () => {
   it('returns null for a profile that does not exist', async () => {
     await expect(getProfileById('missing')).resolves.toBeNull();
   });
+
+  it('persists a profile with an age in the 7-10 range', async () => {
+    await createProfile(profile({ id: 'p3', age: 8 }));
+
+    await expect(getProfileById('p3')).resolves.toEqual(
+      profile({ id: 'p3', age: 8 }),
+    );
+  });
 });
 
 describe('getAllProfiles', () => {

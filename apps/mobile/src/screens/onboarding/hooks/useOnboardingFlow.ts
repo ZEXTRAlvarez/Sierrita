@@ -18,7 +18,7 @@ export function useOnboardingFlow() {
 
   const [step, setStep] = useState<OnboardingStep>('name');
   const [name, setName] = useState('');
-  const [age, setAge] = useState<4 | 5 | 6 | null>(null);
+  const [age, setAge] = useState<4 | 5 | 6 | 7 | 8 | 9 | 10 | null>(null);
   const [pet, setPet] = useState<PetType | null>(null);
   const [saving, setSaving] = useState(false);
   const [newProfileId, setNewProfileId] = useState<string | null>(null);

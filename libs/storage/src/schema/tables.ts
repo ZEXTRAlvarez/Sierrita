@@ -10,7 +10,7 @@ export const CREATE_TABLES_SQL = `
   CREATE TABLE IF NOT EXISTS profiles (
     id          TEXT PRIMARY KEY,
     name        TEXT NOT NULL,
-    age         INTEGER NOT NULL CHECK(age BETWEEN 4 AND 6),
+    age         INTEGER NOT NULL CHECK(age BETWEEN 4 AND 10),
     avatar      TEXT NOT NULL DEFAULT 'dragon',
     created_at  INTEGER NOT NULL DEFAULT (unixepoch())
   );
