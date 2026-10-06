@@ -9,6 +9,7 @@ import CompareGame from '../games/ocean/CompareGame';
 import HundredsGame from '../games/ocean/HundredsGame';
 import CasitaGame from '../games/ocean/CasitaGame';
 import SudokuGame from '../games/ocean/SudokuGame';
+import MultiplyGame from '../games/ocean/MultiplyGame';
 import PatternsGame from '../games/space/PatternsGame';
 import MemoryGame from '../games/space/MemoryGame';
 import ClassifyGame from '../games/space/ClassifyGame';
@@ -30,6 +31,7 @@ export const GAME_COMPONENT: Record<string, ComponentType<GameProps>> = {
   hundreds: HundredsGame,
   casita: CasitaGame,
   sudoku: SudokuGame,
+  multiply: MultiplyGame,
   patterns: PatternsGame,
   memory: MemoryGame,
   classify: ClassifyGame,

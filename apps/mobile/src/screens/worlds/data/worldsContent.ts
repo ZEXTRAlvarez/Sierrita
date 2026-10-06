@@ -51,6 +51,12 @@ export const WORLDS: WorldDef[] = [
       { id: 'compare', name: 'Mayor y Menor', emoji: '⚖️', minAge: 4 },
       { id: 'casita', name: 'La Casita', emoji: '🏠', minAge: 6 },
       { id: 'sudoku', name: 'Sudoku', emoji: '🔢', minAge: 6 },
+      {
+        id: 'multiply',
+        name: 'Multiplicar y Repartir',
+        emoji: '🧮',
+        minAge: 7,
+      },
     ],
   },
   {
