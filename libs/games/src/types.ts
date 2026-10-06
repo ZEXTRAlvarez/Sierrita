@@ -68,6 +68,7 @@ export const GAME_IDS = {
     'sudoku',
     'multiply',
     'fractions',
+    'clock',
   ] as const,
   space: [
     'patterns',

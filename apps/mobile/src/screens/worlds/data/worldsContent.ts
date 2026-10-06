@@ -58,6 +58,7 @@ export const WORLDS: WorldDef[] = [
         minAge: 7,
       },
       { id: 'fractions', name: 'Fracciones Simples', emoji: '🍕', minAge: 7 },
+      { id: 'clock', name: 'El Reloj', emoji: '🕐', minAge: 7 },
     ],
   },
   {

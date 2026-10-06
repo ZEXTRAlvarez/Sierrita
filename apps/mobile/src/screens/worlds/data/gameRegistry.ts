@@ -11,6 +11,7 @@ import CasitaGame from '../games/ocean/CasitaGame';
 import SudokuGame from '../games/ocean/SudokuGame';
 import MultiplyGame from '../games/ocean/MultiplyGame';
 import FractionsGame from '../games/ocean/FractionsGame';
+import ClockGame from '../games/ocean/ClockGame';
 import PatternsGame from '../games/space/PatternsGame';
 import MemoryGame from '../games/space/MemoryGame';
 import ClassifyGame from '../games/space/ClassifyGame';
@@ -34,6 +35,7 @@ export const GAME_COMPONENT: Record<string, ComponentType<GameProps>> = {
   sudoku: SudokuGame,
   multiply: MultiplyGame,
   fractions: FractionsGame,
+  clock: ClockGame,
   patterns: PatternsGame,
   memory: MemoryGame,
   classify: ClassifyGame,
