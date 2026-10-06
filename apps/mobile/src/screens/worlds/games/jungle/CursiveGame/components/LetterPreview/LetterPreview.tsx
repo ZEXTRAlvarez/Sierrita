@@ -7,7 +7,9 @@ export interface LetterPreviewProps {
   letterDef: LetterDef;
 }
 
-const GLYPH_SIZE = 64;
+const GLYPH_SIZE = 88;
+// En unidades del viewBox 0-100; grueso para que se vea bien a GLYPH_SIZE px.
+const GLYPH_STROKE_WIDTH = 12;
 
 /**
  * Side-by-side print vs. cursive reference for the letter currently being
@@ -25,7 +27,7 @@ export function LetterPreview({ letterDef }: LetterPreviewProps) {
             testID="letter-preview-print"
             d={letterDef.guidePath}
             stroke={styles.letterPrint.color}
-            strokeWidth={7}
+            strokeWidth={GLYPH_STROKE_WIDTH}
             fill="none"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -40,7 +42,7 @@ export function LetterPreview({ letterDef }: LetterPreviewProps) {
             testID="letter-preview-cursive"
             d={letterDef.cursivePath ?? letterDef.guidePath}
             stroke={styles.letterCursive.color}
-            strokeWidth={7}
+            strokeWidth={GLYPH_STROKE_WIDTH}
             fill="none"
             strokeLinecap="round"
             strokeLinejoin="round"

@@ -19,6 +19,17 @@ interface Props {
 
 type Status = 'active' | 'lost' | 'complete';
 
+// Grosores en unidades del espacio 0-100 del lienzo (se multiplican por
+// `scale`). Gruesos a propósito: los niños pequeños necesitan una guía y un
+// trazo bien visibles.
+const GUIDE_STROKE_WIDTH = 12;
+const DRAWN_STROKE_WIDTH = 10;
+
+const COLOR_DRAWN = '#1565C0';
+const COLOR_LOST = '#E53935';
+const COLOR_COMPLETE = '#2E9E44';
+const COMPLETE_GUIDE_COLOR = 'rgba(46, 158, 68, 0.35)';
+
 export default function LetterCanvas({
   size,
   letterDef,
@@ -143,11 +154,25 @@ export default function LetterCanvas({
     return p;
   };
 
-  const strokeColor = status === 'lost' ? '#E53935' : '#1565C0';
+  const isComplete = status === 'complete';
+  const strokeColor =
+    status === 'lost' ? COLOR_LOST : isComplete ? COLOR_COMPLETE : COLOR_DRAWN;
+  const guideColor = isComplete
+    ? COMPLETE_GUIDE_COLOR
+    : `rgba(120, 180, 120, ${guideOpacity})`;
+  const borderColor = isComplete
+    ? COLOR_COMPLETE
+    : status === 'lost'
+      ? COLOR_LOST
+      : '#C8E6C9';
 
   return (
     <View
-      style={[styles.container, { width: size, height: size }]}
+      style={[
+        styles.container,
+        { width: size, height: size, borderColor },
+        isComplete && styles.containerComplete,
+      ]}
       onStartShouldSetResponder={() => true}
       onMoveShouldSetResponder={() => true}
       onResponderGrant={handleTouchStart}
@@ -159,12 +184,12 @@ export default function LetterCanvas({
         <Rect x={0} y={0} width={size} height={size} color="#FFF9F0" />
 
         {/* Guide path */}
-        {showGuide && guidePath && (
+        {(showGuide || isComplete) && guidePath && (
           <Path
             path={guidePath}
-            color={`rgba(120, 180, 120, ${guideOpacity})`}
+            color={guideColor}
             style="stroke"
-            strokeWidth={6 * scale}
+            strokeWidth={GUIDE_STROKE_WIDTH * scale}
             strokeCap="round"
             strokeJoin="round"
           />
@@ -202,7 +227,7 @@ export default function LetterCanvas({
               path={p}
               color={strokeColor}
               style="stroke"
-              strokeWidth={7 * scale}
+              strokeWidth={DRAWN_STROKE_WIDTH * scale}
               strokeCap="round"
               strokeJoin="round"
             />
@@ -215,7 +240,7 @@ export default function LetterCanvas({
       <View style={StyleSheet.absoluteFill} pointerEvents="none">
         {checkpoints.map((cp, i) => {
           if (hitMap[i]) return null;
-          const badgeSize = Math.max(16, cp.r * scale * 0.9);
+          const badgeSize = Math.max(26, cp.r * scale * 0.9);
           return (
             <View
               key={i}
@@ -248,7 +273,7 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 16,
     overflow: 'hidden',
-    borderWidth: 2,
+    borderWidth: 4,
     borderColor: '#C8E6C9',
     elevation: 3,
     shadowColor: '#000',
@@ -256,14 +281,19 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 4,
   },
+  containerComplete: {
+    shadowColor: COLOR_COMPLETE,
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+  },
   numberBadge: {
     position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',
   },
   numberText: {
-    fontSize: 11,
-    fontWeight: '700',
-    color: '#33691E',
+    fontSize: 18,
+    fontWeight: '900',
+    color: '#1B5E20',
   },
 });
