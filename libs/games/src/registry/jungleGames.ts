@@ -79,4 +79,23 @@ export const JUNGLE_GAMES: GameConfig[] = [
       showGuide: d === 1,
     }),
   },
+  {
+    id: 'reading',
+    world: 'jungle',
+    titleEs: 'Comprensión de Lectura',
+    emoji: '📖',
+    minAge: 7,
+    roundCount: 5,
+    params: (d: Difficulty) => ({
+      // Cuentos más largos y preguntas más inferenciales a medida que sube
+      // el nivel.
+      lengthPool:
+        d === 1
+          ? ['short']
+          : d === 2
+            ? ['short', 'medium']
+            : ['medium', 'long'],
+      kinds: d === 1 ? ['literal'] : ['literal', 'inferential'],
+    }),
+  },
 ];

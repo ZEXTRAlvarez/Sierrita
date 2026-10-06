@@ -34,6 +34,12 @@ export const WORLDS: WorldDef[] = [
       { id: 'wordsc', name: 'La C Traviesa', emoji: '🐍', minAge: 5 },
       { id: 'sentences', name: 'Armar Oraciones', emoji: '📝', minAge: 6 },
       { id: 'cursive', name: 'Letra Cursiva', emoji: '🖊️', minAge: 6 },
+      {
+        id: 'reading',
+        name: 'Comprensión de Lectura',
+        emoji: '📖',
+        minAge: 7,
+      },
     ],
   },
   {

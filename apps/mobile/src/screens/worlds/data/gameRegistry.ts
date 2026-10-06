@@ -3,6 +3,7 @@ import TracingGame from '../games/jungle/TracingGame';
 import WordsGame from '../games/jungle/WordsGame';
 import SentencesGame from '../games/jungle/SentencesGame';
 import CursiveGame from '../games/jungle/CursiveGame';
+import ReadingGame from '../games/jungle/ReadingGame';
 import CountingGame from '../games/ocean/CountingGame';
 import SumsGame from '../games/ocean/SumsGame';
 import CompareGame from '../games/ocean/CompareGame';
@@ -28,6 +29,7 @@ export const GAME_COMPONENT: Record<string, ComponentType<GameProps>> = {
   wordsc: WordsGame,
   sentences: SentencesGame,
   cursive: CursiveGame,
+  reading: ReadingGame,
   counting: CountingGame,
   sums: SumsGame,
   compare: CompareGame,
