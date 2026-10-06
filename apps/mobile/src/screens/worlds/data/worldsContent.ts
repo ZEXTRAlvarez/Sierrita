@@ -40,6 +40,12 @@ export const WORLDS: WorldDef[] = [
         emoji: '📖',
         minAge: 7,
       },
+      {
+        id: 'synonyms',
+        name: 'Sinónimos y Antónimos',
+        emoji: '🔁',
+        minAge: 7,
+      },
     ],
   },
   {

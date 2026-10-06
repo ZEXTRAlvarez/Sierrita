@@ -59,6 +59,7 @@ export const GAME_IDS = {
     'sentences',
     'cursive',
     'reading',
+    'synonyms',
   ] as const,
   ocean: [
     'counting',

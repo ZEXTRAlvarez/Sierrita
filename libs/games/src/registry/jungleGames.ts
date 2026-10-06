@@ -98,4 +98,17 @@ export const JUNGLE_GAMES: GameConfig[] = [
       kinds: d === 1 ? ['literal'] : ['literal', 'inferential'],
     }),
   },
+  {
+    id: 'synonyms',
+    world: 'jungle',
+    titleEs: 'Sinónimos y Antónimos',
+    emoji: '🔁',
+    minAge: 7,
+    roundCount: 6,
+    params: (d: Difficulty) => ({
+      // Vocabulario menos frecuente (siempre concreto) a medida que sube el
+      // nivel.
+      tiers: d === 1 ? [1] : d === 2 ? [1, 2] : [1, 2, 3],
+    }),
+  },
 ];
