@@ -1,8 +1,8 @@
 import { ALL_GAMES, getGameConfig, getWorldGames } from './gameRegistry';
 
 describe('ALL_GAMES', () => {
-  it('registers exactly 22 games across the 3 worlds', () => {
-    expect(ALL_GAMES).toHaveLength(22);
+  it('registers exactly 23 games across the 3 worlds', () => {
+    expect(ALL_GAMES).toHaveLength(23);
   });
 
   it('has unique game ids', () => {
@@ -19,6 +19,7 @@ describe('getGameConfig', () => {
     'wordsc',
     'sentences',
     'cursive',
+    'reading',
     'counting',
     'sums',
     'hundreds',
@@ -47,8 +48,8 @@ describe('getGameConfig', () => {
 });
 
 describe('getWorldGames', () => {
-  it('returns the 6 jungle games', () => {
-    expect(getWorldGames('jungle')).toHaveLength(6);
+  it('returns the 7 jungle games', () => {
+    expect(getWorldGames('jungle')).toHaveLength(7);
   });
 
   it('returns the 10 ocean games', () => {

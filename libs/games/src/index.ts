@@ -10,3 +10,4 @@ export * from './writing/evaluator';
 export * from './writing/wordData';
 export * from './writing/sentenceData';
 export * from './wordProblems/wordProblemData';
+export * from './reading/storyData';

@@ -58,6 +58,7 @@ export const GAME_IDS = {
     'wordsc',
     'sentences',
     'cursive',
+    'reading',
   ] as const,
   ocean: [
     'counting',
