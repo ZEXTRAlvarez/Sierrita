@@ -115,6 +115,19 @@ export const OCEAN_GAMES: GameConfig[] = [
     }),
   },
   {
+    id: 'wordProblems',
+    world: 'ocean',
+    titleEs: 'Problemas con Cuentos',
+    emoji: '📖',
+    minAge: 8,
+    roundCount: 6,
+    params: (d: Difficulty) => ({
+      operations: d === 3 ? ['add', 'sub', 'multiply'] : ['add', 'sub'],
+      maxOperand: d === 1 ? 10 : d === 2 ? 30 : 50,
+      resultMax: d === 1 ? 20 : d === 2 ? 60 : 99,
+    }),
+  },
+  {
     id: 'sudoku',
     world: 'ocean',
     titleEs: 'Sudoku',
