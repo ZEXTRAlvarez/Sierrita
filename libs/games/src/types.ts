@@ -67,6 +67,7 @@ export const GAME_IDS = {
     'casita',
     'sudoku',
     'multiply',
+    'fractions',
   ] as const,
   space: [
     'patterns',
