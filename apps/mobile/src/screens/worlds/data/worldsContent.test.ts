@@ -15,7 +15,7 @@ describe('WORLDS', () => {
       jungle: 9,
       ocean: 10,
       space: 8,
-      science: 1,
+      science: 2,
     };
     for (const world of WORLDS) {
       expect(world.games).toHaveLength(expected[world.id]);

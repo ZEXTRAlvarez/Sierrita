@@ -121,6 +121,12 @@ export const WORLDS: WorldDef[] = [
     light: '#FFF3E0',
     games: [
       { id: 'humanBody', name: 'El Cuerpo Humano', emoji: '🫀', minAge: 7 },
+      {
+        id: 'foodChain',
+        name: 'Cadena Alimenticia',
+        emoji: '🔗',
+        minAge: 7,
+      },
     ],
   },
 ];
