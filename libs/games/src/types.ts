@@ -82,6 +82,7 @@ export const GAME_IDS = {
     'oddOneOut',
     'balance',
     'blockCode',
+    'chess',
   ] as const,
 } as const;
 

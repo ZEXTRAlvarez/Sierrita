@@ -106,6 +106,7 @@ export const WORLDS: WorldDef[] = [
         emoji: '🤖',
         minAge: 8,
       },
+      { id: 'chess', name: 'Ajedrez Básico', emoji: '♟️', minAge: 8 },
     ],
   },
 ];
