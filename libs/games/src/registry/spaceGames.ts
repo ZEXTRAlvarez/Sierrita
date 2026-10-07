@@ -98,4 +98,23 @@ export const SPACE_GAMES: GameConfig[] = [
           : ['forward', 'forward2', 'turnLeft', 'turnRight'],
     }),
   },
+  {
+    id: 'chess',
+    world: 'space',
+    titleEs: 'Ajedrez Básico',
+    emoji: '♟️',
+    minAge: 8,
+    roundCount: 5,
+    params: (d: Difficulty) => ({
+      // Peón/torre (nivel 1) → + alfil/caballo (nivel 2) → cualquier pieza,
+      // incluida la reina (nivel 3).
+      pieces:
+        d === 1
+          ? ['pawn', 'rook']
+          : d === 2
+            ? ['pawn', 'rook', 'bishop', 'knight']
+            : ['pawn', 'rook', 'bishop', 'knight', 'queen', 'king'],
+      boardSize: d === 3 ? 6 : 5,
+    }),
+  },
 ];
