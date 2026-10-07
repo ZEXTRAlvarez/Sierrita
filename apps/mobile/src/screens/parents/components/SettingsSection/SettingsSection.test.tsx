@@ -50,6 +50,19 @@ describe('SettingsSection', () => {
     );
   });
 
+  it('shows the Laboratorio Curioso world alongside the other 3', () => {
+    const { getByText } = renderWithProviders(
+      <SettingsSection
+        config={baseConfig}
+        onChange={jest.fn()}
+        goalTarget={null}
+        onChangeGoal={jest.fn()}
+      />,
+    );
+
+    expect(getByText('🔬 Laboratorio')).toBeTruthy();
+  });
+
   it('toggles a world on when its switch is turned on', () => {
     const onChange = jest.fn();
     const config = {

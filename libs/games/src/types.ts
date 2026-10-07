@@ -1,4 +1,4 @@
-export type World = 'jungle' | 'ocean' | 'space';
+export type World = 'jungle' | 'ocean' | 'space' | 'science';
 
 export type Difficulty = 1 | 2 | 3;
 
@@ -84,9 +84,13 @@ export const GAME_IDS = {
     'blockCode',
     'chess',
   ] as const,
+  // Mundo "Laboratorio Curioso" (Ciencias Naturales) — scaffold vacío, los
+  // juegos se agregan en HUs separadas.
+  science: [] as const,
 } as const;
 
 export type JungleGameId = (typeof GAME_IDS.jungle)[number];
 export type OceanGameId = (typeof GAME_IDS.ocean)[number];
 export type SpaceGameId = (typeof GAME_IDS.space)[number];
-export type GameId = JungleGameId | OceanGameId | SpaceGameId;
+export type ScienceGameId = (typeof GAME_IDS.science)[number];
+export type GameId = JungleGameId | OceanGameId | SpaceGameId | ScienceGameId;

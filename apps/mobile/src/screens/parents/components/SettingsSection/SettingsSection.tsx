@@ -7,7 +7,7 @@ import {
 } from '@sierrita/parents';
 import type { ParentConfig, World } from '@sierrita/parents';
 
-const WORLDS: World[] = ['jungle', 'ocean', 'space'];
+const WORLDS: World[] = ['jungle', 'ocean', 'space', 'science'];
 
 export interface SettingsSectionProps {
   config: ParentConfig;

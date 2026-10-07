@@ -35,4 +35,20 @@ describe('WorldSection', () => {
 
     expect(onPressGame).toHaveBeenCalledWith(world.games[0].id);
   });
+
+  it('renders a world with no games yet without crashing or showing NaN%', () => {
+    const emptyWorld = WORLDS.find((w) => w.id === 'science');
+    if (!emptyWorld) throw new Error('expected a science world fixture');
+
+    const { getByText } = render(
+      <WorldSection
+        world={emptyWorld}
+        profileAge={8}
+        entrance={new Animated.Value(1)}
+        onPressGame={jest.fn()}
+      />,
+    );
+
+    expect(getByText('0/0')).toBeTruthy();
+  });
 });

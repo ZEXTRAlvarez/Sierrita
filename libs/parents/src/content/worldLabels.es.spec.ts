@@ -5,6 +5,7 @@ describe('WORLD_LABEL', () => {
     ['jungle', '🌿 Selva'],
     ['ocean', '🌊 Océano'],
     ['space', '🚀 Espacio'],
+    ['science', '🔬 Laboratorio'],
   ] as const)('maps %s to %s', (world, expected) => {
     expect(WORLD_LABEL[world]).toBe(expected);
   });

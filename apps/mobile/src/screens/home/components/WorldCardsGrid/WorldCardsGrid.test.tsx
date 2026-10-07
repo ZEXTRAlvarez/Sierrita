@@ -17,7 +17,7 @@ describe('WorldCardsGrid', () => {
   });
 
   it('renders one card per world, each with its subject and game count', () => {
-    const { getByText, getAllByText } = render(
+    const { getByText } = render(
       <WorldCardsGrid
         cardEntrance={new Animated.Value(1)}
         onPressWorld={jest.fn()}
@@ -27,8 +27,9 @@ describe('WorldCardsGrid', () => {
     expect(getByText('Escritura')).toBeTruthy();
     expect(getByText('Matemáticas')).toBeTruthy();
     expect(getByText('Lógica')).toBeTruthy();
-    // Selva Mágica, Océano Profundo y Espacio Estelar tienen 6 juegos cada uno.
-    expect(getAllByText('6 juegos')).toHaveLength(3);
+    expect(getByText('9 juegos')).toBeTruthy(); // Selva Mágica
+    expect(getByText('10 juegos')).toBeTruthy(); // Océano Profundo
+    expect(getByText('8 juegos')).toBeTruthy(); // Espacio Estelar
   });
 
   it('calls onPressWorld when a card is tapped', () => {

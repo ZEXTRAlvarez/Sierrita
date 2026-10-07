@@ -20,6 +20,8 @@ export function WorldSection({
   const unlockedCount = world.games.filter(
     (g) => g.minAge <= profileAge,
   ).length;
+  const progressPercent =
+    world.games.length === 0 ? 0 : (unlockedCount / world.games.length) * 100;
 
   return (
     <Animated.View
@@ -56,7 +58,7 @@ export function WorldSection({
           style={[
             styles.progressFill,
             {
-              width: `${(unlockedCount / world.games.length) * 100}%` as any,
+              width: `${progressPercent}%` as any,
               backgroundColor: world.color,
             },
           ]}

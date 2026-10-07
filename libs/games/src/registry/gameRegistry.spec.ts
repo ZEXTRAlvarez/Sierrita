@@ -64,6 +64,10 @@ describe('getWorldGames', () => {
     expect(getWorldGames('space')).toHaveLength(8);
   });
 
+  it('returns no science games yet (scaffold, no games registered)', () => {
+    expect(getWorldGames('science')).toEqual([]);
+  });
+
   it('returns an empty array for an unknown world', () => {
     expect(getWorldGames('atlantis')).toEqual([]);
   });
