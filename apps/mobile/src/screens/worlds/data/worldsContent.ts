@@ -133,6 +133,12 @@ export const WORLDS: WorldDef[] = [
         emoji: '🧪',
         minAge: 7,
       },
+      {
+        id: 'cycle',
+        name: 'Ciclo de Vida y del Agua',
+        emoji: '♻️',
+        minAge: 8,
+      },
     ],
   },
 ];

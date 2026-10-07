@@ -85,7 +85,7 @@ export const GAME_IDS = {
     'chess',
   ] as const,
   // Mundo "Laboratorio Curioso" (Ciencias Naturales).
-  science: ['humanBody', 'foodChain', 'matter'] as const,
+  science: ['humanBody', 'foodChain', 'matter', 'cycle'] as const,
 } as const;
 
 export type JungleGameId = (typeof GAME_IDS.jungle)[number];
