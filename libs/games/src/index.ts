@@ -15,3 +15,4 @@ export * from './vocabulary/synonymAntonymData';
 export * from './vocabulary/wordClassData';
 export * from './science/bodyPartsData';
 export * from './science/foodChainData';
+export * from './science/matterData';

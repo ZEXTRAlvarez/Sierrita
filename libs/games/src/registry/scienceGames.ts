@@ -29,4 +29,18 @@ export const SCIENCE_GAMES: GameConfig[] = [
       lengths: d === 1 ? [3] : d === 2 ? [3, 4] : [4, 5],
     }),
   },
+  {
+    id: 'matter',
+    world: 'science',
+    titleEs: 'Estados de la Materia',
+    emoji: '🧪',
+    minAge: 7,
+    roundCount: 6,
+    params: (d: Difficulty) => ({
+      // Ejemplos muy obvios (nivel 1) → + menos obvios (nivel 2) → + cambios
+      // de estado, preguntando el estado resultante (nivel 3).
+      tiers: d === 1 ? [1] : [1, 2],
+      transformChance: d === 3 ? 0.4 : 0,
+    }),
+  },
 ];
