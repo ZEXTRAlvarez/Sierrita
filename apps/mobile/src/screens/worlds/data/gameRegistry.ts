@@ -27,6 +27,7 @@ import ChessGame from '../games/space/ChessGame';
 import HumanBodyGame from '../games/science/HumanBodyGame';
 import FoodChainGame from '../games/science/FoodChainGame';
 import MatterGame from '../games/science/MatterGame';
+import CycleGame from '../games/science/CycleGame';
 import type { GameProps } from '../GameScreen';
 
 export const GAME_COMPONENT: Record<string, ComponentType<GameProps>> = {
@@ -60,6 +61,7 @@ export const GAME_COMPONENT: Record<string, ComponentType<GameProps>> = {
   humanBody: HumanBodyGame,
   foodChain: FoodChainGame,
   matter: MatterGame,
+  cycle: CycleGame,
 };
 
 export const WORLD_COLOR: Record<string, string> = {

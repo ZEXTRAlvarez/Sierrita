@@ -43,4 +43,17 @@ export const SCIENCE_GAMES: GameConfig[] = [
       transformChance: d === 3 ? 0.4 : 0,
     }),
   },
+  {
+    id: 'cycle',
+    world: 'science',
+    titleEs: 'Ciclo de Vida y del Agua',
+    emoji: '♻️',
+    minAge: 8,
+    roundCount: 5,
+    params: (d: Difficulty) => ({
+      // Ciclos de 3 etapas (nivel 1) → + 4 etapas (nivel 2) → 4-5 etapas
+      // (nivel 3).
+      lengths: d === 1 ? [3] : d === 2 ? [3, 4] : [4, 5],
+    }),
+  },
 ];
