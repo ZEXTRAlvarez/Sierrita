@@ -84,9 +84,8 @@ export const GAME_IDS = {
     'blockCode',
     'chess',
   ] as const,
-  // Mundo "Laboratorio Curioso" (Ciencias Naturales) — scaffold vacío, los
-  // juegos se agregan en HUs separadas.
-  science: [] as const,
+  // Mundo "Laboratorio Curioso" (Ciencias Naturales).
+  science: ['humanBody'] as const,
 } as const;
 
 export type JungleGameId = (typeof GAME_IDS.jungle)[number];

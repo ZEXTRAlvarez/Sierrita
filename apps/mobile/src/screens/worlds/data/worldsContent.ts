@@ -119,6 +119,8 @@ export const WORLDS: WorldDef[] = [
     color: '#FF9800',
     dark: '#E65100',
     light: '#FFF3E0',
-    games: [],
+    games: [
+      { id: 'humanBody', name: 'El Cuerpo Humano', emoji: '🫀', minAge: 7 },
+    ],
   },
 ];
