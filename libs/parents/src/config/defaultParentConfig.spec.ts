@@ -9,11 +9,12 @@ describe('createDefaultParentConfig', () => {
     expect(createDefaultParentConfig('p1').maxSessionMinutes).toBe(30);
   });
 
-  it('enables all 3 worlds by default', () => {
+  it('enables all 4 worlds by default', () => {
     expect(createDefaultParentConfig('p1').worldsEnabled).toEqual([
       'jungle',
       'ocean',
       'space',
+      'science',
     ]);
   });
 

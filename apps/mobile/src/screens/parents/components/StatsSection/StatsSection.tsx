@@ -6,7 +6,7 @@ import { getGameConfig } from '@sierrita/games';
 import type { GameStat, ProfileStats } from '@sierrita/storage';
 import type { World } from '@sierrita/parents';
 
-const WORLD_ORDER: World[] = ['jungle', 'ocean', 'space'];
+const WORLD_ORDER: World[] = ['jungle', 'ocean', 'space', 'science'];
 
 function gameTitle(gameId: string): string {
   try {

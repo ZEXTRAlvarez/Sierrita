@@ -38,6 +38,15 @@ async function hasWidenedProfileAgeRange(db: SqliteAdapter): Promise<boolean> {
   return row?.sql.includes('BETWEEN 4 AND 10') ?? false;
 }
 
+async function hasWidenedGameSessionsCheck(
+  db: SqliteAdapter,
+): Promise<boolean> {
+  const row = await db.getFirstAsync<{ sql: string }>(
+    "SELECT sql FROM sqlite_master WHERE type = 'table' AND name = 'game_sessions'",
+  );
+  return row?.sql.includes("'science'") ?? false;
+}
+
 describe('runMigrations', () => {
   it('initializes schema_version and applies all migrations on a fresh database', async () => {
     const db = await createInMemoryAdapter();
@@ -48,11 +57,12 @@ describe('runMigrations', () => {
     const versionRow = await db.getFirstAsync<{ version: number }>(
       'SELECT version FROM schema_version',
     );
-    expect(versionRow?.version).toBe(4);
+    expect(versionRow?.version).toBe(5);
     expect(await hasPetNameColumn(db)).toBe(true);
     expect(await hasParentConfigPrefsColumns(db)).toBe(true);
     expect(await hasVoiceEnabledColumn(db)).toBe(true);
     expect(await hasWidenedProfileAgeRange(db)).toBe(true);
+    expect(await hasWidenedGameSessionsCheck(db)).toBe(true);
   });
 
   it('adds pet_name to a database created before that column existed', async () => {
@@ -130,7 +140,7 @@ describe('runMigrations', () => {
     const versionRow = await db.getFirstAsync<{ version: number }>(
       'SELECT version FROM schema_version',
     );
-    expect(versionRow?.version).toBe(4);
+    expect(versionRow?.version).toBe(5);
     const allRows = await db.getAllAsync('SELECT * FROM schema_version');
     expect(allRows).toHaveLength(1); // no duplicate version rows inserted
   });
@@ -177,5 +187,68 @@ describe('runMigrations', () => {
       ['p2'],
     );
     expect(added?.age).toBe(8);
+  });
+
+  it('adds the science world for a database created before it existed: widens game_sessions.world and retroactively enables it for existing profiles', async () => {
+    const db = await createInMemoryAdapter();
+    await db.execAsync(`
+      CREATE TABLE schema_version (version INTEGER NOT NULL);
+      CREATE TABLE profiles (
+        id  TEXT PRIMARY KEY,
+        age INTEGER NOT NULL CHECK(age BETWEEN 4 AND 10)
+      );
+      CREATE TABLE pet_state (
+        profile_id TEXT PRIMARY KEY,
+        pet_name   TEXT
+      );
+      CREATE TABLE parent_config (
+        profile_id     TEXT PRIMARY KEY,
+        worlds_enabled TEXT NOT NULL DEFAULT 'jungle,ocean,space'
+      );
+      CREATE TABLE game_sessions (
+        id            TEXT PRIMARY KEY,
+        profile_id    TEXT NOT NULL,
+        world         TEXT NOT NULL CHECK(world IN ('jungle','ocean','space')),
+        game_id       TEXT NOT NULL,
+        score         INTEGER NOT NULL DEFAULT 0,
+        max_score     INTEGER NOT NULL DEFAULT 0,
+        duration_secs INTEGER NOT NULL DEFAULT 0,
+        difficulty    INTEGER NOT NULL DEFAULT 1,
+        completed     INTEGER NOT NULL DEFAULT 0,
+        played_at     INTEGER NOT NULL DEFAULT (unixepoch())
+      );
+      INSERT INTO profiles (id, age) VALUES ('p1', 8);
+      INSERT INTO parent_config (profile_id, worlds_enabled)
+        VALUES ('p1', 'jungle,ocean,space');
+      INSERT INTO game_sessions (id, profile_id, world, game_id)
+        VALUES ('s1', 'p1', 'ocean', 'sums');
+    `);
+    expect(await hasWidenedGameSessionsCheck(db)).toBe(false);
+
+    await runMigrations(db);
+
+    expect(await hasWidenedGameSessionsCheck(db)).toBe(true);
+
+    const existingSession = await db.getFirstAsync<{ world: string }>(
+      'SELECT world FROM game_sessions WHERE id = ?',
+      ['s1'],
+    );
+    expect(existingSession).toEqual({ world: 'ocean' });
+
+    await db.runAsync(
+      'INSERT INTO game_sessions (id, profile_id, world, game_id) VALUES (?, ?, ?, ?)',
+      ['s2', 'p1', 'science', 'body'],
+    );
+    const newSession = await db.getFirstAsync<{ world: string }>(
+      'SELECT world FROM game_sessions WHERE id = ?',
+      ['s2'],
+    );
+    expect(newSession?.world).toBe('science');
+
+    const config = await db.getFirstAsync<{ worlds_enabled: string }>(
+      'SELECT worlds_enabled FROM parent_config WHERE profile_id = ?',
+      ['p1'],
+    );
+    expect(config?.worlds_enabled).toBe('jungle,ocean,space,science');
   });
 });

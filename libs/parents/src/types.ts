@@ -1,4 +1,4 @@
-export type World = 'jungle' | 'ocean' | 'space';
+export type World = 'jungle' | 'ocean' | 'space' | 'science';
 export type FontScale = 'normal' | 'large';
 
 export interface ParentConfig {

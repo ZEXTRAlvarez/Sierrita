@@ -40,7 +40,7 @@ export const CREATE_TABLES_SQL = `
   CREATE TABLE IF NOT EXISTS game_sessions (
     id            TEXT PRIMARY KEY,
     profile_id    TEXT NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
-    world         TEXT NOT NULL CHECK(world IN ('jungle','ocean','space')),
+    world         TEXT NOT NULL CHECK(world IN ('jungle','ocean','space','science')),
     game_id       TEXT NOT NULL,
     score         INTEGER NOT NULL DEFAULT 0,
     max_score     INTEGER NOT NULL DEFAULT 0,
@@ -66,7 +66,7 @@ export const CREATE_TABLES_SQL = `
     profile_id           TEXT PRIMARY KEY REFERENCES profiles(id) ON DELETE CASCADE,
     pin_hash             TEXT NOT NULL DEFAULT '',
     max_session_minutes  INTEGER NOT NULL DEFAULT 30,
-    worlds_enabled       TEXT NOT NULL DEFAULT 'jungle,ocean,space',
+    worlds_enabled       TEXT NOT NULL DEFAULT 'jungle,ocean,space,science',
     updated_at           INTEGER NOT NULL DEFAULT (unixepoch()),
     has_seen_walkthrough INTEGER NOT NULL DEFAULT 0 CHECK(has_seen_walkthrough IN (0,1)),
     font_scale           TEXT NOT NULL DEFAULT 'normal' CHECK(font_scale IN ('normal','large')),

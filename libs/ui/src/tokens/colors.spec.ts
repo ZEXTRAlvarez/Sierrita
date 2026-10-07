@@ -10,6 +10,7 @@ describe('colorTokens', () => {
     expect(worldAccentColors.worldJungle).toBe('#4CAF50');
     expect(worldAccentColors.worldOcean).toBe('#2196F3');
     expect(worldAccentColors.worldSpace).toBe('#9C27B0');
+    expect(worldAccentColors.worldScience).toBe('#FF9800');
   });
 
   it('merges world, brand and semantic colors into one lookup', () => {

@@ -67,7 +67,12 @@ export const accessibilityPrefsAtom = atom<{
 // Mirrors the active profile's ParentConfig.worldsEnabled so the world-picker
 // screens can hide worlds a parent disabled, without each screen re-fetching
 // ParentConfig from SQLite itself.
-export const worldsEnabledAtom = atom<World[]>(['jungle', 'ocean', 'space']);
+export const worldsEnabledAtom = atom<World[]>([
+  'jungle',
+  'ocean',
+  'space',
+  'science',
+]);
 
 // ─── UI ───────────────────────────────────────────────────────────────────────
 export const isParentModeAtom = atom<boolean>(false);

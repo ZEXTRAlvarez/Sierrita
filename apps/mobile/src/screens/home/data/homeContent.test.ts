@@ -11,6 +11,7 @@ describe('homeContent', () => {
       'jungle',
       'ocean',
       'space',
+      'science',
     ]);
   });
 

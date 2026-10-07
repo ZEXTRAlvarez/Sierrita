@@ -6,7 +6,7 @@ export function createDefaultParentConfig(profileId: string): ParentConfig {
     profileId,
     pinHash: '',
     maxSessionMinutes: 30,
-    worldsEnabled: ['jungle', 'ocean', 'space'],
+    worldsEnabled: ['jungle', 'ocean', 'space', 'science'],
     updatedAt: Date.now(),
     hasSeenWalkthrough: false,
     fontScale: 'normal',

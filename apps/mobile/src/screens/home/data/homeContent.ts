@@ -33,7 +33,7 @@ export const WORLD_CARDS: WorldCard[] = [
     bg: '#4CAF50',
     dark: '#2E7D32',
     accent: '#A5D6A7',
-    games: 6,
+    games: 9,
   },
   {
     id: 'ocean',
@@ -43,7 +43,7 @@ export const WORLD_CARDS: WorldCard[] = [
     bg: '#2196F3',
     dark: '#1565C0',
     accent: '#90CAF9',
-    games: 6,
+    games: 10,
   },
   {
     id: 'space',
@@ -53,7 +53,17 @@ export const WORLD_CARDS: WorldCard[] = [
     bg: '#9C27B0',
     dark: '#4A148C',
     accent: '#CE93D8',
-    games: 6,
+    games: 8,
+  },
+  {
+    id: 'science',
+    iconName: 'engranaje',
+    name: 'Laboratorio\nCurioso',
+    subject: 'Ciencias',
+    bg: '#FF9800',
+    dark: '#E65100',
+    accent: '#FFCC80',
+    games: 0,
   },
 ];
 

@@ -109,4 +109,16 @@ export const WORLDS: WorldDef[] = [
       { id: 'chess', name: 'Ajedrez Básico', emoji: '♟️', minAge: 8 },
     ],
   },
+  {
+    id: 'science',
+    // Ícono temporal (engranaje) hasta tener el asset final del mundo —
+    // ver notas técnicas de la HU del scaffold.
+    iconName: 'engranaje',
+    name: 'Laboratorio Curioso',
+    subject: 'Ciencias Naturales',
+    color: '#FF9800',
+    dark: '#E65100',
+    light: '#FFF3E0',
+    games: [],
+  },
 ];

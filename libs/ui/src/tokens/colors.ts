@@ -4,6 +4,7 @@ export const worldAccentColors = {
   worldJungle: '#4CAF50',
   worldOcean: '#2196F3',
   worldSpace: '#9C27B0',
+  worldScience: '#FF9800',
 } as const;
 
 export type WorldAccentKey = keyof typeof worldAccentColors;
