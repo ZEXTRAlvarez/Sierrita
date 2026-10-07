@@ -56,4 +56,17 @@ export const SCIENCE_GAMES: GameConfig[] = [
       lengths: d === 1 ? [3] : d === 2 ? [3, 4] : [4, 5],
     }),
   },
+  {
+    id: 'floatOrSink',
+    world: 'science',
+    titleEs: '¿Flota o se Hunde?',
+    emoji: '🛟',
+    minAge: 7,
+    roundCount: 6,
+    params: (d: Difficulty) => ({
+      // Objetos muy obvios (nivel 1) → + menos obvios (nivel 2) → objetos
+      // contraintuitivos por tamaño/material (nivel 3).
+      tiers: d === 1 ? [1] : d === 2 ? [1, 2] : [2, 3],
+    }),
+  },
 ];

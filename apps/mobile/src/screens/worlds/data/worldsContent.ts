@@ -139,6 +139,12 @@ export const WORLDS: WorldDef[] = [
         emoji: '♻️',
         minAge: 8,
       },
+      {
+        id: 'floatOrSink',
+        name: '¿Flota o se Hunde?',
+        emoji: '🛟',
+        minAge: 7,
+      },
     ],
   },
 ];
