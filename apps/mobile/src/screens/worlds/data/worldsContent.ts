@@ -127,6 +127,12 @@ export const WORLDS: WorldDef[] = [
         emoji: '🔗',
         minAge: 7,
       },
+      {
+        id: 'matter',
+        name: 'Estados de la Materia',
+        emoji: '🧪',
+        minAge: 7,
+      },
     ],
   },
 ];

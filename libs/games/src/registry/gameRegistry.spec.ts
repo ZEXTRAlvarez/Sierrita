@@ -1,8 +1,8 @@
 import { ALL_GAMES, getGameConfig, getWorldGames } from './gameRegistry';
 
 describe('ALL_GAMES', () => {
-  it('registers exactly 29 games across the 4 worlds', () => {
-    expect(ALL_GAMES).toHaveLength(29);
+  it('registers exactly 30 games across the 4 worlds', () => {
+    expect(ALL_GAMES).toHaveLength(30);
   });
 
   it('has unique game ids', () => {
@@ -42,6 +42,7 @@ describe('getGameConfig', () => {
     'chess',
     'humanBody',
     'foodChain',
+    'matter',
   ])('resolves the %s game config', (gameId) => {
     expect(getGameConfig(gameId).id).toBe(gameId);
   });
@@ -66,8 +67,8 @@ describe('getWorldGames', () => {
     expect(getWorldGames('space')).toHaveLength(8);
   });
 
-  it('returns the 2 science games', () => {
-    expect(getWorldGames('science')).toHaveLength(2);
+  it('returns the 3 science games', () => {
+    expect(getWorldGames('science')).toHaveLength(3);
   });
 
   it('returns an empty array for an unknown world', () => {
