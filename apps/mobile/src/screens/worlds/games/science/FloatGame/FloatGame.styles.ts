@@ -1,0 +1,55 @@
+import { StyleSheet } from 'react-native';
+
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: 16,
+    backgroundColor: '#FFF3E0',
+  },
+  progress: {
+    fontSize: 16,
+    color: '#E65100',
+    fontWeight: '600',
+    marginBottom: 8,
+  },
+  prompt: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#E65100',
+    textAlign: 'center',
+    marginBottom: 16,
+    paddingHorizontal: 16,
+  },
+  optionsRow: {
+    flexDirection: 'row',
+    gap: 16,
+    paddingHorizontal: 16,
+  },
+  optionBtn: {
+    minWidth: 120,
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    borderRadius: 16,
+    backgroundColor: '#FF9800',
+    alignItems: 'center',
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
+  optionText: { fontSize: 16, fontWeight: '800', color: '#fff' },
+  badge: {
+    marginTop: 20,
+    paddingHorizontal: 24,
+    paddingVertical: 10,
+    borderRadius: 24,
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+  badgeCorrect: { backgroundColor: '#4CAF50' },
+  badgeWrong: { backgroundColor: '#F44336' },
+});

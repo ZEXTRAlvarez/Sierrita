@@ -28,6 +28,7 @@ import HumanBodyGame from '../games/science/HumanBodyGame';
 import FoodChainGame from '../games/science/FoodChainGame';
 import MatterGame from '../games/science/MatterGame';
 import CycleGame from '../games/science/CycleGame';
+import FloatGame from '../games/science/FloatGame';
 import type { GameProps } from '../GameScreen';
 
 export const GAME_COMPONENT: Record<string, ComponentType<GameProps>> = {
@@ -62,6 +63,7 @@ export const GAME_COMPONENT: Record<string, ComponentType<GameProps>> = {
   foodChain: FoodChainGame,
   matter: MatterGame,
   cycle: CycleGame,
+  floatOrSink: FloatGame,
 };
 
 export const WORLD_COLOR: Record<string, string> = {
