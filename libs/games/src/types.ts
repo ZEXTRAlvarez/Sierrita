@@ -46,7 +46,10 @@ export interface GameConfig {
   emoji: string;
   minAge: 4 | 5 | 6 | 7 | 8 | 9 | 10;
   roundCount: number; // cuántas rondas por sesión
-  params: (difficulty: Difficulty) => Record<string, unknown>;
+  // `age` es la edad del perfil activo: la mayoría de los juegos la ignora,
+  // pero algunos (ej. los de magnitud numérica) la usan para ajustar su
+  // techo según la franja de edad, no solo según el nivel de dificultad.
+  params: (difficulty: Difficulty, age: number) => Record<string, unknown>;
 }
 
 // Catálogo de IDs de juego por mundo

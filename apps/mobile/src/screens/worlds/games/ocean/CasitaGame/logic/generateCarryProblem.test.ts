@@ -152,3 +152,60 @@ describe('generateCarryProblem (three columns: hundreds/tens/units)', () => {
     expect(sawDoubleRegroup).toBe(true);
   });
 });
+
+describe('generateCarryProblem (reaching 1000, familia del 1000)', () => {
+  it('grows a fourth, thousands column instead of dropping the carry when the sum reaches 1000', () => {
+    // 500 + 500 = 1000 is the deterministic case that forces a carry out of
+    // the hundreds column; pinning Math.random avoids relying on rejection
+    // sampling to stumble onto this exact edge.
+    const randomSpy = jest
+      .spyOn(Math, 'random')
+      .mockReturnValueOnce(0.1) // picks the (only) 'add' operation
+      .mockReturnValueOnce(0.4445) // a = rand(100, 999) -> 500
+      .mockReturnValueOnce(0.4445); // b = rand(100, 999) -> 500
+
+    const p = generateCarryProblem(999, ['add'], 1000, true, true);
+    randomSpy.mockRestore();
+
+    expect(p.a).toBe(500);
+    expect(p.b).toBe(500);
+    expect(p.result).toBe(1000);
+    expect(p.columns.map((c) => c.place)).toEqual([
+      'units',
+      'tens',
+      'hundreds',
+      'thousands',
+    ]);
+    const [units, tens, hundreds, thousands] = p.columns;
+    expect(thousands.resultDigit).toBe(1);
+    expect(thousands.regroups).toBe(false);
+    expect(hundreds.regroups).toBe(true);
+    expect(
+      thousands.resultDigit * 1000 +
+        hundreds.resultDigit * 100 +
+        tens.resultDigit * 10 +
+        units.resultDigit,
+    ).toBe(p.result);
+  });
+
+  it('never carries a sum below 1000 into a thousands column', () => {
+    for (let i = 0; i < 100; i++) {
+      const p = generateCarryProblem(999, ['add'], 1000, false, true);
+      expect(p.result).toBeLessThanOrEqual(1000);
+      if (p.result < 1000) {
+        expect(p.columns.map((c) => c.place)).toEqual([
+          'units',
+          'tens',
+          'hundreds',
+        ]);
+      }
+    }
+  });
+
+  it('never adds a thousands column for the two-column (tens/units) mode', () => {
+    for (let i = 0; i < 30; i++) {
+      const p = generateCarryProblem(60, ['add'], 99, false, false);
+      expect(p.columns.map((c) => c.place)).toEqual(['units', 'tens']);
+    }
+  });
+});

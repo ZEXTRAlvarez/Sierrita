@@ -5,7 +5,7 @@ import { IdentifyMode } from './IdentifyMode';
 
 const round: IdentifyRound = {
   mode: 'identify',
-  problem: { number: 347, hundreds: 3, tens: 4, units: 7 },
+  problem: { number: 347, thousands: 0, hundreds: 3, tens: 4, units: 7 },
   field: 'units',
   answer: 7,
   options: [2, 7, 5, 9],
@@ -50,7 +50,7 @@ describe('IdentifyMode', () => {
 
     const next: IdentifyRound = {
       mode: 'identify',
-      problem: { number: 77, hundreds: 0, tens: 7, units: 7 },
+      problem: { number: 77, thousands: 0, hundreds: 0, tens: 7, units: 7 },
       field: 'tens',
       answer: 7,
       options: [1, 7, 3, 4],

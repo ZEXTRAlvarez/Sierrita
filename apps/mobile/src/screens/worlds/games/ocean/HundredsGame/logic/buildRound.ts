@@ -4,9 +4,10 @@ import { generateNumOptions } from './generateNumOptions';
 import { generateProblem, type Problem } from './generateProblem';
 
 export type Mode = 'identify' | 'decompose' | 'compose';
-export type DigitField = 'hundreds' | 'tens' | 'units';
+export type DigitField = 'thousands' | 'hundreds' | 'tens' | 'units';
 
 export const DIGIT_LABELS: Record<DigitField, string> = {
+  thousands: 'millares',
   hundreds: 'centenas',
   tens: 'decenas',
   units: 'unidades',
@@ -23,7 +24,15 @@ export interface IdentifyRound {
 export interface DecomposeRound {
   mode: 'decompose';
   problem: Problem;
-  options: Record<DigitField, number[]>;
+  // `thousands` solo se ofrece cuando el rango del juego llega a 1000 — para
+  // los niveles/edades que no llegan ahí, pedirlo sería siempre "0 millares"
+  // y no aportaría nada.
+  options: {
+    thousands?: number[];
+    hundreds: number[];
+    tens: number[];
+    units: number[];
+  };
 }
 
 export interface ComposeRound {
@@ -47,6 +56,9 @@ export function buildRound(mode: Mode, maxNumber: number): Round {
       mode,
       problem,
       options: {
+        ...(maxNumber >= 1000
+          ? { thousands: generateDigitOptions(problem.thousands) }
+          : {}),
         hundreds: generateDigitOptions(problem.hundreds),
         tens: generateDigitOptions(problem.tens),
         units: generateDigitOptions(problem.units),
@@ -74,11 +86,17 @@ export function buildRound(mode: Mode, maxNumber: number): Round {
 }
 
 /**
- * Asking for the hundreds of a two-digit number would always answer 0 no
- * matter which number is shown, so that question only appears from 100 up.
+ * Asking for the hundreds of a two-digit number (or the thousands of
+ * anything below 1000) would always answer 0 no matter which number is
+ * shown, so those questions only appear once the number actually reaches
+ * that place value.
  */
 function pickDigitField(problem: Problem): DigitField {
   const fields: DigitField[] =
-    problem.number >= 100 ? ['hundreds', 'tens', 'units'] : ['tens', 'units'];
+    problem.number >= 1000
+      ? ['thousands', 'hundreds', 'tens', 'units']
+      : problem.number >= 100
+        ? ['hundreds', 'tens', 'units']
+        : ['tens', 'units'];
   return fields[rand(0, fields.length - 1)];
 }

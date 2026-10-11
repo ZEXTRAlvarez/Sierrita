@@ -12,6 +12,7 @@ export interface CasitaProps {
 
 const REGROUP_REVEAL_DELAY_MS = 700;
 const PLACE_LABEL: Record<Place, string> = {
+  thousands: 'M',
   hundreds: 'C',
   tens: 'D',
   units: 'U',

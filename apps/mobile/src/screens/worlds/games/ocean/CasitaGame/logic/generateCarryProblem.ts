@@ -1,7 +1,7 @@
 import { rand } from '../../../shared/rand';
 
 export type Operation = 'add' | 'sub';
-export type Place = 'units' | 'tens' | 'hundreds';
+export type Place = 'units' | 'tens' | 'hundreds' | 'thousands';
 
 export interface CasitaColumn {
   place: Place;
@@ -62,6 +62,19 @@ function buildColumns(
         bDigit,
         resultDigit: sum % 10,
         regroups: carry === 1,
+      });
+    }
+    // A carry out of the hundreds column means the sum reached 1000 — since
+    // resultMax never lets it go any higher, that carry is always exactly 1,
+    // so the "casita" grows a fourth, thousands column to hold it instead of
+    // silently dropping it.
+    if (useHundreds && carry === 1) {
+      columns.push({
+        place: 'thousands',
+        aDigit: 0,
+        bDigit: 0,
+        resultDigit: 1,
+        regroups: false,
       });
     }
   } else {

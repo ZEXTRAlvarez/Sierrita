@@ -11,7 +11,7 @@ describe('getWordProblemTemplate', () => {
   it('can return templates for every supported operation', () => {
     const ops = new Set(
       Array.from(
-        { length: 20 },
+        { length: 40 },
         () => getWordProblemTemplate(['add', 'sub', 'multiply']).operation,
       ),
     );

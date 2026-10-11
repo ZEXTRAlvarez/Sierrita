@@ -22,10 +22,34 @@ export const OCEAN_GAMES: GameConfig[] = [
     emoji: '➕',
     minAge: 5,
     roundCount: 6,
-    params: (d: Difficulty) => ({
-      maxOperand: d === 1 ? 10 : d === 2 ? 20 : 50,
+    params: (d: Difficulty, age: number) => ({
+      // A partir de los 6 años el techo escala hasta la familia del 1000;
+      // antes de eso se mantiene el techo original (siempre <= 300).
+      maxOperand:
+        age >= 6
+          ? d === 1
+            ? 100
+            : d === 2
+              ? 300
+              : 500
+          : d === 1
+            ? 10
+            : d === 2
+              ? 20
+              : 50,
       operations: d === 1 ? ['add'] : d === 2 ? ['add', 'sub'] : ['add', 'sub'],
-      resultMax: d === 1 ? 10 : d === 2 ? 30 : 99,
+      resultMax:
+        age >= 6
+          ? d === 1
+            ? 400
+            : d === 2
+              ? 700
+              : 1000
+          : d === 1
+            ? 10
+            : d === 2
+              ? 30
+              : 99,
     }),
   },
   {
@@ -35,8 +59,19 @@ export const OCEAN_GAMES: GameConfig[] = [
     emoji: '💯',
     minAge: 6,
     roundCount: 5,
-    params: (d: Difficulty) => ({
-      maxNumber: d === 1 ? 99 : d === 2 ? 199 : 299,
+    params: (d: Difficulty, age: number) => ({
+      maxNumber:
+        age >= 6
+          ? d === 1
+            ? 400
+            : d === 2
+              ? 700
+              : 1000
+          : d === 1
+            ? 99
+            : d === 2
+              ? 199
+              : 299,
       mode: d === 1 ? 'identify' : d === 2 ? 'decompose' : 'compose',
     }),
   },
@@ -47,8 +82,19 @@ export const OCEAN_GAMES: GameConfig[] = [
     emoji: '⚖️',
     minAge: 4,
     roundCount: 6,
-    params: (d: Difficulty) => ({
-      maxNumber: d === 1 ? 20 : d === 2 ? 100 : 299,
+    params: (d: Difficulty, age: number) => ({
+      maxNumber:
+        age >= 6
+          ? d === 1
+            ? 400
+            : d === 2
+              ? 700
+              : 1000
+          : d === 1
+            ? 20
+            : d === 2
+              ? 100
+              : 299,
       mode: d === 1 ? 'visual' : d === 2 ? 'number' : 'expression',
     }),
   },
@@ -59,13 +105,15 @@ export const OCEAN_GAMES: GameConfig[] = [
     emoji: '🏠',
     minAge: 6,
     roundCount: 5,
-    params: (d: Difficulty) => ({
+    params: (d: Difficulty, age: number) => ({
       // Decenas y unidades solamente en el nivel 1 (recién arrancando);
       // centenas se suman a partir del nivel 2.
       useHundreds: d >= 2,
-      maxOperand: d === 1 ? 39 : d === 2 ? 399 : 899,
+      // A los 6+ el nivel 3 llega hasta la familia del 1000 (antes se
+      // quedaba en 899/999).
+      maxOperand: d === 1 ? 39 : d === 2 ? 399 : age >= 6 ? 999 : 899,
       operations: d === 1 ? ['add'] : ['add', 'sub'],
-      resultMax: d === 1 ? 99 : 999,
+      resultMax: d === 1 ? 99 : d === 3 && age >= 6 ? 1000 : 999,
       // Higher difficulty forces the carry/borrow case more often.
       regroupChance: d === 1 ? 0.4 : d === 2 ? 0.65 : 0.9,
     }),
@@ -121,10 +169,32 @@ export const OCEAN_GAMES: GameConfig[] = [
     emoji: '📖',
     minAge: 8,
     roundCount: 6,
-    params: (d: Difficulty) => ({
+    params: (d: Difficulty, age: number) => ({
       operations: d === 3 ? ['add', 'sub', 'multiply'] : ['add', 'sub'],
-      maxOperand: d === 1 ? 10 : d === 2 ? 30 : 50,
-      resultMax: d === 1 ? 20 : d === 2 ? 60 : 99,
+      maxOperand:
+        age >= 6
+          ? d === 1
+            ? 100
+            : d === 2
+              ? 300
+              : 500
+          : d === 1
+            ? 10
+            : d === 2
+              ? 30
+              : 50,
+      resultMax:
+        age >= 6
+          ? d === 1
+            ? 400
+            : d === 2
+              ? 700
+              : 1000
+          : d === 1
+            ? 20
+            : d === 2
+              ? 60
+              : 99,
     }),
   },
   {

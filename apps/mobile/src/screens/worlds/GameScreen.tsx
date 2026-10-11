@@ -1,11 +1,13 @@
 import { useEffect, useCallback } from 'react';
 import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { useAtomValue } from 'jotai';
 import type {
   NativeStackNavigationProp,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../../navigation';
+import { activeProfileAtom } from '../../store/atoms';
 import { useGameSession } from '../../hooks/useGameSession';
 import { getGameConfig } from '@sierrita/games';
 import GameResultScreen from '../../components/GameResultScreen';
@@ -33,6 +35,8 @@ export default function GameScreen() {
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const route = useRoute<Props['route']>();
   const { worldId, gameId } = route.params;
+  const profile = useAtomValue(activeProfileAtom);
+  const profileAge = profile?.age ?? 4;
 
   const {
     session,
@@ -112,7 +116,7 @@ export default function GameScreen() {
       />
       <GameComponent
         difficulty={difficultyState.currentLevel}
-        params={config.params(difficultyState.currentLevel)}
+        params={config.params(difficultyState.currentLevel, profileAge)}
         onRoundComplete={handleRoundComplete}
         onGameFinish={handleGameFinish}
         roundCount={config.roundCount}
