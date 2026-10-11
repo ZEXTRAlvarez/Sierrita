@@ -9,14 +9,20 @@ export interface DecomposeModeProps {
   result: 'idle' | 'correct' | 'wrong';
 }
 
-type Chosen = { h: number | null; d: number | null; u: number | null };
+type Chosen = {
+  m: number | null;
+  h: number | null;
+  d: number | null;
+  u: number | null;
+};
 type Field = keyof Chosen;
 
-const NOTHING_CHOSEN: Chosen = { h: null, d: null, u: null };
+const NOTHING_CHOSEN: Chosen = { m: null, h: null, d: null, u: null };
 
-/** Shows a number and lets the child pick its hundreds, tens and units digits separately. */
+/** Shows a number and lets the child pick its thousands (if the range reaches 1000), hundreds, tens and units digits separately. */
 export function DecomposeMode({ round, onAnswer, result }: DecomposeModeProps) {
   const { problem, options } = round;
+  const showThousands = options.thousands !== undefined;
   const [chosen, setChosen] = useState<Chosen>(NOTHING_CHOSEN);
 
   // A new round brings a new number, so the digits picked for the previous one
@@ -28,9 +34,16 @@ export function DecomposeMode({ round, onAnswer, result }: DecomposeModeProps) {
   }
 
   useEffect(() => {
-    if (chosen.h !== null && chosen.d !== null && chosen.u !== null) {
+    const thousandsReady = !showThousands || chosen.m !== null;
+    if (
+      thousandsReady &&
+      chosen.h !== null &&
+      chosen.d !== null &&
+      chosen.u !== null
+    ) {
       onAnswer(
-        chosen.h === problem.hundreds &&
+        (!showThousands || chosen.m === problem.thousands) &&
+          chosen.h === problem.hundreds &&
           chosen.d === problem.tens &&
           chosen.u === problem.units,
       );
@@ -47,6 +60,16 @@ export function DecomposeMode({ round, onAnswer, result }: DecomposeModeProps) {
     <View style={styles.modeContainer}>
       <Text style={styles.bigNumber}>{problem.number}</Text>
       <Text style={styles.modeQuestion}>Descomponé el número</Text>
+      {showThousands && (
+        <DigitRow
+          label="M"
+          options={options.thousands as number[]}
+          value={chosen.m}
+          field="m"
+          disabled={result !== 'idle'}
+          onSelect={select}
+        />
+      )}
       <DigitRow
         label="C"
         options={options.hundreds}

@@ -5,7 +5,7 @@ import { DecomposeMode } from './DecomposeMode';
 
 const round: DecomposeRound = {
   mode: 'decompose',
-  problem: { number: 347, hundreds: 3, tens: 4, units: 7 },
+  problem: { number: 347, thousands: 0, hundreds: 3, tens: 4, units: 7 },
   options: {
     hundreds: [1, 3, 5, 8],
     tens: [4, 0, 6, 9],
@@ -13,13 +13,25 @@ const round: DecomposeRound = {
   },
 };
 
+const roundWithThousands: DecomposeRound = {
+  mode: 'decompose',
+  problem: { number: 1000, thousands: 1, hundreds: 0, tens: 0, units: 0 },
+  options: {
+    thousands: [0, 1, 2, 3],
+    hundreds: [0, 2, 5, 9],
+    tens: [0, 1, 4, 7],
+    units: [0, 3, 6, 8],
+  },
+};
+
 describe('DecomposeMode', () => {
   it('renders the number, the C/D/U labels and 4 options per digit', () => {
-    const { getByText, getAllByTestId } = render(
+    const { getByText, getAllByTestId, queryByText } = render(
       <DecomposeMode round={round} onAnswer={jest.fn()} result="idle" />,
     );
 
     expect(getByText('347')).toBeTruthy();
+    expect(queryByText('M')).toBeNull();
     expect(getByText('C')).toBeTruthy();
     expect(getByText('D')).toBeTruthy();
     expect(getByText('U')).toBeTruthy();
@@ -52,7 +64,7 @@ describe('DecomposeMode', () => {
 
     const next: DecomposeRound = {
       mode: 'decompose',
-      problem: { number: 82, hundreds: 0, tens: 8, units: 2 },
+      problem: { number: 82, thousands: 0, hundreds: 0, tens: 8, units: 2 },
       options: {
         hundreds: [0, 4, 6, 9],
         tens: [8, 1, 3, 5],
@@ -70,6 +82,41 @@ describe('DecomposeMode', () => {
     expect(onAnswer).not.toHaveBeenCalled();
 
     fireEvent.press(getAllByTestId('decompose-digit-h')[0]);
+
+    expect(onAnswer).toHaveBeenCalledTimes(1);
+    expect(onAnswer).toHaveBeenCalledWith(true);
+  });
+
+  it('shows the M row and requires it when the round offers a thousands digit', () => {
+    const { getByText, getAllByTestId } = render(
+      <DecomposeMode
+        round={roundWithThousands}
+        onAnswer={jest.fn()}
+        result="idle"
+      />,
+    );
+
+    expect(getByText('M')).toBeTruthy();
+    expect(getAllByTestId('decompose-digit-m')).toHaveLength(4);
+  });
+
+  it('calls onAnswer only once the thousands digit is also picked, when offered', () => {
+    const onAnswer = jest.fn();
+    const { getAllByTestId } = render(
+      <DecomposeMode
+        round={roundWithThousands}
+        onAnswer={onAnswer}
+        result="idle"
+      />,
+    );
+
+    fireEvent.press(getAllByTestId('decompose-digit-h')[0]);
+    fireEvent.press(getAllByTestId('decompose-digit-d')[0]);
+    fireEvent.press(getAllByTestId('decompose-digit-u')[0]);
+
+    expect(onAnswer).not.toHaveBeenCalled();
+
+    fireEvent.press(getAllByTestId('decompose-digit-m')[1]);
 
     expect(onAnswer).toHaveBeenCalledTimes(1);
     expect(onAnswer).toHaveBeenCalledWith(true);
