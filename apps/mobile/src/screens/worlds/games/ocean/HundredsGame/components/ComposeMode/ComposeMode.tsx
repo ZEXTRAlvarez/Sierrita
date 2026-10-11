@@ -15,6 +15,12 @@ export function ComposeMode({ round, onAnswer, result }: ComposeModeProps) {
   return (
     <View style={styles.modeContainer}>
       <View style={styles.composeExpression}>
+        {problem.thousands > 0 && (
+          <>
+            <Text style={styles.composeUnit}>{problem.thousands} M</Text>
+            <Text style={styles.composePlus}>+</Text>
+          </>
+        )}
         <Text style={styles.composeUnit}>{problem.hundreds} C</Text>
         <Text style={styles.composePlus}>+</Text>
         <Text style={styles.composeUnit}>{problem.tens} D</Text>

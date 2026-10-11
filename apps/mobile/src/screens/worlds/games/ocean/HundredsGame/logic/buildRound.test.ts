@@ -21,6 +21,14 @@ describe('buildRound', () => {
     }
   });
 
+  it('never asks for the thousands of a number below 1000', () => {
+    for (let i = 0; i < 200; i++) {
+      const round = buildRound('identify', 999) as IdentifyRound;
+
+      expect(round.field).not.toBe('thousands');
+    }
+  });
+
   it('offers every digit of the number in decompose mode', () => {
     for (let i = 0; i < 100; i++) {
       const round = buildRound('decompose', 299);
@@ -29,6 +37,15 @@ describe('buildRound', () => {
       expect(round.options.hundreds).toContain(round.problem.hundreds);
       expect(round.options.tens).toContain(round.problem.tens);
       expect(round.options.units).toContain(round.problem.units);
+    }
+  });
+
+  it('also offers the thousands digit in decompose mode up to 1000', () => {
+    for (let i = 0; i < 100; i++) {
+      const round = buildRound('decompose', 1000);
+      if (round.mode !== 'decompose') throw new Error('wrong mode');
+
+      expect(round.options.thousands).toContain(round.problem.thousands);
     }
   });
 

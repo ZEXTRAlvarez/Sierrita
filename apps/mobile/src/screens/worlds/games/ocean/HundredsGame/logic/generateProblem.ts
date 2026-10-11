@@ -3,6 +3,7 @@ import { decompose } from './decompose';
 
 export interface Problem {
   number: number;
+  thousands: number;
   hundreds: number;
   tens: number;
   units: number;

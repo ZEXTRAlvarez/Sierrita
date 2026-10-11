@@ -5,20 +5,38 @@ import { ComposeMode } from './ComposeMode';
 
 const round: ComposeRound = {
   mode: 'compose',
-  problem: { number: 347, hundreds: 3, tens: 4, units: 7 },
+  problem: { number: 347, thousands: 0, hundreds: 3, tens: 4, units: 7 },
   options: [340, 347, 351, 302],
 };
 
 describe('ComposeMode', () => {
   it('shows the H/D/U expression and 4 number options', () => {
-    const { getByText, getAllByTestId } = render(
+    const { getByText, getAllByTestId, queryByText } = render(
       <ComposeMode round={round} onAnswer={jest.fn()} result="idle" />,
     );
 
+    expect(queryByText(/M$/)).toBeNull();
     expect(getByText('3 C')).toBeTruthy();
     expect(getByText('4 D')).toBeTruthy();
     expect(getByText('7 U')).toBeTruthy();
     expect(getAllByTestId('compose-option')).toHaveLength(4);
+  });
+
+  it('also shows the M unit once the number reaches 1000', () => {
+    const roundWithThousands: ComposeRound = {
+      mode: 'compose',
+      problem: { number: 1000, thousands: 1, hundreds: 0, tens: 0, units: 0 },
+      options: [1000, 991, 985, 970],
+    };
+    const { getByText } = render(
+      <ComposeMode
+        round={roundWithThousands}
+        onAnswer={jest.fn()}
+        result="idle"
+      />,
+    );
+
+    expect(getByText('1 M')).toBeTruthy();
   });
 
   it('reports true only when the composed number is chosen', () => {
@@ -41,7 +59,7 @@ describe('ComposeMode', () => {
 
     const next: ComposeRound = {
       mode: 'compose',
-      problem: { number: 128, hundreds: 1, tens: 2, units: 8 },
+      problem: { number: 128, thousands: 0, hundreds: 1, tens: 2, units: 8 },
       options: [128, 130, 118, 125],
     };
     rerender(<ComposeMode round={next} onAnswer={jest.fn()} result="idle" />);
